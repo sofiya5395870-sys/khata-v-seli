@@ -147,6 +147,44 @@
     nav .inner { gap: 1rem; padding: 0.7rem 1rem; }
     .wrap { padding: 0 1rem; }
   }
+
+  /* --- плитки-статистики --- */
+  .stats { display: grid; gap: 0.9rem; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); margin: 2rem 0; }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.15rem 1.25rem; box-shadow: 0 1px 2px rgba(28,25,23,0.04); }
+  .stat .n { font-size: 2rem; font-weight: 650; letter-spacing: -0.03em; line-height: 1; color: var(--accent); display: block; margin-bottom: 0.45rem; font-variant-numeric: tabular-nums; }
+  .stat .l { font-size: 0.85rem; color: var(--muted); line-height: 1.4; display: block; }
+  .stat.plain .n { color: var(--ink); }
+
+  /* --- виноска-цитата --- */
+  .pull { margin: 2rem 0; padding: 1.4rem 1.6rem; background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 10px; }
+  .pull q, .pull .q { display: block; font-size: 1.08rem; line-height: 1.5; color: var(--ink); quotes: none; }
+  .pull .who { display: block; margin-top: 0.75rem; font-size: 0.82rem; color: var(--dim); }
+  .pull .who a { color: var(--muted); border-bottom-color: var(--line); }
+
+  /* --- таби --- */
+  .tabs { margin: 2rem 0; }
+  .tabbar { display: flex; gap: 0.4rem; flex-wrap: wrap; border-bottom: 1px solid var(--line); margin-bottom: 1.4rem; }
+  .tabbar button { font: inherit; font-size: 0.88rem; background: none; border: none; border-bottom: 2px solid transparent; color: var(--muted); padding: 0.55rem 0.7rem; cursor: pointer; margin-bottom: -1px; }
+  .tabbar button:hover { color: var(--ink); }
+  .tabbar button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); font-weight: 600; }
+  .tabpanel { display: none; }
+  .tabpanel[data-open] { display: block; }
+  .tabgrid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .tabgrid .box { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.1rem; }
+  .tabgrid .box h5 { margin: 0 0 0.4rem; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); font-weight: 600; }
+  .tabgrid .box p { margin: 0; font-size: 0.92rem; }
+
+  /* --- візуальна шкала балів --- */
+  .score { display: inline-flex; align-items: center; gap: 0.45rem; }
+  .score .dots { display: inline-flex; gap: 2px; }
+  .score i { width: 6px; height: 14px; border-radius: 2px; background: var(--line); display: block; }
+  .score i.on { background: var(--accent); }
+  .score .v { font-variant-numeric: tabular-nums; font-size: 0.8rem; color: var(--muted); min-width: 0.8em; }
+  .score.best i.on { background: var(--ink); }
+  .score.best .v { color: var(--ink); font-weight: 600; }
+
+  /* --- підсвітка --- */
+  mark { background: linear-gradient(transparent 58%, rgba(181,80,46,0.22) 58%); color: inherit; padding: 0 0.1em; }
 </style>
 </head>
 <body>
@@ -451,5 +489,20 @@
   </div>
 </footer>
 
+
+<script>
+document.querySelectorAll('.tabs').forEach(function (t) {
+  var btns = t.querySelectorAll('.tabbar button');
+  var panes = t.querySelectorAll('.tabpanel');
+  btns.forEach(function (b, i) {
+    b.addEventListener('click', function () {
+      btns.forEach(function (x) { x.setAttribute('aria-selected', 'false'); });
+      panes.forEach(function (p) { p.removeAttribute('data-open'); });
+      b.setAttribute('aria-selected', 'true');
+      panes[i].setAttribute('data-open', '');
+    });
+  });
+});
+</script>
 </body>
 </html>
