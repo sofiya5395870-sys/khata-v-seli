@@ -201,4 +201,4 @@ Hi-fi інтерактивний прототип, який **виглядає �
 
 ## Статус проєкту
 
-Папка `Бриф/` містить вихідні матеріали. Конкурентний аналіз — у `research/research.md`. Персони і джоби — у `research/personas.md` і `research/jtbd.md`. Інформаційна архітектура — у `sitemap.md`.
+Папка `Бриф/` містить вихідні матеріали. Конкурентний аналіз — у `research/research.md`. Персони і джоби — у `research/personas.md` і `research/jtbd.md`. Інформаційна архітектура — у `sitemap.md`, user flows — у `flows.md`.
