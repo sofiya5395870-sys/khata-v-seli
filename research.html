@@ -241,6 +241,77 @@
     .sbscrim.on { display: block; }
     header.hero, header { padding-top: 4.5rem !important; }
   }
+
+  /* ===== яскравіший шар ===== */
+  :root {
+    --accent-2: #4f7a52;      /* зелень — природа, social */
+    --accent-3: #c08a2e;      /* вохра — emotional */
+    --tint-1: #fdf3ee;        /* теплий тінт під теракоту */
+    --tint-2: #eef4ee;        /* тінт під зелень */
+    --tint-3: #fbf3e2;        /* тінт під вохру */
+  }
+
+  /* хедер з теплим градієнтом */
+  header.hero {
+    background:
+      radial-gradient(1100px 420px at 12% -10%, var(--tint-1) 0%, transparent 62%),
+      radial-gradient(900px 380px at 88% 0%, var(--tint-3) 0%, transparent 58%);
+  }
+  header.hero h1 { color: #15110f; }
+
+  /* секції чергуються тоном */
+  section:nth-of-type(even) { background: #fcfaf7; }
+
+  /* кольорові очі секцій */
+  section:nth-of-type(1) .eyebrow { color: var(--accent); }
+  section:nth-of-type(2) .eyebrow { color: var(--accent-2); }
+  section:nth-of-type(3) .eyebrow { color: var(--accent-3); }
+  section:nth-of-type(4) .eyebrow { color: var(--accent); }
+
+  /* плитки-статистики */
+  .stats .stat { background: var(--tint-1); border-color: #f0dcd1; }
+  .stats .stat:nth-child(2) { background: var(--tint-2); border-color: #dbe7dc; }
+  .stats .stat:nth-child(2) .n { color: var(--accent-2); }
+  .stats .stat:nth-child(3) { background: var(--tint-3); border-color: #efe0c2; }
+  .stats .stat:nth-child(3) .n { color: var(--accent-3); }
+  .stats .stat:nth-child(4) { background: var(--surface); }
+
+  /* картки з кольоровою смугою зверху */
+  .cards .card { border-top: 3px solid var(--accent); }
+  .cards .card:nth-child(2) { border-top-color: var(--accent-2); }
+  .cards .card:nth-child(3) { border-top-color: var(--accent-3); }
+
+  /* таблиці */
+  thead th { background: linear-gradient(180deg, var(--tint-1), var(--surface-2)); }
+  tbody tr:hover td, tbody tr:hover th { background: #fdfaf7; }
+  .total td, .total th { background: var(--tint-1); }
+
+  /* виноски-цитати */
+  .pull { background: linear-gradient(135deg, var(--tint-1) 0%, var(--surface) 70%); border-left-width: 4px; }
+
+  /* блоки-напрямки */
+  .hyp { border-left-width: 4px; }
+  .hyp:nth-of-type(even) { border-left-color: var(--accent-2); }
+
+  /* нотатки */
+  .note { background: var(--tint-3); border-color: #efe0c2; }
+
+  /* головний джоб */
+  .mainjob { background: linear-gradient(135deg, var(--tint-1) 0%, #fff 65%); border-width: 2px; }
+  .mainjob p { font-weight: 450; }
+
+  /* персони */
+  .pcard.primary { background: linear-gradient(160deg, var(--tint-1) 0%, var(--surface) 55%); border-width: 2px; }
+  .job.emo { background: linear-gradient(90deg, var(--tint-3) 0%, var(--surface) 22%); }
+  .job.soc { background: linear-gradient(90deg, var(--tint-2) 0%, var(--surface) 22%); }
+  .job.rel { background: linear-gradient(90deg, var(--tint-1) 0%, var(--surface) 22%); }
+
+  /* меню */
+  .sb { background: linear-gradient(180deg, var(--tint-1) 0%, var(--surface) 160px); }
+  .sb .step.on { background: var(--surface); }
+
+  /* підсвітка */
+  mark { background: linear-gradient(transparent 55%, rgba(192,138,46,0.3) 55%); }
 </style>
 </head>
 <body>

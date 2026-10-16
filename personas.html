@@ -187,8 +187,16 @@
   mark { background: linear-gradient(transparent 58%, rgba(181,80,46,0.22) 58%); color: inherit; padding: 0 0.1em; }
 
   /* --- персони --- */
-  .pcards { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); margin: 2rem 0; }
-  .pcard { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.4rem 1.5rem; box-shadow: 0 1px 2px rgba(28,25,23,0.04); }
+  .pcards { display: grid; gap: 1.25rem; grid-template-columns: repeat(2, 1fr); margin: 2rem 0; }
+  @media (max-width: 760px) { .pcards { grid-template-columns: 1fr; } }
+  .pcard { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.4rem 1.5rem; box-shadow: 0 1px 2px rgba(28,25,23,0.04); display: flex; flex-direction: column; }
+  .pcard .head { display: flex; align-items: center; gap: 0.85rem; margin-bottom: 0.9rem; }
+  .pcard .av { flex: none; width: 46px; height: 46px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--line); display: grid; place-items: center; }
+  .pcard .av svg { width: 23px; height: 23px; fill: none; stroke: var(--muted); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .pcard.primary .av { background: var(--accent); border-color: var(--accent); }
+  .pcard.primary .av svg { stroke: #fff; }
+  .pcard .head .badge { margin-bottom: 0; }
+  .pcard .quote { margin-top: auto; }
   .pcard.primary { border-color: var(--accent); box-shadow: 0 2px 14px rgba(181,80,46,0.10); }
   .pcard .badge { display: inline-block; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 5px; background: var(--surface-2); color: var(--muted); margin-bottom: 0.7rem; }
   .pcard.primary .badge { background: var(--accent); color: #fff; }
@@ -197,7 +205,7 @@
   .pcard dl { margin: 0; }
   .pcard dt { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); font-weight: 600; margin-top: 1rem; }
   .pcard dd { margin: 0.35rem 0 0; font-size: 0.9rem; }
-  .pcard .quote { margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: 0.9rem; font-style: italic; color: var(--ink); }
+  .pcard .quote { padding-top: 1rem; margin-top: 1.1rem; border-top: 1px solid var(--line); font-size: 0.9rem; font-style: italic; color: var(--ink); }
   .pcard .quote cite { display: block; font-style: normal; font-size: 0.78rem; color: var(--dim); margin-top: 0.45rem; }
 
   /* --- джоби --- */
@@ -282,6 +290,77 @@
     .sbscrim.on { display: block; }
     header.hero, header { padding-top: 4.5rem !important; }
   }
+
+  /* ===== яскравіший шар ===== */
+  :root {
+    --accent-2: #4f7a52;      /* зелень — природа, social */
+    --accent-3: #c08a2e;      /* вохра — emotional */
+    --tint-1: #fdf3ee;        /* теплий тінт під теракоту */
+    --tint-2: #eef4ee;        /* тінт під зелень */
+    --tint-3: #fbf3e2;        /* тінт під вохру */
+  }
+
+  /* хедер з теплим градієнтом */
+  header.hero {
+    background:
+      radial-gradient(1100px 420px at 12% -10%, var(--tint-1) 0%, transparent 62%),
+      radial-gradient(900px 380px at 88% 0%, var(--tint-3) 0%, transparent 58%);
+  }
+  header.hero h1 { color: #15110f; }
+
+  /* секції чергуються тоном */
+  section:nth-of-type(even) { background: #fcfaf7; }
+
+  /* кольорові очі секцій */
+  section:nth-of-type(1) .eyebrow { color: var(--accent); }
+  section:nth-of-type(2) .eyebrow { color: var(--accent-2); }
+  section:nth-of-type(3) .eyebrow { color: var(--accent-3); }
+  section:nth-of-type(4) .eyebrow { color: var(--accent); }
+
+  /* плитки-статистики */
+  .stats .stat { background: var(--tint-1); border-color: #f0dcd1; }
+  .stats .stat:nth-child(2) { background: var(--tint-2); border-color: #dbe7dc; }
+  .stats .stat:nth-child(2) .n { color: var(--accent-2); }
+  .stats .stat:nth-child(3) { background: var(--tint-3); border-color: #efe0c2; }
+  .stats .stat:nth-child(3) .n { color: var(--accent-3); }
+  .stats .stat:nth-child(4) { background: var(--surface); }
+
+  /* картки з кольоровою смугою зверху */
+  .cards .card { border-top: 3px solid var(--accent); }
+  .cards .card:nth-child(2) { border-top-color: var(--accent-2); }
+  .cards .card:nth-child(3) { border-top-color: var(--accent-3); }
+
+  /* таблиці */
+  thead th { background: linear-gradient(180deg, var(--tint-1), var(--surface-2)); }
+  tbody tr:hover td, tbody tr:hover th { background: #fdfaf7; }
+  .total td, .total th { background: var(--tint-1); }
+
+  /* виноски-цитати */
+  .pull { background: linear-gradient(135deg, var(--tint-1) 0%, var(--surface) 70%); border-left-width: 4px; }
+
+  /* блоки-напрямки */
+  .hyp { border-left-width: 4px; }
+  .hyp:nth-of-type(even) { border-left-color: var(--accent-2); }
+
+  /* нотатки */
+  .note { background: var(--tint-3); border-color: #efe0c2; }
+
+  /* головний джоб */
+  .mainjob { background: linear-gradient(135deg, var(--tint-1) 0%, #fff 65%); border-width: 2px; }
+  .mainjob p { font-weight: 450; }
+
+  /* персони */
+  .pcard.primary { background: linear-gradient(160deg, var(--tint-1) 0%, var(--surface) 55%); border-width: 2px; }
+  .job.emo { background: linear-gradient(90deg, var(--tint-3) 0%, var(--surface) 22%); }
+  .job.soc { background: linear-gradient(90deg, var(--tint-2) 0%, var(--surface) 22%); }
+  .job.rel { background: linear-gradient(90deg, var(--tint-1) 0%, var(--surface) 22%); }
+
+  /* меню */
+  .sb { background: linear-gradient(180deg, var(--tint-1) 0%, var(--surface) 160px); }
+  .sb .step.on { background: var(--surface); }
+
+  /* підсвітка */
+  mark { background: linear-gradient(transparent 55%, rgba(192,138,46,0.3) 55%); }
 </style>
 </head>
 <body>
@@ -324,7 +403,7 @@
     <div class="pcards">
 
       <div class="pcard primary">
-        <span class="badge">Primary</span>
+        <div class="head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.7-3.8 3.8-6 7.5-6s6.8 2.2 7.5 6"/></svg></span><span class="badge">Primary</span></div>
         <h3>Та, хто чотири роки не спить</h3>
         <p class="ctx">З Києва, Одеси, Сум чи Харкова. Нічні тривоги й відключення тривають не місяць і не рік. Вирішила перебути найважчий період деінде.</p>
         <dl>
@@ -342,7 +421,7 @@
       </div>
 
       <div class="pcard">
-        <span class="badge">Secondary</span>
+        <div class="head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.5" r="3.3"/><path d="M5 19.5c.6-3.4 3.4-5.4 7-5.4s6.4 2 7 5.4"/><path d="M17.5 4.5c1.6 1.6 1.6 4.2 0 5.8M19.8 2.2c2.9 2.9 2.9 7.5 0 10.4"/></svg></span><span class="badge">Secondary</span></div>
         <h3>Той, хто мусить не зірвати дзвінок</h3>
         <p class="ctx">Працює віддалено й не може зникнути з ефіру. Інколи переїзд оплачує роботодавець — 500 доларів на місяць на житло. <span class="q">?</span> Може бути іноземцем, але даних про них немає.</p>
         <dl>
@@ -360,7 +439,7 @@
       </div>
 
       <div class="pcard">
-        <span class="badge">Secondary</span>
+        <div class="head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="7.5" r="3.3"/><path d="M3 19.5c.6-3.4 3.4-5.4 7-5.4 1 0 2 .15 2.8.45"/><path d="M15 21v-5.2l3.5-2.8 3.5 2.8V21z"/></svg></span><span class="badge">Secondary</span></div>
         <h3>Та, хто придивляється до купівлі</h3>
         <p class="ctx">Мріє про власну хату, гортає оголошення роками. Оренда для неї — перевірка рішення, а не відпочинок.</p>
         <dl>
@@ -378,7 +457,7 @@
       </div>
 
       <div class="pcard">
-        <span class="badge">Secondary</span>
+        <div class="head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="7.5" r="3.3"/><path d="M3 19.5c.6-3.4 3.4-5.4 7-5.4.8 0 1.6.1 2.3.3"/><circle cx="17.5" cy="16.5" r="4.5"/><path d="M19.3 14.7l-1.1 2.9-2.9 1.1 1.1-2.9z"/></svg></span><span class="badge">Secondary</span></div>
         <h3>Та, хто їде по глибину</h3>
         <p class="ctx">Їде не відпочивати, а зануритись: ремесла, місцевість, люди. Для цього потрібен місяць, бо за вихідні не встигнути.</p>
         <dl>
