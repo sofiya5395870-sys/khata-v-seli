@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Хата в селі — персони і джоби</title>
+<meta name="description" content="Крок 2: прото-персони, ієрархія jobs to be done і JTBD-матриця для платформи «Хата в селі».">
+<style>
+  :root {
+    --bg: #faf8f5;
+    --surface: #ffffff;
+    --surface-2: #f3efe9;
+    --line: #e4ded4;
+    --ink: #1c1917;
+    --muted: #6b6560;
+    --dim: #8a837b;
+    --accent: #b5502e;
+    --accent-dim: #dcc3b6;
+    --good: #6f9e6a;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(250,248,245,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  nav .brand { font-weight: 600; font-size: 0.95rem; margin-right: auto; }
+  nav .brand span { color: var(--dim); font-weight: 400; }
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.88rem;
+    padding: 0.2rem 0;
+    border-bottom: 1px solid transparent;
+    white-space: nowrap;
+  }
+  nav a:hover { color: var(--ink); border-bottom-color: var(--accent); }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+  .col { max-width: 760px; }
+
+  header.hero { padding: 5rem 0 3.5rem; border-bottom: 1px solid var(--line); }
+  header.hero h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; margin: 0 0 1rem; letter-spacing: -0.02em; }
+  header.hero .lede { font-size: 1.15rem; color: var(--muted); max-width: 620px; margin: 0 0 2rem; }
+  .meta { display: flex; gap: 2rem; flex-wrap: wrap; font-size: 0.85rem; color: var(--dim); }
+  .meta b { display: block; color: var(--ink); font-weight: 500; font-size: 0.95rem; }
+
+  section { padding: 4rem 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 0.75rem;
+    font-weight: 600;
+  }
+  h2 { font-size: clamp(1.6rem, 3.5vw, 2.1rem); margin: 0 0 1.5rem; letter-spacing: -0.015em; line-height: 1.2; }
+  h3 { font-size: 1.2rem; margin: 2.75rem 0 0.85rem; letter-spacing: -0.01em; }
+  h4 { font-size: 1rem; margin: 2rem 0 0.6rem; color: var(--ink); }
+  p { margin: 0 0 1.1rem; }
+  .col p, .col ul, .col ol { max-width: 760px; }
+  strong { color: #0f0d0c; font-weight: 600; }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-dim); }
+  a:hover { border-bottom-color: var(--accent); }
+
+  blockquote {
+    margin: 1.4rem 0;
+    padding: 0.2rem 0 0.2rem 1.25rem;
+    border-left: 2px solid var(--accent-dim);
+    color: var(--muted);
+    font-style: italic;
+  }
+  blockquote p:last-child { margin-bottom: 0; }
+
+  .tablewrap { overflow-x: auto; margin: 1.75rem 0; border: 1px solid var(--line); border-radius: 10px; }
+  table { border-collapse: collapse; width: 100%; font-size: 0.88rem; min-width: 640px; }
+  th, td { text-align: left; padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+  thead th { background: var(--surface-2); color: var(--ink); font-weight: 600; white-space: nowrap; position: sticky; top: 0; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody th { background: var(--surface); font-weight: 500; white-space: nowrap; }
+  td.num, th.num { text-align: center; font-variant-numeric: tabular-nums; }
+  .total td, .total th { background: var(--surface-2); font-weight: 600; color: var(--ink); }
+  .hi { color: var(--accent); font-weight: 600; }
+
+  .cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 1.75rem 0; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1.2rem; box-shadow: 0 1px 2px rgba(28,25,23,0.04); }
+  .card h4 { margin: 0 0 0.5rem; font-size: 0.95rem; }
+  .card p { margin: 0; font-size: 0.88rem; color: var(--muted); }
+
+  .hyp { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 8px; padding: 1.2rem 1.4rem; margin: 1.2rem 0; }
+  .hyp h4 { margin: 0 0 0.6rem; font-size: 1rem; }
+  .hyp p { font-size: 0.93rem; margin-bottom: 0.7rem; }
+  .hyp p:last-child { margin-bottom: 0; }
+  .hyp .from { font-size: 0.78rem; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; }
+
+  figure { margin: 2rem 0; }
+  figure img { width: 100%; display: block; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+  figcaption { font-size: 0.83rem; color: var(--muted); margin-top: 0.6rem; }
+  .shots { display: grid; gap: 1.75rem; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); margin: 2rem 0; }
+  .shots figure { margin: 0; }
+  .shots a { border: none; display: block; }
+  .shots img { height: 300px; object-fit: cover; object-position: top center; transition: opacity 0.15s; }
+  .shots a:hover img { opacity: 0.82; }
+  .shots .hint { color: var(--dim); }
+
+  .tag { display: inline-block; font-size: 0.7rem; padding: 0.1rem 0.45rem; border-radius: 4px; background: var(--surface-2); color: var(--muted); border: 1px solid var(--line); vertical-align: middle; }
+  td a[href]:not([class]) { border: none; opacity: 0.75; }
+  .tag.unverified { color: #9a4526; border-color: var(--accent-dim); }
+
+  ul, ol { padding-left: 1.3rem; }
+  li { margin-bottom: 0.5rem; }
+
+  .note { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 1.1rem 1.3rem; font-size: 0.9rem; color: var(--muted); margin: 1.75rem 0; }
+  .note strong { color: var(--ink); }
+
+  footer { padding: 3rem 0 5rem; color: var(--dim); font-size: 0.85rem; }
+  footer a { color: var(--muted); border-bottom-color: var(--line); }
+
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    header.hero { padding: 3rem 0 2.5rem; }
+    section { padding: 2.75rem 0; }
+    nav .inner { gap: 1rem; padding: 0.7rem 1rem; }
+    .wrap { padding: 0 1rem; }
+  }
+
+  /* --- плитки-статистики --- */
+  .stats { display: grid; gap: 0.9rem; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); margin: 2rem 0; }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.15rem 1.25rem; box-shadow: 0 1px 2px rgba(28,25,23,0.04); }
+  .stat .n { font-size: 2rem; font-weight: 650; letter-spacing: -0.03em; line-height: 1; color: var(--accent); display: block; margin-bottom: 0.45rem; font-variant-numeric: tabular-nums; }
+  .stat .l { font-size: 0.85rem; color: var(--muted); line-height: 1.4; display: block; }
+  .stat.plain .n { color: var(--ink); }
+
+  /* --- виноска-цитата --- */
+  .pull { margin: 2rem 0; padding: 1.4rem 1.6rem; background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 10px; }
+  .pull q, .pull .q { display: block; font-size: 1.08rem; line-height: 1.5; color: var(--ink); quotes: none; }
+  .pull .who { display: block; margin-top: 0.75rem; font-size: 0.82rem; color: var(--dim); }
+  .pull .who a { color: var(--muted); border-bottom-color: var(--line); }
+
+  /* --- таби --- */
+  .tabs { margin: 2rem 0; }
+  .tabbar { display: flex; gap: 0.4rem; flex-wrap: wrap; border-bottom: 1px solid var(--line); margin-bottom: 1.4rem; }
+  .tabbar button { font: inherit; font-size: 0.88rem; background: none; border: none; border-bottom: 2px solid transparent; color: var(--muted); padding: 0.55rem 0.7rem; cursor: pointer; margin-bottom: -1px; }
+  .tabbar button:hover { color: var(--ink); }
+  .tabbar button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); font-weight: 600; }
+  .tabpanel { display: none; }
+  .tabpanel[data-open] { display: block; }
+  .tabgrid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .tabgrid .box { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.1rem; }
+  .tabgrid .box h5 { margin: 0 0 0.4rem; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); font-weight: 600; }
+  .tabgrid .box p { margin: 0; font-size: 0.92rem; }
+
+  /* --- візуальна шкала балів --- */
+  .score { display: inline-flex; align-items: center; gap: 0.45rem; }
+  .score .dots { display: inline-flex; gap: 2px; }
+  .score i { width: 6px; height: 14px; border-radius: 2px; background: var(--line); display: block; }
+  .score i.on { background: var(--accent); }
+  .score .v { font-variant-numeric: tabular-nums; font-size: 0.8rem; color: var(--muted); min-width: 0.8em; }
+  .score.best i.on { background: var(--ink); }
+  .score.best .v { color: var(--ink); font-weight: 600; }
+
+  /* --- підсвітка --- */
+  mark { background: linear-gradient(transparent 58%, rgba(181,80,46,0.22) 58%); color: inherit; padding: 0 0.1em; }
+
+  /* --- персони --- */
+  .pcards { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); margin: 2rem 0; }
+  .pcard { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.4rem 1.5rem; box-shadow: 0 1px 2px rgba(28,25,23,0.04); }
+  .pcard.primary { border-color: var(--accent); box-shadow: 0 2px 14px rgba(181,80,46,0.10); }
+  .pcard .badge { display: inline-block; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 5px; background: var(--surface-2); color: var(--muted); margin-bottom: 0.7rem; }
+  .pcard.primary .badge { background: var(--accent); color: #fff; }
+  .pcard h3 { margin: 0 0 0.6rem; font-size: 1.15rem; }
+  .pcard .ctx { font-size: 0.9rem; color: var(--muted); margin: 0 0 1rem; }
+  .pcard dl { margin: 0; }
+  .pcard dt { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); font-weight: 600; margin-top: 1rem; }
+  .pcard dd { margin: 0.35rem 0 0; font-size: 0.9rem; }
+  .pcard .quote { margin-top: 1.1rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: 0.9rem; font-style: italic; color: var(--ink); }
+  .pcard .quote cite { display: block; font-style: normal; font-size: 0.78rem; color: var(--dim); margin-top: 0.45rem; }
+
+  /* --- джоби --- */
+  .mainjob { background: var(--surface); border: 1px solid var(--accent); border-radius: 12px; padding: 1.8rem 2rem; margin: 2rem 0; box-shadow: 0 2px 14px rgba(181,80,46,0.10); }
+  .mainjob .lbl { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 700; display: block; margin-bottom: 0.8rem; }
+  .mainjob p { font-size: 1.22rem; line-height: 1.45; margin: 0; }
+  .joblist { display: grid; gap: 0.85rem; margin: 1.5rem 0; }
+  .job { background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--line); border-radius: 9px; padding: 1rem 1.2rem; }
+  .job.rel { border-left-color: var(--accent); }
+  .job.emo { border-left-color: #9a7b4f; }
+  .job.soc { border-left-color: #6f8a6b; }
+  .job .code { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; color: var(--dim); }
+  .job p { margin: 0.3rem 0 0.5rem; font-size: 0.97rem; }
+  .job .src { font-size: 0.8rem; color: var(--muted); margin: 0; }
+
+  /* --- позначки достовірності --- */
+  .q, .hyp-tag { display: inline-block; font-size: 0.68rem; font-weight: 700; padding: 0.1rem 0.4rem; border-radius: 4px; vertical-align: middle; }
+  .q { background: #f0e6dd; color: #9a4526; border: 1px solid #e0cbbb; }
+  .hyp-tag { background: #ece9e2; color: #6b6560; border: 1px solid var(--line); }
+  td .q { font-size: 0.72rem; }
+
+  /* --- матриця --- */
+  table.matrix td { font-size: 0.82rem; }
+  table.matrix td.sc { text-align: center; font-weight: 700; font-size: 1rem; }
+  table.matrix td.sc small { display: block; font-weight: 400; font-size: 0.68rem; color: var(--muted); line-height: 1.25; margin-top: 0.2rem; }
+  .sc3 { color: var(--accent); }
+  .sc2 { color: var(--ink); }
+  .sc1 { color: var(--dim); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="brand">Хата в селі <span>· персони і джоби</span></div>
+    <a href="research.html">Дослідження</a>
+    <a href="#personas">Персони</a>
+    <a href="#jobs">Джоби</a>
+    <a href="#matrix">Матриця</a>
+    <a href="#audit">Перевірка</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap col">
+    <p class="eyebrow">Крок 2 — персони і джоби</p>
+    <h1>Хто наші люди і що вони намагаються зробити</h1>
+    <p class="lede">Чотири прото-персони й тринадцять джобів, зібрані з опитувань, коментарів рієлторів і живих постів у соцмережах.</p>
+    <div class="note" style="margin-top:1.5rem"><strong>Це прото-персони.</strong> Живих розмов не було. Кожне твердження має джерело, а там, де його немає, стоїть <span class="q">?</span> — і це гіпотеза, не факт. Порожні клітинки в матриці ми не заповнювали здогадками.</div>
+    <div class="meta">
+      <div><b>4</b>персони</div>
+      <div><b>13</b>джобів</div>
+      <div><b>7</b>постів із живими голосами</div>
+      <div><b>31</b>клітинка без даних</div>
+    </div>
+  </div>
+</header>
+
+<section id="personas">
+  <div class="wrap">
+    <div class="col">
+      <p class="eyebrow">Секція 1</p>
+      <h2>Персони</h2>
+      <p>Одна основна й три другорядні. Три сегменти з брифу — військові та їхні родини, вимушені переселенці та іноземці — персон не отримали: у дослідженні про них немає нічого, і вигадати їх було б гірше, ніж лишити прогалину видимою.</p>
+    </div>
+
+    <div class="pcards">
+
+      <div class="pcard primary">
+        <span class="badge">Primary</span>
+        <h3>Та, хто чотири роки не спить</h3>
+        <p class="ctx">З Києва, Одеси, Сум чи Харкова. Нічні тривоги й відключення тривають не місяць і не рік. Вирішила перебути найважчий період деінде.</p>
+        <dl>
+          <dt>Головний джоб</dt>
+          <dd>Повернути собі сон і здатність жити далі.</dd>
+          <dt>Найбільший біль</dt>
+          <dd>Сезонної оренди на 3–4 місяці ринок не продає. Ціни зросли на 44–80% за рік.</dd>
+          <dt>Переконує</dt>
+          <dd>Видимий доказ перевірки з датою; чесно названі недоліки.</dd>
+          <dt>Відлякує</dt>
+          <dd>Передоплата наперед без розмови; глянцевий тон «реклами екохуторів».</dd>
+        </dl>
+        <div class="quote">«Давно в мене не було такого люкса, як повноцінний сон… 4,5 роки норм не спала»
+          <cite>Threads, @alenakrupen · 112 тис. переглядів, 8 тис. вподобань</cite></div>
+      </div>
+
+      <div class="pcard">
+        <span class="badge">Secondary</span>
+        <h3>Той, хто мусить не зірвати дзвінок</h3>
+        <p class="ctx">Працює віддалено й не може зникнути з ефіру. Інколи переїзд оплачує роботодавець — 500 доларів на місяць на житло. <span class="q">?</span> Може бути іноземцем, але даних про них немає.</p>
+        <dl>
+          <dt>Головний джоб</dt>
+          <dd>Виїхати, не зруйнувавши роботу й щоденні справи.</dd>
+          <dt>Найбільший біль</dt>
+          <dd>«Є інтернет» не означає нічого: мобільний при знеструмленні зникає зовсім.</dd>
+          <dt>Переконує</dt>
+          <dd>Назва провайдера й виміряна швидкість.</dd>
+          <dt>Відлякує</dt>
+          <dd>Значок Wi-Fi без жодної цифри.</dd>
+        </dl>
+        <div class="quote">«З авто насправді невелика проблема і в глухому. Але потрібен зв'язок стабільний, це точно»
+          <cite>Threads, @bublykmariia</cite></div>
+      </div>
+
+      <div class="pcard">
+        <span class="badge">Secondary</span>
+        <h3>Та, хто придивляється до купівлі</h3>
+        <p class="ctx">Мріє про власну хату, гортає оголошення роками. Оренда для неї — перевірка рішення, а не відпочинок.</p>
+        <dl>
+          <dt>Головний джоб</dt>
+          <dd>Перевірити рішення до того, як вкладати гроші.</dd>
+          <dt>Найбільший біль</dt>
+          <dd>Спробувати ніде: ринок дає вихідні або рік контракту. Частина таких людей просто купує.</dd>
+          <dt>Переконує</dt>
+          <dd>Чесний опис того, що зламається взимку.</dd>
+          <dt>Відлякує</dt>
+          <dd>Глянець без згадки про проблеми.</dd>
+        </dl>
+        <div class="quote">«Моє хоббі — дивитись будинки на олх» · «Так виглядає мрія»
+          <cite>Threads, коментарі під @strynadiuk · 243 тис. переглядів</cite></div>
+      </div>
+
+      <div class="pcard">
+        <span class="badge">Secondary</span>
+        <h3>Та, хто їде по глибину</h3>
+        <p class="ctx">Їде не відпочивати, а зануритись: ремесла, місцевість, люди. Для цього потрібен місяць, бо за вихідні не встигнути.</p>
+        <dl>
+          <dt>Головний джоб</dt>
+          <dd>Встигнути те, заради чого їхала.</dd>
+          <dt>Найбільший біль</dt>
+          <dd>Знання, куди йти, ніде не продається.</dd>
+          <dt>Переконує</dt>
+          <dd>Конкретні імена й адреси майстерень.</dd>
+          <dt>Відлякує</dt>
+          <dd>Туристичний опис без жодного власного імені.</dd>
+        </dl>
+        <div class="quote">«Косів — це величезна любов, якщо знати куди ходити»
+          <cite>Threads, @darka.ceramics</cite></div>
+      </div>
+
+    </div>
+
+    <div class="col">
+      <div class="note"><strong>Персони, яких ми не побудували.</strong> Військові та їхні родини, вимушені переселенці, іноземці в Україні. Це пріоритетні сегменти брифу, але опитування їх окремо не виділяє, і в жодному знайденому пості ці люди не говорять про себе. Щоб їх побудувати, потрібні по три-чотири розмови з кожною групою. <span class="q">?</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="jobs">
+  <div class="wrap">
+    <div class="col">
+      <p class="eyebrow">Секція 2</p>
+      <h2>Джоби</h2>
+      <p>У формулюваннях немає назв функцій — ні гарантії, ні фільтрів, ні карток. Тільки прогрес людини: чого вона прагне досягти, незалежно від того, яким продуктом.</p>
+    </div>
+
+    <div class="col">
+      <div class="mainjob">
+        <span class="lbl">Main job</span>
+        <p>Коли я вже не відновлююсь там, де живу, я хочу перебути найважчий період у місці, де вночі тихо і щоденний побут не забирає останні сили, <strong>щоб повернути собі сон і здатність жити далі</strong>.</p>
+      </div>
+
+      <h3>Related jobs — шлях до головного</h3>
+      <p>П'ять кроків, кожен із яких може зламатись окремо.</p>
+      <div class="joblist">
+        <div class="job rel"><span class="code">R1 · П1, П3</span><p>Коли я зважую, чи переїхати на кілька місяців, я хочу заздалегідь знати, що саме піде не так і чи я з цим упораюсь, щоб не з'ясовувати це в мороз, коли виїхати вже складно.</p><p class="src">Перелік пасток від журналіста й рієлтора: вода, дрова, вуличний туалет, зв'язок.</p></div>
+        <div class="job rel"><span class="code">R2 · П1, П2</span><p>Коли я вирішила шукати житло на зиму поза містом, я хочу одне місце, де зібрано придатні варіанти, щоб не збирати їх по дошках оголошень, чатах і знайомих.</p><p class="src">На питання «де почати пошуки» відповідають OLX, ютуб-канал, інстаграм і знайомі — жодного сервісу.</p></div>
+        <div class="job rel"><span class="code">R3 · П1, П3</span><p>Коли я маю віддати гроші за житло, якого не бачила, людині, якої не знаю, я хочу впевнитись, що воно існує і виглядає так, як на знімках, щоб не стати черговою історією про ошуканих.</p><p class="src">Кіберполіція і МВС вчать розпізнавати «лише набір чужих фото».</p></div>
+        <div class="job rel"><span class="code">R4 · П1, П3, П4</span><p>Коли мені потрібно перебути лише найважчі місяці, я хочу домовитись саме на цей строк, не беручи на себе рік, щоб не платити за житло тоді, коли воно мені вже не потрібне.</p><p class="src">Потреба витіснена, а не зникла: торік просили три місяці, тепер підписують на рік-два.</p></div>
+        <div class="job rel"><span class="code">R5 · П2</span><p>Коли я їду надовго, але не припиняю працювати й дбати про своїх, я хочу щоб переїзд не вибив мене з ритму, щоб не обирати між спокоєм і заробітком.</p><p class="src">Оптоволокно — вимога номер один; школи й садочки шукають одразу з житлом.</p></div>
+      </div>
+
+      <h3>Emotional jobs</h3>
+      <p>Чого людина хоче відчувати, а не отримати.</p>
+      <div class="joblist">
+        <div class="job emo"><span class="code">E1</span><p>Коли все навколо непередбачуване, я хочу мати бодай одне місце, про яке точно знаю, чого від нього чекати, щоб не носити з собою ще одну тривогу.</p></div>
+        <div class="job emo"><span class="code">E2 · <span class="hyp-tag">гіпотеза</span></span><p>Коли я почуваюся вирваною з власного життя, я хочу побути там, де все довкола своє, щоб повернути відчуття, що я вдома у своїй країні.</p><p class="src">Для primary даних немає <span class="q">?</span> — підкріплено лише постом про місяць серед ремесел.</p></div>
+        <div class="job emo"><span class="code">E3</span><p>Коли я наперед плачу за те, чого не бачила, я хочу заздалегідь почути найгірше про це місце, щоб приїхати без ілюзій і не відчути себе дурною.</p></div>
+      </div>
+
+      <h3>Social jobs</h3>
+      <p>Як людина хоче виглядати в очах інших.</p>
+      <div class="joblist">
+        <div class="job soc"><span class="code">S1 · <span class="hyp-tag">гіпотеза</span></span><p>Коли я розповідаю, як проведу цю зиму, я хочу щоб це звучало як свідоме рішення, а не як те, що мене змусили, щоб не виглядати тією, хто здалася.</p><p class="src">Виведено з того, що люди публікують пости. Ніхто цього не казав прямо <span class="q">?</span></p></div>
+        <div class="job soc"><span class="code">S2</span><p>Коли я приїжджаю надовго туди, де мене ніхто не знає, я хочу щоб місцеві прийняли мене за свою, щоб не прожити ці місяці стороннім спостерігачем.</p></div>
+        <div class="job soc"><span class="code">S3 · П4</span><p>Коли я опиняюся в незнайомій місцевості надовго, я хочу розуміти, хто тут що робить і до кого можна прийти, щоб не витратити весь строк на з'ясовування.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="matrix">
+  <div class="wrap">
+    <div class="col">
+      <p class="eyebrow">Секція 3</p>
+      <h2>JTBD-матриця</h2>
+      <p><strong>3</strong> — заради цього вона взагалі рушила · <strong>2</strong> — важливо, але не вирішує · <strong>1</strong> — майже не важить · <span class="q">?</span> — даних немає, не вгадуємо.</p>
+    </div>
+
+    <div class="tablewrap">
+      <table class="matrix">
+        <thead><tr><th>Job</th><th class="num">П1<br><small>не спить</small></th><th class="num">П2<br><small>дзвінок</small></th><th class="num">П3<br><small>купівля</small></th><th class="num">П4<br><small>глибина</small></th><th>Що закриває в продукті</th><th>Хто з ринку вже закриває</th></tr></thead>
+        <tbody>
+          <tr><th>MAIN Перебути період і повернути сон</th><td class="sc sc3">3<small>«4,5 роки норм не спала»</small></td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc sc1">1</td><td>Усе позиціонування: тиша, ніч, відновлення</td><td><strong>Ніхто.</strong> Ринок продає вікенд</td></tr>
+          <tr><th>R1 Зрозуміти, чи витримаю</th><td class="sc sc3">3</td><td class="sc sc2">2</td><td class="sc sc3">3</td><td class="sc"><span class="q">?</span></td><td>«Чесно про цей дім», рівень автономності</td><td><strong>Ніхто</strong></td></tr>
+          <tr><th>R2 Знайти, де шукати</th><td class="sc sc3">3</td><td class="sc sc3">3</td><td class="sc sc2">2</td><td class="sc"><span class="q">?</span></td><td>Сам каталог і добірки</td><td><strong>Ніхто як сервіс</strong></td></tr>
+          <tr><th>R3 Переконатись, що місце справжнє</th><td class="sc sc3">3</td><td class="sc sc2">2</td><td class="sc sc3">3</td><td class="sc"><span class="q">?</span></td><td>Перевірка на місці з датою й автором</td><td>Частково Airbnb — доказ ховає</td></tr>
+          <tr><th>R4 Домовитись на сезонний строк</th><td class="sc sc3">3</td><td class="sc sc2">2</td><td class="sc sc3">3</td><td class="sc sc3">3</td><td>Місячні ціни, розділ «Зимівля»</td><td><strong>Ніхто.</strong> Рік або ×3 за сезон</td></tr>
+          <tr><th>R5 Не зруйнувати роботу й справи</th><td class="sc sc2">2</td><td class="sc sc3">3</td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td>Виміряна швидкість, резервне живлення</td><td><strong>Ніхто не вимірює</strong></td></tr>
+          <tr><th>E1 Перестати додавати невизначеності</th><td class="sc sc3">3</td><td class="sc sc2">2</td><td class="sc sc2">2</td><td class="sc"><span class="q">?</span></td><td>Гарантія з компенсацією</td><td><strong>Ніхто</strong></td></tr>
+          <tr><th>E2 Побути там, де все своє</th><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc sc2">2</td><td class="sc sc3">3</td><td>Категорія свят, локальний контекст</td><td><strong>Ніхто</strong></td></tr>
+          <tr><th>E3 Не почуватися обдуреною потім</th><td class="sc sc3">3</td><td class="sc sc2">2</td><td class="sc sc3">3</td><td class="sc"><span class="q">?</span></td><td>Блок недоліків, публічні критерії</td><td>Ніхто в Україні</td></tr>
+          <tr><th>S1 Щоб читалось як вибір</th><td class="sc sc2">2</td><td class="sc"><span class="q">?</span></td><td class="sc sc3">3</td><td class="sc sc2">2</td><td>Естетика сторінки оселі</td><td>Частково Airbnb і Kip</td></tr>
+          <tr><th>S2 Бути прийнятою, а не чужою</th><td class="sc sc2">2</td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc sc2">2</td><td>Голос господаря в описі</td><td><strong>Ніхто</strong></td></tr>
+          <tr><th>S3 Знати, до кого тут іти</th><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc sc3">3</td><td>Локальний гід із іменами</td><td>Частково Canopy &amp; Stars</td></tr>
+          <tr><th>P3 Перевірити рішення до покупки</th><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc sc3">3</td><td class="sc"><span class="q">?</span></td><td>Довгі строки, чесний опис побуту</td><td><strong>Ніхто</strong></td></tr>
+          <tr><th>P4 Встигнути головне</th><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc sc3">3</td><td>Місячні ціни, локальний контекст</td><td><strong>Ніхто</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <div class="note"><strong>Порожнеча в колонках П2–П4 — це не недоробка.</strong> Про primary ми маємо голоси, опитування й коментарі рієлторів; про решту — по одному-двох постах. Заповнити ці клітинки можна лише розмовами.</div>
+
+      <h3>Три джоби в ядро MVP</h3>
+      <p>Критерій: важливість 3 для primary і ринок не закриває.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card"><h4>R4 · сезонний строк</h4><p>Єдиний джоб, у якому ринок відмовляє вголос. Закривається найдешевше — це цінова модель, не технологія.</p></div>
+      <div class="card"><h4>R1 + E1 · знати наперед і перестати тривожитись</h4><p>Різні джоби, закриваються одним: чесним описом побуту й гарантією з компенсацією.</p></div>
+      <div class="card"><h4>R3 · місце справжнє</h4><p>Ринок має механізм, але ховає його. Нам показати дату й автора перевірки нічого не коштує.</p></div>
+    </div>
+
+    <div class="col">
+      <p><strong>R2 навмисно не в трійці.</strong> «Знайти, де шукати» закривається самим фактом існування сервісу — це передумова, а не перевага. Якщо на ньому будувати позиціонування, нас обійде перший, хто зробить такий самий каталог.</p>
+    </div>
+  </div>
+</section>
+
+<section id="audit">
+  <div class="wrap">
+    <div class="col">
+      <p class="eyebrow">Секція 4</p>
+      <h2>Перевірка на міцність</h2>
+      <p>Кожне твердження в персонах і джобах перевірене на те, на чому воно стоїть насправді.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat plain"><span class="n">20</span><span class="l">підтверджено джерелом</span></div>
+      <div class="stat plain"><span class="n">12</span><span class="l">гіпотези — слід у даних є, висновок наш</span></div>
+      <div class="stat"><span class="n">14</span><span class="l">домислено — даних немає взагалі</span></div>
+    </div>
+
+    <div class="col">
+      <h3>Що перевірка змінила</h3>
+      <p>Найнебезпечнішим виявилось припущення під першим джобом ядра: що люди шукають оренду на три-чотири місяці. Перевірили окремо — і воно уточнилось, а не підтвердилось.</p>
+
+      <div class="pull">
+        <span class="q">Якщо минулої зими намагалися зняти на три місяці, то тепер готові підписувати договори на рік-два</span>
+        <span class="who">Ірина Данилюк, рієлторка агенції Arkada, Івано-Франківськ · <a href="https://my.ua/uk/articles/article/2026-10-16-zimivlia-v-bezpetsi-vlasniki-viseliaiut-mistsevikh-orendariv-bo-priyizhdzhi-platiat">my.ua за матеріалом LB.ua, 16.10.2026</a></span>
+      </div>
+
+      <p><strong>Потреба не зникла — її витіснили.</strong> Торік люди просили сезонний строк, цього року перестали, бо ринок відмовив. Для конкурентів цієї потреби не видно саме тому, що її більше не озвучують — і це сильніша позиція, ніж здавалось спочатку.</p>
+
+      <h4>Три інші виправлення</h4>
+      <p><strong>Primary більше не «повертається після зими».</strong> Ніхто не казав, що повернеться, а рієлторка свідчить про протилежне. <span class="q">?</span></p>
+      <p><strong>Стать персон — артефакт вибірки.</strong> Усі голоси в дослідженні жіночі, бо такими виявились пости в Threads. Розподілу за статтю немає в жодному опитуванні. <span class="q">?</span></p>
+      <p><strong>Теза «село вигідніше за місто» знята.</strong> Порівняння спиралось на ціну за березень-квітень, міжсезоння. Котедж під Києвом, готовий до блекаутів, коштує від 35 тис. до 700 тис. грн на місяць, а медіанна оренда будинку в області — 2 500 доларів. Автономне житло — верхній сегмент ринку, а не дешевий.</p>
+
+      <div class="note"><strong>І заперечення, яке варто тримати на виду.</strong> «У соцмережах радять шукати житло в районних центрах — у великих містах надто дорого, <strong>в селах немає достатньої інфраструктури</strong>». Люди, які зараз реально переїжджають, обирають райцентр. Наша перевага має бути не в тому, що село краще взагалі, а в тому, що конкретна оселя доведено придатна.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap col">
+    <p>Крок 2 процесу проєктування, 16 жовтня 2026. Побудовано на дослідженні ринку — <a href="research.html">крок 1</a>.</p>
+    <p><strong style="color:var(--ink)">Хата в селі</strong> · Village House — платформа пошуку тихої оселі в українському селі.</p>
+  </div>
+</footer>
+
+</body>
+</html>
