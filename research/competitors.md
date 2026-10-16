@@ -241,7 +241,7 @@
 - **Анатомія картки:** `Adventure Level` → теги настрою `Explore / Focus / Chill` → ціна «weeknights / weekends» → `Notes from the field` → `Wellness` → `What's Provided?` → `Expedition Packing List`. **Жодного блоку «зручності списком» угорі** — спершу стан і контекст, потім побут.
 - **Копірайт називає емоційний стан, а не метраж.** Реальний текст: *«We call Fern the "all my partner and I do is talk about work constantly" antidote.»* Формула: `[ім'я] — антидот до [конкретна міська втома]`.
 - **Кожна кабіна має людське ім'я:** Fern, Ashi, Heike, Miguel, Gaia, Banjo, Lottie. Каталог читається як список знайомих, а не як склад.
-- **Навігація «Escape From»** — меню побудоване від **міста, з якого ти тікаєш**. Пряма калька: «Втекти з Києва / Львова / Харкова / Дніпра».
+- **Навігація «Escape From»** — меню побудоване від **міста, в якому людина живе**, а не від місця призначення. Для нас калька має бути м'якшою за оригінал: не «втекти з Києва», а «За годину від Києва / Львова / Харкова / Дніпра». Частина нашої аудиторії справді вимушено виїжджала, тож лексика втечі тут недоречна.
 - **Довіра без відгуків — через науку:** клікабельні плитки ефектів (Blood Pressure, Sleep, Stress, Creativity, Immune Function), кожна розкриває конкретне дослідження + блок References.
 - **Критерій відбору як відмова:** *«We say no to (many) more locations than we say yes to. With a curated selection process that has 10,000 hours of thinking behind it.»*
 - **Мікрокопі:** «No alarms. Just time to think, breathe, and not be busy for once.» · «Less algorithm. More real sky.»
