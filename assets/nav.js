@@ -10,7 +10,8 @@
       ['#competitors', 'Конкуренти'],
       ['#benchmark', 'Бенчмарк'],
       ['#patterns', 'Патерни'],
-      ['#conclusions', 'Висновки']
+      ['#conclusions', 'Висновки'],
+      ['#weekend', 'Вікенд']
     ] },
     { n: '02', t: 'Персони і JTBD', href: 'personas.html', sub: [
       ['#personas', 'Персони'],
