@@ -1,0 +1,902 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Хата в селі — інформаційна архітектура</title>
+<meta name="description" content="Крок 3: сутності продукту, дерево з 19 екранів, навігаційна модель, трасування джобів і самоперевірка, що знайшла 26 дефектів.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23b5502e'/%3E%3Cpath d='M7 15.6 16 8.4l9 7.2V24a1 1 0 0 1-1 1h-5v-6h-6v6H8a1 1 0 0 1-1-1z' fill='%23faf8f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/case.css">
+<link rel="stylesheet" href="assets/sidebar.css">
+<script src="assets/nav.js" defer></script>
+<style>
+  /* ===== яскравіший шар ===== */
+  header.hero {
+    background:
+      radial-gradient(1100px 420px at 12% -10%, var(--tint-1) 0%, transparent 62%),
+      radial-gradient(900px 380px at 88% 0%, var(--tint-2) 0%, transparent 58%);
+  }
+  header.hero h1 { color: #15110f; }
+
+  /* --- дерево екранів і шляхи --- */
+  pre.tree, pre.taps {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1.3rem 1.4rem;
+    overflow-x: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.8rem;
+    line-height: 1.75;
+    color: var(--ink);
+    margin: 1.75rem 0;
+  }
+  pre.taps { font-size: 0.82rem; line-height: 1.9; }
+
+  /* --- діаграми потоків --- */
+  .flow { margin: 2rem 0 3rem; }
+  .flow h3 { margin-top: 0; }
+  .diagram {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1.2rem;
+    overflow: auto;
+    max-height: 76vh;
+    margin: 1.4rem 0;
+    text-align: center;
+    resize: vertical;
+  }
+  .diagram pre.mermaid {
+    margin: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.72rem;
+    color: var(--dim);
+    text-align: left;
+    white-space: pre-wrap;
+  }
+  .diagram svg { height: auto; }
+  .diagram-hint { font-size: 0.78rem; color: var(--dim); margin: -0.8rem 0 1.6rem; }
+  .legend { display: flex; gap: 1.2rem; flex-wrap: wrap; font-size: 0.8rem; color: var(--muted); margin: 1rem 0 0; }
+  .legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .legend i { width: 11px; height: 11px; border-radius: 3px; display: block; border: 1px solid; }
+  .legend i.scr { background: #fdf3ea; border-color: #b5502e; }
+  .legend i.sta { background: #f1efe9; border-color: #9a9287; }
+  .legend i.ded { background: #f6e2db; border-color: #a8321a; }
+  .legend i.win { background: #e6efe4; border-color: #4f7a52; }
+
+  /* --- матриця трасування --- */
+  .matrix table { font-size: 0.74rem; min-width: 900px; }
+  .matrix th, .matrix td { padding: 0.4rem 0.35rem; }
+  .matrix tbody th { font-size: 0.76rem; white-space: normal; min-width: 180px; }
+  .matrix td { text-align: center; color: var(--accent); font-weight: 600; }
+  .matrix td.sum, .matrix th.sum { background: var(--surface-2); color: var(--ink); font-weight: 650; }
+  .matrix td.zero { background: #f6e2db; color: #a8321a; }
+
+  /* --- дефекти --- */
+  .sev { display: inline-block; font-size: 0.68rem; letter-spacing: 0.06em; text-transform: uppercase;
+         padding: 0.12rem 0.45rem; border-radius: 4px; font-weight: 650; white-space: nowrap; }
+  .sev.dead { background: #f6e2db; color: #8f2a12; }
+  .sev.state { background: #f1efe9; color: #5c554c; }
+  .sev.depth { background: #fbf3e2; color: #8a6414; }
+  .sev.sync { background: #eef4ee; color: #3f6342; }
+  .sev.keep { background: var(--surface-2); color: var(--muted); }
+
+  .fixlist { counter-reset: fix; list-style: none; padding-left: 0; }
+  .fixlist li { position: relative; padding-left: 2.2rem; margin-bottom: 0.7rem; }
+  .fixlist li::before {
+    counter-increment: fix; content: counter(fix);
+    position: absolute; left: 0; top: 0.1rem;
+    width: 1.55rem; height: 1.55rem; border-radius: 50%;
+    background: var(--surface-2); color: var(--muted);
+    font-size: 0.75rem; font-weight: 650;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .fixlist li.top::before { background: var(--accent); color: #fff; }
+</style>
+</head>
+<body data-page="03">
+
+<header class="hero" id="main" tabindex="-1">
+  <div class="wrap col">
+    <p class="eyebrow">Крок 3 — інформаційна архітектура</p>
+    <h1>Дерево, що виросло з людей, а не з каталогу</h1>
+    <p class="lede">Шістнадцять сутностей, дев'ятнадцять екранів і чотири потоки — виведені з джобів кроку 2, а не зі структури конкурентів. Плюс самоперевірка, яка знайшла в цій роботі 26 дефектів.</p>
+    <p class="lede" style="font-size:1rem">У Hutshub і Booking верхній рівень — це каталог і фільтри, тобто інтерфейс складу. Тут верхні вузли дерева — <strong>стани людини</strong>: ще не знаю, чого хочу · дивлюсь на оселю · хто ця людина · домовляюсь і плачу · живу там · виїхала · повертаюсь.</p>
+    <div class="meta">
+      <div><b>16.10.2026</b>дата кроку</div>
+      <div><b>16 сутностей</b>кожна з джобом</div>
+      <div><b>19 екранів</b>із 23 чернеткових</div>
+      <div><b>2 тапи</b>до main job</div>
+    </div>
+  </div>
+</header>
+
+<section id="entities">
+  <div class="wrap">
+    <div class="col">
+      <p class="eyebrow">Секція 1</p>
+      <h2>Сутності</h2>
+      <p>Спершу об'єкти, з якими людина має справу, і лише потім екрани. Кожна сутність названа разом із джобом, який її породжує. Об'єкт, якого <strong>не породжує жоден джоб</strong>, не викинутий, а винесений на рішення — нижче, у «Під питанням».</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><span class="n">16</span><span class="l">сутностей, кожна з названим джобом</span></div>
+      <div class="stat"><span class="n">5</span><span class="l">об'єктів без джоба — винесені на рішення</span></div>
+      <div class="stat plain"><span class="n">3</span><span class="l">речі, яких свідомо немає</span></div>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Сутність</th><th>Джоби</th><th>Чому вона окремий об'єкт</th></tr></thead>
+        <tbody>
+          <tr><th>1. Оселя</th><td>MAIN · R1 · R2 · R3 · E1 · E3</td><td>Головний об'єкт продукту, усе інше існує навколо неї. Розклад на частини — нижче</td></tr>
+          <tr><th>2. Перевірка оселі</th><td>R3</td><td>Має власну дату, автора й термін придатності, тому не поле оселі. Airbnb перевірку робить, але доказ від гостя ховає — отже наша має бути <strong>видимим об'єктом</strong></td></tr>
+          <tr><th>3. Господар</th><td>S2 · E2 · R3</td><td>Людину видно на ім'я й обличчя, отже оселя не фікція. Контакт відкривається після оплати</td></tr>
+          <tr><th>4. Розмова з господарем</th><td>S2 · E2 · S3</td><td>Гість платить наперед, а чат відкривається тільки після оплати — тож знайомство мусить відбутись заздалегідь і без його зусиль</td></tr>
+          <tr><th>5. Добірка</th><td>R2 · E2 · MAIN</td><td>Головний вхід у каталог і головна відповідь на те, що осель лише тридцять</td></tr>
+          <tr><th>6. Пошук</th><td>R2 · R1 · R5</td><td>Запит, активні ознаки, вигляд. <strong>Не фільтри:</strong> світло, вода, тепло, інтернет, паркомісце — це гарантія, а не вісь вибору</td></tr>
+          <tr><th>7. Збережені</th><td>R2 · S1</td><td>Єдиний об'єкт, про який люди просять уголос прямою мовою</td></tr>
+          <tr><th>8. Бронювання</th><td>R4 · MAIN</td><td>Строк, люди, повна вартість, повна передоплата, умова скасування</td></tr>
+          <tr><th>9. Чат із господарем</th><td>S2 · R5</td><td>Відкривається після оплати</td></tr>
+          <tr><th>10. Звернення по гарантії</th><td>E1</td><td>Без механізму розгляду обіцянка «50% вартості доби» не існує як об'єкт</td></tr>
+          <tr><th>11. Післявиїзна оцінка</th><td>E3 · R3</td><td>Не публічний відгук, а механізм якості: друга низька оцінка знімає оселю</td></tr>
+          <tr><th>12. Відгук</th><td>E3 · R3 <span class="tag">слабко</span></td><td>Публічний текст без зіркових рейтингів. Підпора, не опора — див. нижче</td></tr>
+          <tr><th>13. Гість</th><td>R2 · R4 · P3</td><td>Повноцінний акаунт. Але бронювати можна й <strong>без нього</strong>, гостьовим способом</td></tr>
+          <tr><th>14. Критерії відбору</th><td>E3 · R3</td><td>Публічна сторінка: за що оселю беруть і кого не беруть. Hutshub критерії заявляє, але не публікує; Landfolk публікує — і це працює</td></tr>
+          <tr><th>15. Локальний гід</th><td>S3 · P4</td><td>Місця поруч із іменами, а не «багато цікавого навколо»</td></tr>
+          <tr><th>16. Журнал</th><td>S3 · E2 · R2</td><td>Розмови з господарями, гіди по місцевості. Дає додаткові входи в каталог</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <h3>Оселя зблизька</h3>
+      <p>Головний об'єкт розкладається на дванадцять частин, і кожна з них живиться конкретним джобом, а не «бо так у всіх».</p>
+    </div>
+
+    <div class="cards">
+      <div class="card"><h4>Ідентичність</h4><p>Власне ім'я, а не адреса. Епітет і коротка суть. <span class="tag">E2 · S1</span></p></div>
+      <div class="card"><h4>Місце</h4><p>Село, область, час у дорозі з найближчих міст, як дістатись без авто. <span class="tag">R1 · R2</span></p></div>
+      <div class="card"><h4>Гарантований набір</h4><p>Світло, вода, тепло, інтернет, паркомісце. Кухня є, але поза компенсацією. <span class="tag">E1 · R1</span></p></div>
+      <div class="card"><h4>Автономність</h4><p>Чим забезпечене тепло й світло при відключенні, чи є запас дров. <span class="tag">R1 · E1</span></p></div>
+      <div class="card"><h4>Виміряні параметри</h4><p>Швидкість інтернету цифрою, тип підключення — не значок Wi-Fi. <span class="tag">R5</span></p></div>
+      <div class="card"><h4>«Чесно про цей дім»</h4><p>3–6 недоліків, щонайменше три справжні. Пише платформа, не власник. <span class="tag">E3 · R1</span></p></div>
+      <div class="card"><h4>Строки й ціна</h4><p>Доба, тиждень, місяць; що входить; знижка за тривалість. <span class="tag">R4</span></p></div>
+      <div class="card"><h4>Локальний контекст</h4><p>Конкретні місця поруч із назвами й відстанями. <span class="tag">S3 · P4</span></p></div>
+    </div>
+
+    <div class="col">
+      <h3>Під питанням</h3>
+      <p>П'ять об'єктів, яких не породжує <strong>жоден</strong> джоб. Не викидаю — виношу на рішення.</p>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Об'єкт</th><th>Звідки взявся</th><th>Чому під питанням</th></tr></thead>
+        <tbody>
+          <tr><th>Підтвердження статусу для знижки</th><td>Бриф: 5% військовим і родичам</td><td>Жодного джоба немає. Плюс тягне за собою зберігання чутливих даних, строк і видалення</td></tr>
+          <tr><th>Замовлення місцевої їжі</th><td>Бриф: фільтр на сніданок, обід, вечерю</td><td>Прямого джоба немає. Найближче — R5 і E2, але в даних цього не просив ніхто</td></tr>
+          <tr><th>Позначка безбар'єрності</th><td>Бриф: обов'язково</td><td>Джоба немає, <strong>але є український прецедент</strong> — дім «Журавель» у Витачеві збудований безбар'єрним. Питання не «чи потрібно», а «для кого саме»</td></tr>
+          <tr><th>Розділ «Зимівля»</th><td>Бриф і висновок Г2</td><td>Під питанням не сам розділ, а чи це окрема сутність. Поки виглядає як типізована Добірка</td></tr>
+          <tr><th>Збережений пошук, сповіщення</th><td>Ніде. Вигадала б я</td><td>Даних, що люди цього хочуть, немає</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <h3>Чого в списку свідомо немає</h3>
+    </div>
+    <div class="cards">
+      <div class="card"><h4>Профілю іншого гостя</h4><p>Ми не зводимо людей між собою — рішення з брифу.</p></div>
+      <div class="card"><h4>Рейтингів, бейджів і рівнів</h4><p>Перцентильні позначки на тридцяти оселях і нулі власних відгуків не працюють — висновок бенчмарку довіри.</p></div>
+      <div class="card"><h4>Кабінету власника</h4><p>Оселі додає редакція, self-service не передбачений. Власник присутній як Господар і Розмова, але не як користувач системи.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="screens">
+  <div class="wrap">
+    <div class="col">
+      <p class="eyebrow">Секція 2</p>
+      <h2>Екрани</h2>
+      <p>Глибина навмисно мінімальна — рівні додаються свідомо далі. Позначки: <strong>●</strong> потрібен primary-персоні · <strong>②③④</strong> потрібен відповідній secondary-персоні.</p>
+    </div>
+
+<pre class="tree">1 · ЩЕ НЕ ЗНАЮ, ЧОГО ХОЧУ — де взагалі дивитись
+│
+├── Головна                            (MAIN, R2)              ● ② ③ ④
+│   перше питання — про стан, не про параметри
+│
+├── Добірка                            (R2, E2)                ● ④
+│   «Зимівля» — та сама Добірка з іншим типом, не окремий екран
+│
+└── Каталог                            (R2, R1, R5)            ● ② ③ ④
+    мапа і список — два ВИГЛЯДИ цього екрана, не два екрани
+
+
+2 · ДИВЛЮСЬ НА ОСЕЛЮ — чи витримаю і чи це правда
+│
+├── Оселя                              (MAIN, R1, R3, E1, E3)  ● ② ③ ④
+│   всередині, а не окремими екранами:
+│     · гарантований набір і автономність      (E1, R1)        ● ②
+│     · виміряна швидкість інтернету           (R5)              ②
+│     · «Чесно про цей дім»                    (E3, R1)        ● ③
+│     · перевірка — дата, хто, кадри           (R3)            ● ③
+│     · строки й ціна за добу/тиждень/місяць   (R4)            ● ③ ④
+│     · галерея — шар поверх екрана, не екран
+│
+└── Критерії відбору                   (E3, R3)                ● ③
+    заходять із картки оселі, а не з підвалу
+
+
+3 · ХТО ЦЯ ЛЮДИНА — у кого я бронюю
+│
+├── Господар                           (S2, E2, R3)            ● ④
+│
+└── Розмова з господарем               (S2, E2, S3)            ④ ● слабко
+
+
+4 · ДОМОВЛЯЮСЬ І ПЛАЧУ
+│
+├── Бронювання                         (R4)                    ● ② ③ ④
+├── Оплата                             (R4, E1)                ● ② ③ ④
+└── Підтвердження                      (E1, R4)                ● ② ③ ④
+    як дістатись, де ключ, коли заїзд — відкриває чат
+
+
+5 · ЖИВУ ТАМ
+│
+├── Моя поїздка                        (E1, R5, MAIN)          ● ②
+│   адреса, ключ, що робити, якщо вимкнули світло
+├── Чат із господарем                  (S2, R5)                ● ② ④
+├── Локальний гід                      (S3, P4)                ④
+│   єдиний екран, який будує лише secondary-персона
+└── Журнал                             (S3, E2, R2)            ④ ● слабко
+
+
+6 · ВИЇХАЛА
+│
+├── Післявиїзна оцінка                 (E3, R3)                ● ② ③ ④
+│   не публічна: друга низька оцінка знімає оселю з каталогу
+├── Звернення по гарантії              (E1, E3)                ● ②
+│   відкривається з бронювання, а не з довідки
+└── Відгук                             (E3)                    ● слабко
+
+
+7 · ПОВЕРТАЮСЬ — те, що моє
+│
+├── Збережені                          (R2, S1)                ● ③ ④
+│   список можна відкрити посиланням — про це просять уголос
+└── Кабінет гостя                      (R2, R4, P3)            ● ② ③ ④</pre>
+
+    <div class="col">
+      <h3>Екрани-сироти</h3>
+      <p>Жоден джоб їх не породжує. Трасування нижче підтвердило це механічно: у всіх чотирьох порожня колонка.</p>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Екран</th><th>Звідки</th><th>Рішення</th></tr></thead>
+        <tbody>
+          <tr><th>Вхід і реєстрація</th><td>Рішення про повноцінний кабінет</td><td><strong>Прив'язати.</strong> Не екран, а шар: пропозиція зберегти при першому тапі на Збережені, код на пошту всередині Оплати. Бронювання не перегороджує ніде</td></tr>
+          <tr><th>Підтвердження статусу</th><td>Бриф: 5% військовим і родичам</td><td><strong>Прив'язати</strong> до Бронювання згорнутим рядком. Колонка зникає, але сама знижка джоба так і не набуває</td></tr>
+          <tr><th>Замовлення їжі</th><td>Бриф: фільтр на сніданок, обід, вечерю</td><td><strong>Розділити.</strong> Фільтр лишається в Каталозі, блок — в Оселі. Окремий екран — у backlog</td></tr>
+          <tr><th>Про проєкт</th><td>Ніде. Запропонувала б я</td><td><strong>Видалити.</strong> Його роботу робить сторінка Критеріїв відбору — єдина, якої люди справді шукають, бо вона про обіцянку, а не про нас</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <h3>Що екранами не є</h3>
+      <p>Щоб не роздути дерево станами.</p>
+    </div>
+    <div class="cards">
+      <div class="card"><h4>Мапа</h4><p>Вигляд Каталогу. Перемикач, не сторінка — інакше людина втрачає фільтри при переході.</p></div>
+      <div class="card"><h4>«Зимівля»</h4><p>Добірка з типом «сезон».</p></div>
+      <div class="card"><h4>Галерея фото</h4><p>Шар поверх Оселі.</p></div>
+      <div class="card"><h4>Порожньо, помилка, завантаження</h4><p>Стани будь-якого екрана зі списком або формою — не окремі вузли дерева.</p></div>
+    </div>
+
+    <div class="col">
+      <h3>Що видно з розкладки по персонах</h3>
+      <p><strong>Три з чотирьох персон не породжують жодного власного екрана.</strong></p>
+      <p><strong>②</strong> «Той, хто мусить не зірвати дзвінок» хоче не екран, а <mark>рядок із цифрою</mark> всередині Оселі: виміряна швидкість замість значка Wi-Fi.</p>
+      <p><strong>③</strong> «Та, хто придивляється до купівлі» так само: P3 закривається місячною ціною і чесним описом побуту в тій самій Оселі.</p>
+      <p><strong>④</strong> «Та, хто їде по глибину» — <strong>єдина, хто додає екрани</strong>: Локальний гід, Журнал і Розмова з господарем існують майже лише завдяки їй.</p>
+      <div class="note"><strong>Висновок для наступного кроку.</strong> Secondary-персони — це здебільшого секції всередині Оселі, а не гілки дерева. Якщо ④ зі скоупу випаде, дерево втратить цілу гілку 5; якщо випадуть ② або ③ — не втратить жодного екрана.</div>
+    </div>
+  </div>
+</section>
+
+<section id="navigation">
+  <div class="wrap">
+    <div class="col">
+      <p class="eyebrow">Секція 3</p>
+      <h2>Навігація</h2>
+      <p>Нового дерева тут немає — лише те, як між уже названими екранами ходять. Кластери «дивлюсь на оселю», «домовляюсь і плачу» і «виїхала» в глобальну навігацію <strong>не виносяться свідомо</strong>: у них не заходять, у них потрапляють із потоку.</p>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Пункт</th><th>Веде в</th><th>Джоб</th><th>Чому не «бо так у всіх»</th></tr></thead>
+        <tbody>
+          <tr><th>бренд → Головна</th><td>Кластер 1</td><td>MAIN · R2</td><td>Головна ставить перше питання — <strong>«про яку оселю ви мрієте?»</strong>, а не «куди і коли». Єдиний екран, який говорить про стан</td></tr>
+          <tr><th>Оселі</th><td>Каталог</td><td>R2 · R1 · R5</td><td>Фільтри закріплені й перебудовують видачу на місці; мапа — перемикач вигляду всередині, не окремий пункт</td></tr>
+          <tr><th>Журнал</th><td>Розмови · Локальний гід</td><td>S2 · S3 · E2</td><td>Єдиний пункт не про транзакцію. Стоїть у навігації, бо знайомство мусить відбутись <strong>до</strong> оплати: чат відкривається лише після неї</td></tr>
+          <tr><th>Збережені</th><td>Збережені списки</td><td>R2 · S1</td><td>Нагору, бо про це просять дослівно: «Можливо хтось має збережені гарні будиночки… діліться» — 486 тис. переглядів</td></tr>
+          <tr><th>Кабінет → «Моя поїздка»</th><td>Кабінет, а під час поїздки — Моя поїздка</td><td>R4 · E1 · R5</td><td>Один слот, що <strong>міняє підпис за станом</strong>. Поки поїздки немає — кабінет; коли є — найкоротший шлях до адреси, ключа й дій при відключенні світла</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <p>П'ятого пункту немає навмисно. <strong>Критерії відбору</strong> могли б у нього проситись, але працюють сильніше як посилання з картки кожної оселі — саме там людина про них згадує. У підвалі лишаються дублем.</p>
+
+      <h3>Глибина: скільки тапів до main job</h3>
+      <p>Точка, де main job відбувся: людина на екрані <strong>Оселя</strong> бачить гарантований набір, «Чесно про цей дім», дату перевірки з іменем того, хто перевіряв, і господаря з обличчям та ім'ям. Усе на одному екрані, не по вкладках.</p>
+    </div>
+
+<pre class="taps">ШЛЯХ А — упізнавання (та, хто не знає, як сформулювати)
+
+  Головна ──тап 1──▶ Добірка ──тап 2──▶ ОСЕЛЯ ✓
+  «Прокинутись        «Де чути            main job
+   у тиші»             тільки птахів»     відбувся
+
+ШЛЯХ Б — фільтр (та, хто вже приблизно знає)
+
+  Головна ──тап 1──▶ Каталог ──тап 2──▶ ОСЕЛЯ ✓
+            «Оселі»       фільтри на місці,
+                          без переходу
+
+ШЛЯХ В — заходить не з головної (пошук, посилання з поста)
+
+  Добірка або Каталог ──тап 1──▶ ОСЕЛЯ ✓</pre>
+
+    <div class="stats">
+      <div class="stat"><span class="n">2</span><span class="l">тапи до main job — норму в три витримано</span></div>
+      <div class="stat plain"><span class="n">5</span><span class="l">тапів до оплаченої поїздки</span></div>
+      <div class="stat plain"><span class="n">2</span><span class="l">тапи у кожної з трьох secondary-персон</span></div>
+    </div>
+
+    <div class="col">
+      <p>Тримається це на трьох рішеннях, а не на везінні:</p>
+      <ol>
+        <li><strong>Фільтри не коштують тапів переходу.</strong> Закріплена смуга перебудовує видачу на місці — це взаємодія всередині екрана, не навігація. Якби фільтри ховались за кнопкою «Фільтри», шлях Б став би 4 тапи.</li>
+        <li><strong>Мапа не коштує тапа.</strong> Перемикач вигляду в Каталозі, а не сторінка. Окремою сторінкою вона з'їдала б фільтри при переході.</li>
+        <li><strong>Перевірка, господар і недоліки — на самому екрані Оселі</strong>, а не на вкладках. Якби «хто перевіряв» жило окремою сторінкою, main job відбувався б на 3-му тапі.</li>
+      </ol>
+    </div>
+
+    <div class="col">
+      <div class="hyp">
+        <h4>Пропозиція до рішення: звести Бронювання й Оплату в один екран → 4 тапи</h4>
+        <p class="from">відкрите питання</p>
+        <p><strong>Підстава — наші ж правила:</strong> застави немає, схвалення власником немає, запиту на бронювання немає, передоплата повна. Між «обрала строк» і «заплатила» не відбувається нічого, що вимагало б окремого екрана — це один крок, розрізаний навпіл за звичкою Booking.</p>
+        <p><strong>Компроміс:</strong> екран стає довшим, і підсумок «що входить у ціну» опиняється на одній сторінці з полями оплати. Для E1 це радше плюс — людина бачить суму і її склад у ту мить, коли натискає «оплатити». Ризик у тому, що довгий екран на телефоні ховає підсумок під клавіатурою.</p>
+        <p>У дереві поки лишаються два екрани.</p>
+      </div>
+
+      <h3>Глобальне, контекстне, глибоке</h3>
+    </div>
+
+    <div class="col">
+      <div class="tabs">
+        <div class="tabbar" role="tablist">
+          <button type="button" role="tab" aria-selected="true" aria-controls="nav-global" id="tab-global">Глобальне</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="nav-context" id="tab-context">Контекстне</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="nav-deep" id="tab-deep">Глибоке</button>
+        </div>
+        <div class="tabpanel" data-open id="nav-global" role="tabpanel" aria-labelledby="tab-global">
+          <p>Видно завжди: бренд · Оселі · Журнал · Збережені з лічильником · Кабінет або «Моя поїздка». У підвалі — Критерії відбору, Гарантія, English.</p>
+          <p>Окремо: <strong>смуга фільтрів глобальна в межах свого кластера</strong> — закріплена в Каталозі й Добірці й виглядає там однаково, але на Оселі чи в Кабінеті її немає.</p>
+          <div class="note"><strong>Що це закриває з відкритих питань.</strong> Смуга фільтрів на мобільному: чотири пункти глобального меню займають низ екрана, отже другій закріпленій смузі там місця немає. Тож <mark>фільтри — зверху, ховаються при гортанні вниз і повертаються при гортанні вгору</mark>. Великі фото лишаються на весь екран, а меню під пальцем.</div>
+        </div>
+        <div class="tabpanel" id="nav-context" role="tabpanel" aria-labelledby="tab-context">
+          <div class="tabgrid">
+            <div class="box"><h5>Список / мапа</h5><p>Каталог, Добірка. Поза списком немає чого перемикати</p></div>
+            <div class="box"><h5>Панель «Забронювати»</h5><p>Оселя, закріплена внизу. До вибору оселі бронювати нічого</p></div>
+            <div class="box"><h5>Критерії відбору</h5><p>Посилання з картки оселі — там, де виникає сумнів, а не в меню</p></div>
+            <div class="box"><h5>Господар і Розмова</h5><p>З Оселі. Знайомство прив'язане до дому, не до каталогу</p></div>
+            <div class="box"><h5>Чат</h5><p>Підтвердження і Моя поїздка. Фізично не існує до оплати</p></div>
+            <div class="box"><h5>Локальний гід</h5><p>З Оселі і з Моєї поїздки — прив'язаний до місцевості</p></div>
+            <div class="box"><h5>Звернення по гарантії</h5><p><strong>Не з довідки.</strong> Коли немає води, людина відкриває свою поїздку, а не FAQ</p></div>
+            <div class="box"><h5>Післявиїзна оцінка</h5><p>Приходить після виїзду. Події до того не було</p></div>
+          </div>
+        </div>
+        <div class="tabpanel" id="nav-deep" role="tabpanel" aria-labelledby="tab-deep">
+          <p>Рідкісні дії: вхід і реєстрація — тільки коли людина сама хоче зберегти або повернутись, <strong>ніде не перегороджує бронювання</strong> · підтвердження статусу для знижки згорнутим рядком у Бронюванні · залишити публічний відгук із Кабінету після виїзду · історія минулих поїздок · мова, дані, видалення акаунта.</p>
+          <div class="note">Самоперевірка нижче знайшла тут два розсинхрони: «Про проєкт» у Трасуванні видалено, а в цьому переліку досі значиться; вхід і підтвердження статусу перестали бути екранами, але перелічені як глибокі екрани. Обидва — у списку правок.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="trace">
+  <div class="wrap">
+    <div class="col">
+      <p class="eyebrow">Секція 4</p>
+      <h2>Трасування</h2>
+      <p>Перевірка, що кожен джоб має де відбутись, а кожен екран — навіщо існувати. Рядки — всі 14 джобів. Колонки — всі 23 екрани чернетки, включно з чотирма, вже позначеними як сироти.</p>
+      <p style="font-size:0.87rem;color:var(--muted)"><strong>Колонки:</strong> Гол Головна · Доб Добірка · Кат Каталог · Осе Оселя · Кри Критерії · Гос Господар · Роз Розмова · Бро Бронювання · Опл Оплата · Птв Підтвердження · Поі Моя поїздка · Чат Чат · Гід Локальний гід · Жур Журнал · Оцн Оцінка · Гар Гарантія · Від Відгук · Збе Збережені · Каб Кабінет · Вхд Вхід · Знж Знижка · Їжа Їжа · Про Про проєкт</p>
+    </div>
+
+    <div class="tablewrap matrix">
+      <table>
+        <thead><tr><th>Джоб</th><th>Гол</th><th>Доб</th><th>Кат</th><th>Осе</th><th>Кри</th><th>Гос</th><th>Роз</th><th>Бро</th><th>Опл</th><th>Птв</th><th>Поі</th><th>Чат</th><th>Гід</th><th>Жур</th><th>Оцн</th><th>Гар</th><th>Від</th><th>Збе</th><th>Каб</th><th>Вхд</th><th>Знж</th><th>Їжа</th><th>Про</th><th class="sum">Σ</th></tr></thead>
+        <tbody>
+          <tr><th>MAIN Перебути важкий період</th><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td></td><td></td><td></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="sum">8</td></tr>
+          <tr><th>R1 Чи я там витримаю</th><td></td><td></td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="sum">2</td></tr>
+          <tr><th>R2 Де взагалі шукати</th><td>✓</td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>✓</td><td></td><td></td><td></td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td class="sum">6</td></tr>
+          <tr><th>R3 Місце справжнє</th><td></td><td></td><td></td><td>✓</td><td>✓</td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="sum">5</td></tr>
+          <tr><th>R4 Саме той строк</th><td></td><td></td><td></td><td>✓</td><td></td><td></td><td></td><td>✓</td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>✓</td><td></td><td></td><td></td><td></td><td class="sum">5</td></tr>
+          <tr><th>R5 Не зруйнувати роботу</th><td></td><td></td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="sum">4</td></tr>
+          <tr><th>E1 Без зайвої невизначеності</th><td></td><td></td><td></td><td>✓</td><td></td><td></td><td></td><td></td><td>✓</td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="sum">5</td></tr>
+          <tr><th>E2 Місце відчувається моїм</th><td></td><td>✓</td><td></td><td>✓</td><td></td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="sum">5</td></tr>
+          <tr><th>E3 Не почуватися обдуреною</th><td></td><td></td><td></td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>✓</td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td class="sum">5</td></tr>
+          <tr><th>S1 Вибір, а не поразка</th><td></td><td>✓</td><td></td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td class="sum">3</td></tr>
+          <tr><th>S2 Бути прийнятою</th><td></td><td></td><td></td><td></td><td></td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="sum">3</td></tr>
+          <tr><th>S3 Знати, до кого йти</th><td></td><td></td><td></td><td>✓</td><td></td><td></td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="sum">4</td></tr>
+          <tr><th>P3 Перевірити до грошей</th><td></td><td></td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td class="sum">4</td></tr>
+          <tr><th>P4 Встигнути головне</th><td></td><td></td><td></td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td>✓</td><td>✓</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="sum">3</td></tr>
+          <tr class="total"><th>Σ</th><td class="sum">2</td><td class="sum">4</td><td class="sum">5</td><td class="sum">12</td><td class="sum">2</td><td class="sum">3</td><td class="sum">4</td><td class="sum">2</td><td class="sum">3</td><td class="sum">3</td><td class="sum">3</td><td class="sum">2</td><td class="sum">2</td><td class="sum">4</td><td class="sum">2</td><td class="sum">2</td><td class="sum">1</td><td class="sum">3</td><td class="sum">3</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="zero">0</td><td class="sum"></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <p><strong>Σ</strong> праворуч — на скількох екранах джоб відбувається. <strong>Σ</strong> знизу — скільки джобів тягне на собі екран. Чотири червоні нулі — це й є екрани-сироти.</p>
+
+      <h3>Дефект 2: порожніх рядків немає — і це не привід радіти</h3>
+      <p>Жоден із 14 джобів не лишився без екрана. Але екрани виводились із джобів на кроці 2, тож зворотна перевірка й мусила зійтись. Справжню інформацію дає не наявність галочки, а <strong>товщина рядка</strong>.</p>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Рядок</th><th class="num">Σ</th><th>Чому це ризик</th></tr></thead>
+        <tbody>
+          <tr><th>R1 Чи витримаю</th><td class="num hi">2</td><td>Найтонший рядок — при тому що в матриці джобів це <strong>3 бали для primary</strong>. Весь джоб тримається на одному блоці «Чесно про цей дім» усередині Оселі. Якщо блок напишуть формально, джоб не закриється ніде більше</td></tr>
+          <tr><th>P4 Встигнути головне</th><td class="num">3</td><td>Два з трьох екранів — Гід і Журнал — існують майже лише заради персони ④</td></tr>
+          <tr><th>S1 Щоб читалось як вибір</th><td class="num">3</td><td>Закривається естетикою, а не функцією. Перевірити можна буде тільки на макетах</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col">
+      <div class="note"><strong>Рішення по R1: не додавати екран, підсилити наявний.</strong> Окремий екран «чи витримаю» був би анкетою страхів — людина туди не піде. Натомість блок недоліків і рівень автономності в Оселі мають бути <mark>найдовше написаним текстом у продукті</mark>, а не трьома рядками.</div>
+
+      <h3>Найтонша колонка</h3>
+      <p><strong>Відгук — Σ 1</strong>, тримається на самому лише E3. Це не сирота, але найслабший екран у продукті, і слабкість свідома: оцінки відгуків не впливали ні на ціну, ні на ймовірність бронювання (<a href="https://papers.ssrn.com/abstract=2624181">Ert, Fleischer &amp; Magen, Tourism Management 55, 2016</a>). <strong>Рішення: лишити, але в черзі на реалізацію — останнім.</strong> Якщо на прототип забракне часу, різати треба тут, а не в перевірці чи блоці недоліків.</p>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th></th><th>До трасування</th><th>Після</th></tr></thead>
+        <tbody>
+          <tr><th>Екранів</th><td>23</td><td><strong>19</strong></td></tr>
+          <tr><th>Порожніх колонок</th><td>4</td><td><strong>0</strong></td></tr>
+          <tr><th>Порожніх рядків</th><td>0</td><td><strong>0</strong></td></tr>
+          <tr><th>Видалено</th><td>—</td><td>Про проєкт</td></tr>
+          <tr><th>Прив'язано до наявних</th><td>—</td><td>Вхід · Підтвердження статусу · Замовлення їжі</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="flows">
+  <div class="wrap">
+    <div class="col">
+      <p class="eyebrow">Секція 5</p>
+      <h2>Потоки</h2>
+      <p>Чотири user flows: main job і три найсильніші related. <strong>Нових екранів жоден потік не зажадав</strong> — це перевірка дерева, а не його розширення.</p>
+      <div class="note"><strong>Конвенція.</strong> Заокруглений вузол — тригер або успіх. Прямокутник — екран із дерева. Ромб — розвилка. <code>Loading:</code> / <code>Empty:</code> / <code>Error:</code> — <strong>стани екрана, не екрани</strong>. Червоний вузол — тупик, місце, де людина йде ні з чим.</div>
+      <h3>Три місця, де продукт розходиться зі звичним маркетплейсом житла</h3>
+    </div>
+
+    <div class="cards">
+      <div class="card"><h4>Кімнат немає</h4><p>Завжди ціле помешкання, тож людина шукає оселю, а не ліжко.</p></div>
+      <div class="card"><h4>Заявки й схвалення немає</h4><p>Ні запиту на бронювання, ні підтвердження власником, ні застави. Замість «відповіли на заявку?» працюють <strong>дати вільні?</strong> і <strong>платіж пройшов?</strong></p></div>
+      <div class="card"><h4>Чат відкривається після оплати</h4><p>У звичайному флоу діалог — спосіб набути довіри. У нас довіру мусять набути перевірка, блок недоліків і Розмова з господарем.</p></div>
+    </div>
+
+    <div class="col">
+      <div class="legend">
+        <span><i class="scr"></i> екран</span>
+        <span><i class="sta"></i> стан екрана</span>
+        <span><i class="ded"></i> тупик</span>
+        <span><i class="win"></i> джоб закрито</span>
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="col">
+        <h3>MAIN — безпечно знайти, з ким і де жити</h3>
+        <blockquote><p>Коли я вже не відновлююсь там, де живу, я хочу перебути найважчий період у місці, де вночі тихо і щоденний побут не забирає останні сили, щоб повернути собі сон і здатність жити далі.</p></blockquote>
+        <p style="font-size:0.9rem;color:var(--muted)">Персона: «Та, хто чотири роки не спить» — primary.</p>
+      </div>
+      <div class="diagram">
+<pre class="mermaid">flowchart TD
+    Start([Не відновлююсь там, де живу]) --> Home[Головна]
+    Home --> Know{Знаю, як сформулювати?}
+    Know -->|ні| Coll[Добірка]
+    Know -->|так| Cat[Каталог]
+    Cat --> Load["Loading: підбираємо оселі"]
+    Load --> Has{Є відповідні оселі?}
+    Has -->|ні| Empty["Empty: нічого не знайшлось"]
+    Empty -->|послабила| Cat
+    Empty -->|ні| DeadOlx(["Тупик: повертається до OLX"])
+    Has -->|так| House[Оселя]
+    Coll --> House
+    House --> Cond{Тепло і вода, якщо вимкнуть світло?}
+    Cond -->|ні| Cat
+    Cond -->|так| Trust{Достатньо довіри?}
+    Trust -->|хто господар| Owner[Господар]
+    Trust -->|за якими критеріями| Crit[Критерії відбору]
+    Owner --> Trust
+    Crit --> Trust
+    Trust -->|сумнів лишився| DeadTrust(["Тупик: закриває вкладку"])
+    Trust -->|не зараз| Saved[Збережені]
+    Saved -->|повернулась| House
+    Saved -->|не повернулась| DeadSaved(["Тупик: список лежить незайманий"])
+    Trust -->|так| Book[Бронювання]
+    Book --> Free{Дати вільні на потрібний строк?}
+    Free -->|ні| ErrDates["Error: оселя зайнята на ці дати"]
+    ErrDates --> Cat
+    Free -->|так| Price{Ціна за цей строк прийнятна?}
+    Price -->|ні| DeadPrice(["Тупик: іде, як від 8 тисяч за добу"])
+    Price -->|так| Pay[Оплата]
+    Pay --> Wait["Loading: підтверджуємо платіж"]
+    Wait --> Paid{Платіж пройшов?}
+    Paid -->|ні| ErrPay["Error: оплата не пройшла"]
+    ErrPay -->|інший спосіб| Pay
+    ErrPay -->|ні| DeadPay(["Тупик: поїздки немає"])
+    Paid -->|так| Conf[Підтвердження]
+    Conf --> Win(["Job закрито: оселя знайдена, чат відкрито"])
+    classDef screen fill:#fdf3ea,stroke:#b5502e,color:#2b2b2b
+    classDef state fill:#f1efe9,stroke:#9a9287,color:#4a443c
+    classDef dead fill:#f6e2db,stroke:#a8321a,stroke-width:2px,color:#7a2412
+    classDef win fill:#e6efe4,stroke:#4f7a52,stroke-width:2px,color:#2f4a31
+    class Home,Coll,Cat,House,Owner,Crit,Saved,Book,Pay,Conf screen
+    class Load,Empty,ErrDates,Wait,ErrPay state
+    class DeadOlx,DeadTrust,DeadSaved,DeadPrice,DeadPay dead
+    class Win,Start win</pre>
+      </div>
+      <p class="diagram-hint">Діаграма більша за екран — її можна гортати в обидва боки, а нижній край потягнути вниз.</p>
+      <div class="col">
+        <p><strong>Вузол, через який проходить увесь продукт</strong> — «Достатньо довіри?». Два обходи, Господар і Критерії відбору, обидва повертаються сюди ж. Три системні перевірки на фініші — дати, ціна, платіж — стоять там, де у звичайному флоу було б «відповіли на заявку?».</p>
+      </div>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>П'ять тупиків</th><th>Де губимо</th><th>Чи відіграється</th></tr></thead>
+          <tbody>
+            <tr><th>Повертається до OLX</th><td>Порожня видача</td><td>Так — порожній екран мусить вести в Добірки</td></tr>
+            <tr><th>Сумнів не знятий</th><td>Оселя</td><td>Так, і це головна робота продукту</td></tr>
+            <tr><th>Список лежить незайманий</th><td>Збережені</td><td>Частково. Нагадувати ми не вміємо й не хочемо</td></tr>
+            <tr><th>Ціна відлякала</th><td>Бронювання</td><td>Ні. Це рішення про каталог, не про інтерфейс</td></tr>
+            <tr><th>Оплата не пройшла</th><td>Оплата</td><td>Так — кілька способів уже в брифі</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="col">
+        <h3>R3 — переконатись, що місце справжнє</h3>
+        <blockquote><p>Коли я плачу всю суму наперед людині, якої не знаю, я хочу бачити доказ, що оселя існує і виглядає як на фото, щоб не приїхати в інше місце.</p></blockquote>
+        <p style="font-size:0.9rem;color:var(--muted)">3 бали primary, 3 бали персоні ③.</p>
+      </div>
+      <div class="diagram">
+<pre class="mermaid">flowchart TD
+    Start([Плачу всю суму наперед незнайомій людині]) --> House[Оселя]
+    House --> Load["Loading: галерея і кадри перевірки"]
+    Load --> Checked{Перевірка на місці є, з датою й іменем?}
+    Checked -->|ні| Empty["Empty: цю оселю ще не перевіряли"]
+    Empty -->|шукати далі| Cat[Каталог]
+    Empty -->|ризикну| Owner[Господар]
+    Checked -->|так| Flaws{Названі недоліки справжні?}
+    Flaws -->|ні| DeadFake(["Тупик: список декоративний, довіра падає сильніше"])
+    Flaws -->|так| Why{Зрозуміло, за якими критеріями взяли?}
+    Why -->|ні| Crit[Критерії відбору]
+    Crit --> Owner
+    Why -->|так| Owner
+    Owner --> Trust{Профіль вселяє довіру?}
+    Trust -->|хочу почути його голос| Talk[Розмова з господарем]
+    Talk --> Trust
+    Trust -->|ні| DeadTrust(["Тупик: наперед незнайомцю не заплатить"])
+    Trust -->|так| Win(["Job закрито: сумнів знятий"])
+    classDef screen fill:#fdf3ea,stroke:#b5502e,color:#2b2b2b
+    classDef state fill:#f1efe9,stroke:#9a9287,color:#4a443c
+    classDef dead fill:#f6e2db,stroke:#a8321a,stroke-width:2px,color:#7a2412
+    classDef win fill:#e6efe4,stroke:#4f7a52,stroke-width:2px,color:#2f4a31
+    class House,Cat,Crit,Owner,Talk screen
+    class Load,Empty state
+    class DeadFake,DeadTrust dead
+    class Win,Start win</pre>
+      </div>
+      <p class="diagram-hint">Діаграма більша за екран — її можна гортати в обидва боки, а нижній край потягнути вниз.</p>
+      <div class="col">
+        <p><strong>Розвилка, якої немає в жодного конкурента</strong> — «перевірка є?». Airbnb перевірку робить, але доказ від гостя ховає (<a href="https://www.airbnb.com.ua/help/article/3776">ст. 3776</a>). Найнебезпечніша — «недоліки справжні?»: декоративний список шкодить <strong>більше</strong>, ніж його відсутність. Звідси правило «щонайменше три справжні».</p>
+        <p class="note" style="margin-top:1rem"><strong>Дефект, знайдений самоперевіркою:</strong> вузол «Каталог» у цьому потоці не має жодного вихідного ребра — потік обривається посеред екрана. Найгрубіший дефект з усіх, у списку правок він перший.</p>
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="col">
+        <h3>R4 — домовитись саме на той строк</h3>
+        <blockquote><p>Коли мені потрібно перебути лише найважчі місяці, я хочу домовитись саме на цей строк, не беручи на себе рік, щоб не платити за житло тоді, коли воно мені вже не потрібне.</p></blockquote>
+        <p style="font-size:0.9rem;color:var(--muted)">3 бали primary, 3 бали ③, 3 бали ④. <strong>Найсильніший related job із усіх.</strong></p>
+      </div>
+      <div class="diagram">
+<pre class="mermaid">flowchart TD
+    Start([Треба перебути лише найважчі місяці]) --> Cat[Каталог]
+    Cat --> Long{Потрібен місяць і більше?}
+    Long -->|ні| House[Оселя]
+    Long -->|так| Load["Loading: шукаємо вільні на довгий строк"]
+    Load --> Has{Є вільні на цей строк?}
+    Has -->|ні| Empty["Empty: на такий строк нічого немає"]
+    Empty -->|розділю на два заїзди| Cat
+    Empty -->|ні| DeadYear(["Тупик: на ринку запропонують рік"])
+    Has -->|так| House
+    House --> Month{Ціна за місяць показана окремо від доби?}
+    Month -->|ні| DeadMath(["Тупик: множить добу на тридцять, лякається, іде"])
+    Month -->|так| Book[Бронювання]
+    Book --> Cancel{Умова скасування зрозуміла?}
+    Cancel -->|ні| DeadStuck(["Тупик: боїться застрягти на три місяці"])
+    Cancel -->|так| Pay[Оплата]
+    Pay --> Wait["Loading: підтверджуємо платіж"]
+    Wait --> Paid{Платіж пройшов?}
+    Paid -->|ні| Err["Error: оплата не пройшла"]
+    Err --> Pay
+    Paid -->|так| Conf[Підтвердження]
+    Conf --> Win(["Job закрито: строк саме той"])
+    classDef screen fill:#fdf3ea,stroke:#b5502e,color:#2b2b2b
+    classDef state fill:#f1efe9,stroke:#9a9287,color:#4a443c
+    classDef dead fill:#f6e2db,stroke:#a8321a,stroke-width:2px,color:#7a2412
+    classDef win fill:#e6efe4,stroke:#4f7a52,stroke-width:2px,color:#2f4a31
+    class Cat,House,Book,Pay,Conf screen
+    class Load,Empty,Wait,Err state
+    class DeadYear,DeadMath,DeadStuck dead
+    class Win,Start win</pre>
+      </div>
+      <p class="diagram-hint">Діаграма більша за екран — її можна гортати в обидва боки, а нижній край потягнути вниз.</p>
+      <div class="col">
+        <p><strong>Розвилки, яких ринок не ставить узагалі.</strong> «Потрібен місяць і більше?» — у Hutshub 90% бронювань до трьох діб. «Ціна за місяць окремо від доби?» — технічно рядок, по суті весь джоб. «Умова скасування зрозуміла?» — для довгого строку страшніше за ціну.</p>
+        <p>Тупик «розсміються в обличчя» — це те, що відбувається з людиною на ринку сьогодні (<a href="https://lb.ua/society/2026/10/15/773364_vid_pereyaslava_uzhgoroda_de.html">LB.ua, 15.10.2026</a>). Якщо порожній стан не запропонує виходу, ми повторимо ринок у кращому оформленні.</p>
+      </div>
+    </div>
+
+    <div class="flow">
+      <div class="col">
+        <h3>E1 — перестати додавати собі невизначеності</h3>
+        <blockquote><p>Коли я вже живу в оселі й щось із обіцяного не працює, я хочу знати, що робити і на що маю право, щоб не з'ясовувати це з нуля посеред поїздки.</p></blockquote>
+        <p style="font-size:0.9rem;color:var(--muted)">Єдиний потік, де є справжнє відхилення заявки: гарантія без механізму розгляду — просто текст.</p>
+      </div>
+      <div class="diagram">
+<pre class="mermaid">flowchart TD
+    Start([Живу в оселі, щось із обіцяного не працює]) --> Trip[Моя поїздка]
+    Trip --> Broken{Світло, вода, тепло чи інтернет не працює?}
+    Broken -->|ні| Fine(["Job закрито: нічого не зламалось"])
+    Broken -->|так| Chat[Чат із господарем]
+    Chat --> Wait["Loading: господар ще не відповів"]
+    Wait --> Fixed{Полагодили за домовлений час?}
+    Fixed -->|так| Fine
+    Fixed -->|ні| Claim[Звернення по гарантії]
+    Claim --> Proof{Є фото або відео з часом?}
+    Proof -->|ні| Empty["Empty: без доказів не приймається"]
+    Empty -->|зніму зараз| Claim
+    Empty -->|вже пізно| DeadProof(["Тупик: компенсації не буде"])
+    Proof -->|так| Review["Loading: звернення на розгляді"]
+    Review --> Granted{Звернення задоволено?}
+    Granted -->|відхилили| Err["Error: відхилено, з причиною"]
+    Err -->|оскаржує| Review
+    Err -->|ні| DeadWords(["Тупик: гарантія виявилась словами"])
+    Granted -->|так| Back(["Job закрито: 50% вартості доби повернуто"])
+    Fine --> Rate[Післявиїзна оцінка]
+    Back --> Rate
+    Rate --> Clean(["Job закрито: друга низька оцінка зніме оселю"])
+    classDef screen fill:#fdf3ea,stroke:#b5502e,color:#2b2b2b
+    classDef state fill:#f1efe9,stroke:#9a9287,color:#4a443c
+    classDef dead fill:#f6e2db,stroke:#a8321a,stroke-width:2px,color:#7a2412
+    classDef win fill:#e6efe4,stroke:#4f7a52,stroke-width:2px,color:#2f4a31
+    class Trip,Chat,Claim,Rate screen
+    class Wait,Empty,Review,Err state
+    class DeadProof,DeadWords dead
+    class Fine,Back,Clean,Start win</pre>
+      </div>
+      <p class="diagram-hint">Діаграма більша за екран — її можна гортати в обидва боки, а нижній край потягнути вниз.</p>
+      <div class="col">
+        <p><strong>Вхід із «Моєї поїздки», не з довідки:</strong> коли немає води, людина відкриває свою поїздку, а не FAQ. Перший крок — господар лагодить сам: більшість випадків мусить закриватись тут, інакше платформа платить за кожну перегорілу лампочку.</p>
+        <p>Найжорсткіша розвилка — «є докази?». Без неї гарантія не працює, але вона ж створює тупик для того, хто не здогадався зняти відео вчасно. Тому попередити треба <mark>в підтвердженні бронювання</mark>, а не в момент звернення.</p>
+        <div class="pull">
+          <span class="qt">«Гарантія виявилась словами» — найдорожчий тупик у продукті: людина, якій відмовили, забирає з собою рівно те відчуття, проти якого ми будуємося.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="review">
+  <div class="wrap">
+    <div class="col">
+      <p class="eyebrow">Секція 6</p>
+      <h2>Критика власної роботи</h2>
+      <p>Перш ніж іти у вайрфрейми, IA перевірена проти самої себе. <strong>Метод:</strong> діаграми розібрані як графи — шукались вузли без вихідних ребер, ромби з однією гілкою, стани без виходу. Окремо звірені теги джобів у дереві з матрицею трасування й перелік екранів у потоках із переліком у дереві. Претензії нижче — не на око, а з цієї звірки.</p>
+      <p><strong>Нічого з цього не виправлено</strong> — це список, а не правка. Так видно, яким був перший підхід і що саме в ньому ламалось.</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><span class="n">26</span><span class="l">дефектів знайдено самоперевіркою</span></div>
+      <div class="stat plain"><span class="n">9</span><span class="l">тупиків — людині немає куди піти</span></div>
+      <div class="stat plain"><span class="n">9</span><span class="l">екранів без порожнього стану</span></div>
+      <div class="stat plain"><span class="n">8</span><span class="l">зайвих глибин і розсинхронів</span></div>
+    </div>
+
+    <div class="col">
+      <div class="tabs">
+        <div class="tabbar" role="tablist">
+          <button type="button" role="tab" aria-selected="true" aria-controls="rv-dead" id="tabrv-dead">Тупики · 9</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="rv-state" id="tabrv-state">Відсутні стани · 9</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="rv-depth" id="tabrv-depth">Зайва глибина · 3</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="rv-sync" id="tabrv-sync">Сироти й розсинхрон · 5</button>
+        </div>
+
+        <div class="tabpanel" data-open id="rv-dead" role="tabpanel" aria-labelledby="tabrv-dead">
+          <p>Найнебезпечніше: місця, де людина заходить і не може вийти.</p>
+          <div class="tablewrap">
+            <table>
+              <thead><tr><th>Де</th><th>Що</th><th>Як лагодити</th></tr></thead>
+              <tbody>
+                <tr><th>R3 · вузол Каталог <span class="sev dead">найгрубіший</span></th><td><strong>Каталог не має жодного вихідного ребра.</strong> Людина відмовилась від неперевіреної оселі, потрапила в Каталог — і потік обривається посеред екрана</td><td>Замкнути <code>Cat → House</code>. Потік має повертатись у цикл вибору, а не вмирати</td></tr>
+                <tr><th>MAIN · ErrDates</th><td>«Оселя зайнята на ці дати» веде тільки в Каталог — ми викидаємо саме ту оселю, якій людина вже повірила. У прозі написано «з пропозицією сусідніх», діаграма цього не робить. <strong>Документ суперечить сам собі</strong></td><td>Гілка на найближчі вільні дати цієї ж оселі. Втрата довіри дорожча за втрату дат</td></tr>
+                <tr><th>MAIN · DeadPrice</th><td>«Ціна не прийнятна» → нікуди. Це найчастіша відмова на ринку</td><td>Гілка «дешевші поруч» → Каталог із застосованим фільтром ціни й збереженим районом</td></tr>
+                <tr><th>MAIN і R3 · DeadTrust</th><td>«Сумнів лишився» → нікуди <strong>в обох потоках</strong>. При тому, що зняття сумніву — головна робота продукту</td><td>Гілка «оселі, перевірені цього місяця». Якщо не вірить цій оселі, це не значить, що не повірить жодній</td></tr>
+                <tr><th>MAIN · Empty</th><td>Виходів два: послабити фільтр або піти. Але й патерни, і проза стверджують, що порожній екран має вести в Добірки — у діаграмі цього немає</td><td>Додати гілку в Добірки</td></tr>
+                <tr><th>R4 · Err оплати</th><td>Єдиний вихід назад на Оплату — замкнена петля. У MAIN для того самого стану дві гілки. <strong>Два потоки описують один екран по-різному</strong></td><td>Привести до вигляду MAIN</td></tr>
+                <tr><th>E1 · Review</th><td>«Звернення на розгляді» не має гілки «строк вийшов, відповіді немає». Платформа може мовчати — і людина застрягає всередині механізму, який ми продаємо як гарантію</td><td>Таймер із названим строком і автоескалація</td></tr>
+                <tr><th>E1 · Wait</th><td>«Не полагодив» і «не відповів узагалі» злиті в одну гілку, хоча це різні ситуації</td><td>Розділити: мовчання за N годин веде просто в Звернення</td></tr>
+                <tr><th>DeadFake · DeadSaved <span class="sev keep">свідомо</span></th><td>«Недоліки декоративні» і «список лежить незайманий» теж без виходу</td><td><strong>Лишити свідомо.</strong> Перший — контентний дефект: кнопкою його не лагодять, лише редполітикою. Другий — ми не надсилаємо нагадувань і не хочемо. Позначити в документі, щоб їх не шукали як недоробку</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tabpanel" id="rv-state" role="tabpanel" aria-labelledby="tabrv-state">
+          <p>Happy-path є, empty / error / loading немає.</p>
+          <div class="tabgrid">
+            <div class="box"><h5>Збережені</h5><p>Порожній стан названий у дереві, але <strong>не намальований у жодному потоці</strong>. А це найперше, що новий користувач там побачить</p></div>
+            <div class="box"><h5>Кабінет гостя</h5><p>«Ще немає поїздок» названо й не намальовано. Екрана немає в жодному потоці взагалі</p></div>
+            <div class="box"><h5>Добірка</h5><p><strong>Жодного стану.</strong> Фільтри працюють і всередині добірки — отже вона може спорожніти</p></div>
+            <div class="box"><h5>Розмова з господарем</h5><p>Редакційний матеріал не буде на всі 30 осель — і тоді <strong>обхід довіри в R3 ламається мовчки</strong></p></div>
+            <div class="box"><h5>Локальний гід</h5><p>Гіда не буде для кожної місцевості. На ньому тримаються S3 і P4 цілком</p></div>
+            <div class="box"><h5>Журнал</h5><p>Ні станів, ні потоку. Екран існує лише в дереві</p></div>
+            <div class="box"><h5>Відгук</h5><p><strong>Як виглядає оселя без відгуків — а на старті це всі оселі?</strong> «Тут ще ніхто не лишав відгуку» — нормальний стан, не порожнеча</p></div>
+            <div class="box"><h5>Моя поїздка</h5><p>Немає стану до заїзду і після виїзду. Потік E1 починається так, ніби поїздка завжди активна</p></div>
+            <div class="box"><h5>Підтвердження</h5><p>Немає error «лист не дійшов», хоча це <strong>єдине джерело адреси й ключа</strong></p></div>
+          </div>
+          <div class="note">Станів <strong>не потребують</strong> Критерії відбору й Головна — статичні. Сказано, щоб їх не шукали в списку як пропуск.</div>
+        </div>
+
+        <div class="tabpanel" id="rv-depth" role="tabpanel" aria-labelledby="tabrv-depth">
+          <div class="tablewrap">
+            <table>
+              <thead><tr><th>Де</th><th>Що</th><th>Як лагодити</th></tr></thead>
+              <tbody>
+                <tr><th>Розмова з господарем</th><td><strong>Суперечність між документами.</strong> Навігація каже «Господар і Розмова — з Оселі», тобто 3 тапи. Потік R3 веде Оселя → Господар → Розмова — <strong>4 тапи</strong>. Для R3, а це 3 бали для primary, різниця суттєва</td><td>Посилання на Розмову ставити прямо в блоці господаря на картці оселі, і перемалювати R3</td></tr>
+                <tr><th>Фільтр строку не існує <span class="sev depth">найдорожча</span></th><td>Перелік фільтрів: камін, чан, мангал, тварини, безбар'єрність, кімнати, місткість, ціна, їжа. <strong>Строку й дат серед них немає.</strong> При цьому весь потік R4 збудований навколо ромба «фільтр строку дає результати?» — а R4 найсильніший related job: 3 бали трьом персонам із чотирьох</td><td>Внести <strong>строк</strong> у смугу фільтрів першим елементом. Без нього R4 не закривається ніде</td></tr>
+                <tr><th>Післявиїзна оцінка</th><td>Немає входу. Навігація каже «приходить після виїзду», але канал не названий, а Кабінет у потоках не фігурує</td><td>Назвати канал явно: картка в «Моїй поїздці» в режимі «після виїзду»</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tabpanel" id="rv-sync" role="tabpanel" aria-labelledby="tabrv-sync">
+          <div class="tablewrap">
+            <table>
+              <thead><tr><th>Де</th><th>Що</th><th>Як лагодити</th></tr></thead>
+              <tbody>
+                <tr><th>Потоки проти дерева</th><td><strong>Чотири екрани не фігурують у жодному потоці:</strong> Відгук, Журнал, Кабінет гостя, Локальний гід. За матрицею вони не сироти — у них Σ 1, 4, 3 і 2. Тобто <strong>дві наші перевірки дають різну відповідь</strong> про одні й ті самі екрани</td><td>Або домалювати п'ятий потік «повертаюсь і читаю», або записати, що ці чотири свідомо без потоку</td></tr>
+                <tr><th>Дерево проти матриці</th><td><strong>9 екранів із 19 мають різні теги джобів у двох місцях одного документа.</strong> Найгірший випадок — Оселя: у дереві 5 джобів, у матриці 12. Бронювання, Оплата й Підтвердження в дереві не мають MAIN, хоча без них головний джоб не закривається</td><td>Матриця — джерело правди, вона повніша. Привести теги в дереві до неї</td></tr>
+                <tr><th>«Про проєкт»</th><td>У трасуванні видалено, у навігації досі значиться серед «глибоких» екранів</td><td>Прибрати з навігації</td></tr>
+                <tr><th>Вхід · Підтвердження статусу</th><td>У трасуванні перестали бути екранами і стали шаром та рядком. У навігації досі перелічені як глибокі екрани</td><td>Переписати абзац «Глибоке»: це вже не екрани</td></tr>
+                <tr><th>Jobs-сироти <span class="sev sync">чисто</span></th><td><strong>Немає.</strong> Жоден із 14 рядків не порожній</td><td>Дефекту немає. Але товщина рядка R1 — дві галочки — лишається ризиком</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col">
+      <h3>Вісімнадцять правок, згрупованих за тим, що зламається без них</h3>
+      <h4>Спершу — те, через що людина застрягне</h4>
+      <ol class="fixlist">
+        <li class="top">R3: замкнути <code>Cat → House</code>.</li>
+        <li>MAIN: <code>ErrDates</code> → гілка на найближчі вільні дати цієї ж оселі.</li>
+        <li>MAIN: <code>Empty</code> → гілка в Добірки.</li>
+        <li>MAIN і R3: <code>DeadTrust</code> → гілка на перевірені оселі.</li>
+        <li>MAIN: <code>DeadPrice</code> → гілка на дешевші поруч.</li>
+        <li>R4: привести <code>Err</code> оплати до двох гілок, як у MAIN.</li>
+        <li>E1: таймери на <code>Wait</code> і <code>Review</code>, розділити «не відповів» і «не полагодив».</li>
+        <li>Позначити <code>DeadFake</code> і <code>DeadSaved</code> як <strong>свідомі</strong> тупики.</li>
+      </ol>
+      <h4>Потім — стани</h4>
+      <ol class="fixlist" start="9">
+        <li>Завести явний перелік станів по кожному з 19 екранів.</li>
+        <li>Домалювати <code>Empty</code> для Збережених, Добірки, Розмови, Гіда, Відгуку.</li>
+        <li>Три режими «Моєї поїздки» — до заїзду, під час, після.</li>
+      </ol>
+      <h4>Потім — глибина</h4>
+      <ol class="fixlist" start="12">
+        <li class="top"><strong>Внести строк у перелік фільтрів.</strong> Найважливіша правка в усьому списку: без неї найсильніший related job не має інструменту.</li>
+        <li>Розмова відкривається з Оселі, не через Господаря. Перемалювати R3.</li>
+        <li>Назвати вхід у Післявиїзну оцінку.</li>
+      </ol>
+      <h4>Насамкінець — звести документи</h4>
+      <ol class="fixlist" start="15">
+        <li>Привести теги джобів у дереві до матриці — 9 екранів.</li>
+        <li>Прибрати «Про проєкт» із навігації.</li>
+        <li>Переписати «Глибоке»: вхід і знижка вже не екрани.</li>
+        <li>Вирішити по чотирьох екранах без потоку.</li>
+      </ol>
+
+      <div class="hyp">
+        <h4>Найдорожчі дві</h4>
+        <p class="from">якщо робити тільки щось одне</p>
+        <p><strong>№12</strong> — без фільтра строку R4 не існує як функція, а це найсильніший related job: 3 бали трьом персонам із чотирьох.</p>
+        <p><strong>№1</strong> — єдиний формально зламаний граф у всій роботі.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap col">
+    <p>Крок 3 з дванадцяти. Повні документи — <a href="https://github.com/sofiya5395870-sys/khata-v-seli/blob/main/ia/sitemap.md">sitemap.md</a> · <a href="https://github.com/sofiya5395870-sys/khata-v-seli/blob/main/ia/flows.md">flows.md</a> · <a href="https://github.com/sofiya5395870-sys/khata-v-seli/blob/main/ia/review.md">review.md</a></p>
+    <p>Попередній крок — <a href="personas.html">персони і джоби</a>. Усі кроки — на <a href="index.html">головній</a>.</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+<script>
+if (window.mermaid) {
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'base',
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+    flowchart: { curve: 'basis', useMaxWidth: false, padding: 12 },
+    themeVariables: {
+      background: '#ffffff',
+      primaryColor: '#fdf3ea',
+      primaryBorderColor: '#b5502e',
+      primaryTextColor: '#2b2b2b',
+      lineColor: '#9a9287',
+      fontSize: '13px'
+    }
+  });
+  mermaid.run().then(function () {
+    /* діаграма ширша за вікно — відкрити її по центру потоку, а не з порожнього краю */
+    document.querySelectorAll('.diagram').forEach(function (d) {
+      if (d.scrollWidth > d.clientWidth) d.scrollLeft = (d.scrollWidth - d.clientWidth) / 2;
+    });
+  });
+}
+</script>
+
+<script>
+document.querySelectorAll('.tabs').forEach(function (t) {
+  var btns = t.querySelectorAll('.tabbar button');
+  var panes = t.querySelectorAll('.tabpanel');
+  btns.forEach(function (b, i) {
+    b.addEventListener('click', function () {
+      btns.forEach(function (x) { x.setAttribute('aria-selected', 'false'); });
+      panes.forEach(function (p) { p.removeAttribute('data-open'); });
+      b.setAttribute('aria-selected', 'true');
+      panes[i].setAttribute('data-open', '');
+    });
+  });
+});
+</script>
+</body>
+</html>

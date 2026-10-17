@@ -1,0 +1,5 @@
+.DS_Store
+.playwright-mcp/
+
+# робочі налаштування Claude Code — лишаються локально, у портфоліо не йдуть
+.claude/
