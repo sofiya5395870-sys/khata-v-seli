@@ -33,7 +33,11 @@
   color: var(--muted); text-decoration: none; border: none; border-left: 2px solid transparent;
 }
 .sb .sub a:hover { color: var(--ink); background: var(--bg); }
-.sb .sub a[aria-current="true"] { color: var(--accent); border-left-color: var(--accent); font-weight: 550; }
+.sb .sub a[aria-current="true"] {
+  color: var(--accent); font-weight: 550;
+  text-decoration: underline; text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px; text-underline-offset: 5px;
+}
 
 .sb .foot { padding: 1.3rem 1.4rem 0; margin-top: 0.6rem; border-top: 1px solid var(--line); font-size: 0.76rem; color: var(--dim); line-height: 1.5; }
 
