@@ -190,3 +190,26 @@ mark { background: linear-gradient(transparent 58%, rgba(181,80,46,0.22) 58%); c
   --tint-2: #eef4ee;        /* тінт під зелень */
   --tint-3: #fbf3e2;        /* тінт під вохру */
 }
+
+/* вертикальні заголовки колонок у матриці трасування */
+.matrix thead th.vert { height: 9.5rem; vertical-align: bottom; padding: 0.4rem 0.1rem; }
+.matrix thead th.vert span {
+  display: block; writing-mode: vertical-rl; transform: rotate(180deg);
+  white-space: nowrap; font-weight: 500; font-size: 0.78rem; line-height: 1;
+}
+
+/* розгортання діаграми на весь екран */
+.diagram { position: relative; }
+.diagram .expand {
+  position: absolute; top: 0.5rem; right: 0.5rem; z-index: 2;
+  font: inherit; font-size: 0.78rem; line-height: 1; cursor: pointer;
+  padding: 0.4rem 0.6rem; border: 1px solid var(--line); border-radius: 0.4rem;
+  background: var(--bg); color: var(--muted);
+}
+.diagram .expand:hover { color: var(--ink); border-color: var(--ink); }
+.diagram.full {
+  position: fixed; inset: 0; z-index: 9999; margin: 0; overflow: auto;
+  background: var(--bg); padding: 3rem 1.5rem 2rem; display: grid; place-items: center;
+}
+.diagram.full svg { max-width: 100%; height: auto; }
+body.diagram-open { overflow: hidden; }
