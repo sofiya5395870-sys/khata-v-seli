@@ -192,10 +192,13 @@ mark { background: linear-gradient(transparent 58%, rgba(181,80,46,0.22) 58%); c
 }
 
 /* вертикальні заголовки колонок у матриці трасування */
-.matrix thead th.vert { height: 9.5rem; vertical-align: bottom; padding: 0.4rem 0.1rem; }
+.matrix thead th.vert {
+  height: 10.5rem; vertical-align: bottom; text-align: center;
+  padding: 0.5rem 0.3rem 0.6rem;
+}
 .matrix thead th.vert span {
-  display: block; writing-mode: vertical-rl; transform: rotate(180deg);
-  white-space: nowrap; font-weight: 500; font-size: 0.78rem; line-height: 1;
+  display: inline-block; writing-mode: vertical-rl; transform: rotate(180deg);
+  white-space: nowrap; font-weight: 500; font-size: 0.78rem; line-height: 1.1;
 }
 
 /* розгортання діаграми на весь екран */
