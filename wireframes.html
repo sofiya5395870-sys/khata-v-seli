@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Хата в селі — вайрфрейми</title>
+<meta name="description" content="Крок 4: вайрфрейми головного флоу — сім екранів, кожен стан окремою сторінкою, мобільний веб, сіра шкала.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23b5502e'/%3E%3Cpath d='M7 15.6 16 8.4l9 7.2V24a1 1 0 0 1-1 1h-5v-6h-6v6H8a1 1 0 0 1-1-1z' fill='%23faf8f5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/case.css">
+<link rel="stylesheet" href="assets/sidebar.css">
+<script src="assets/nav.js" defer></script>
+<style>
+  header.hero {
+    background:
+      radial-gradient(1100px 420px at 12% -10%, var(--tint-1) 0%, transparent 62%),
+      radial-gradient(900px 380px at 88% 0%, var(--tint-2) 0%, transparent 58%);
+  }
+  header.hero h1 { color: #15110f; }
+  .wf-open { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.4rem; }
+</style>
+</head>
+<body data-page="04">
+
+<a class="skip" href="#main">Перейти до змісту</a>
+
+<header class="hero" id="main" tabindex="-1">
+  <div class="wrap col">
+    <p class="eyebrow">Крок 4 — прототипування</p>
+    <h1>Вайрфрейм як перший шар коду</h1>
+    <p class="lede">Не ескіз на викид: справжня розмітка, справжній текст і всі стани екрана — кожен окремою сторінкою, яку можна відкрити посиланням.</p>
+    <p class="lede">Продукт — <strong>мобільний веб</strong>, тому кожен екран стоїть у рамці телефона, меню живе внизу, а смуга фільтрів приклеєна зверху. Кольору, шрифтових прикрас і готового UI тут немає: це крок 7.</p>
+    <div class="meta">
+      <div><b>7 екранів</b>головного флоу</div>
+      <div><b>21 сторінок</b>разом зі станами</div>
+      <div><b>390 × 844</b>основний пристрій</div>
+      <div><b>0 глухих кутів</b>у кожного стану є вихід</div>
+    </div>
+  </div>
+</header>
+
+<section id="rules">
+  <div class="wrap">
+    <div class="col">
+      <p class="eyebrow">Частина 1</p>
+      <h2>Правила, за якими це зроблено</h2>
+      <p>Повний контракт — у <a href="https://github.com/sofiya5395870-sys/khata-v-seli/blob/main/wireframes/_conventions.md">_conventions.md</a>. Коротко — п'ять речей, які відрізняють цей макет від сірих прямокутників.</p>
+    </div>
+    <div class="cards">
+      <div class="card"><h4>Справжній текст</h4><p>Жодного lorem. Витачів, 2 700 ₴ за добу, «перевірено 12.09.2026, куратором», холодна підлога до обіду. Якщо тексту ще немає — він пишеться зараз, бо це частина роботи.</p></div>
+      <div class="card"><h4>Семантична розмітка</h4><p><code>header</code>, <code>nav</code>, <code>main</code>, <code>article</code>, <code>form</code>, <code>button</code> — а не стос <code>div</code>. Один <code>h1</code> на екран, списки списками.</p></div>
+      <div class="card"><h4>Стан — окрема сторінка</h4><p>Порожній, помилка й завантаження відкриваються посиланням, тож кожен можна показати й покритикувати окремо. Структура та сама, міняється вміст.</p></div>
+      <div class="card"><h4>Мобільний перший</h4><p>390 × 844, меню з чотирьох пунктів унизу, фільтри зверху. Перемикач над рамкою показує ту саму розмітку на планшеті й десктопі.</p></div>
+      <div class="card"><h4>Сіра шкала</h4><p>Кольору немає, шрифт один — Inter, іконки лінійні й завжди при підписі. Усе, що про вигляд, чекає кроку 7.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="screens">
+  <div class="wrap">
+    <div class="col">
+      <p class="eyebrow">Частина 2</p>
+      <h2>Екрани головного флоу</h2>
+      <p>Шлях primary-персони від входу до оплаченої поїздки. Кожне посилання відкриває окрему сторінку — її можна гортати, перемикати пристрій і ходити по флоу кліками.</p>
+    </div>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Екран</th><th>Сторінки</th><th>Усього</th></tr></thead>
+        <tbody>
+          <tr><th>Головна</th><td><a href="wireframes/home.html">основний</a></td><td>1</td></tr>
+          <tr><th>Добірка</th><td><a href="wireframes/collection.html">основний</a> · <a href="wireframes/collection-empty.html">порожній</a> · <a href="wireframes/collection-loading.html">завантаження</a></td><td>3</td></tr>
+          <tr><th>Каталог</th><td><a href="wireframes/listings.html">основний</a> · <a href="wireframes/listings-empty.html">порожній</a> · <a href="wireframes/listings-error.html">помилка</a> · <a href="wireframes/listings-loading.html">завантаження</a></td><td>4</td></tr>
+          <tr><th>Оселя</th><td><a href="wireframes/listing.html">основний</a> · <a href="wireframes/listing-empty.html">без відгуків</a> · <a href="wireframes/listing-loading.html">завантаження</a></td><td>3</td></tr>
+          <tr><th>Бронювання</th><td><a href="wireframes/booking.html">основний</a> · <a href="wireframes/booking-error.html">дати зайняті</a></td><td>2</td></tr>
+          <tr><th>Оплата</th><td><a href="wireframes/payment.html">основний</a> · <a href="wireframes/payment-error.html">платіж не пройшов</a> · <a href="wireframes/payment-loading.html">завантаження</a></td><td>3</td></tr>
+          <tr><th>Підтвердження</th><td><a href="wireframes/confirmation.html">основний</a> · <a href="wireframes/confirmation-error.html">лист не дійшов</a></td><td>2</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col">
+      <p class="wf-open"><a href="wireframes/home.html"><strong>Відкрити вайрфрейми →</strong></a></p>
+      <div class="note"><strong>Решта екранів у роботі.</strong> Дванадцять екранів поза головним флоу — Критерії відбору, Господар, Розповідь, Моя поїздка, Чат, Локальний гід, Журнал, Післявиїзна оцінка, Звернення по гарантії, Відгук, Збережені, Кабінет — малюються зараз і стануть тут такою самою таблицею.</div>
+    </div>
+  </div>
+</section>
+
+<section id="decisions">
+  <div class="wrap">
+    <div class="col">
+      <p class="eyebrow">Частина 3</p>
+      <h2>Що видно просто в макеті</h2>
+      <p>Рішення кроку 3 перестали бути текстом і стали екраном. Чотири з них видно без пояснень.</p>
+    </div>
+    <div class="cards">
+      <div class="card"><h4>Строк стоїть першим</h4><p>У смузі фільтрів строк і дати — перший елемент, не останній. Без нього найсильніший related job не має інструменту ніде.</p></div>
+      <div class="card"><h4>Гарантія — текст, не фільтр</h4><p>Світло, вода, тепло, інтернет і паркомісце є скрізь, тому фільтрувати по них нема за чим. На екрані вони стоять обіцянкою з компенсацією.</p></div>
+      <div class="card"><h4>Порожній екран називає цифру</h4><p>«Фільтр "до 2 годин від Києва" ховає 9 осель» — тоді зняти його стає рішенням, а не навмання.</p></div>
+      <div class="card"><h4>Чату немає до оплати</h4><p>Іконки чату немає на жодному екрані до Підтвердження. Там вона з'являється — і відтоді завжди означає одне й те саме.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap col">
+    <p>Крок 4 з дванадцяти. Робочі документи — <a href="https://github.com/sofiya5395870-sys/khata-v-seli/blob/main/wireframes/_screens.md">_screens.md</a> · <a href="https://github.com/sofiya5395870-sys/khata-v-seli/blob/main/wireframes/_conventions.md">_conventions.md</a></p>
+    <p>Попередній крок — <a href="ia.html">структура, флоу та навігація</a>. Усі кроки — на <a href="index.html">головній</a>.</p>
+  </div>
+</footer>
+</body>
+</html>
