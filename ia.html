@@ -1077,12 +1077,16 @@ if (window.mermaid) {
       fontSize: '13px'
     }
   });
+  var hidden = Array.prototype.slice.call(document.querySelectorAll('.tabpanel:not([data-open])'));
+  hidden.forEach(function (p) { p.classList.add('prerender'); });
+  var show = function () { hidden.forEach(function (p) { p.classList.remove('prerender'); }); };
   mermaid.run().then(function () {
+    show();
     /* діаграма ширша за вікно — відкрити її по центру флоу, а не з порожнього краю */
     document.querySelectorAll('.diagram').forEach(function (d) {
       if (d.scrollWidth > d.clientWidth) d.scrollLeft = (d.scrollWidth - d.clientWidth) / 2;
     });
-  });
+  }).catch(show);
 }
 </script>
 
