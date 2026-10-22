@@ -20,6 +20,32 @@
 
 Персона: **«Та, хто їде нічого не робити»** ([`personas.md`](../research/personas.md), primary з 17.10.2026). Флоу той самий і для тієї, хто їде надовго, — різниця лише в строку, який вона обирає на кроці дат.
 
+**Happy path.** Найкоротший шлях, у якому нічого не ламається.
+
+```mermaid
+flowchart TD
+    Start([Хочу кілька днів тиші]) --> Home[Головна]
+    Home -->|пошук — локація, дати, люди| Cat[Каталог]
+    Cat -->|CTA «Забронювати» на картці| House[Оселя]
+    House --> Proof["Перевірка на місці: дата, автор, кадри"]
+    Proof --> Book[Бронювання]
+    Book --> Pay[Оплата]
+    Pay --> Conf[Підтвердження]
+    Conf --> Trip[Моя поїздка]
+    Trip --> Stay([Живу там: тихо, вода й тепло є])
+    Stay --> Review[Відгук]
+    Review --> Win([Джоб закрито: сон, сили та натхнення])
+
+    classDef screen fill:#fdf3ea,stroke:#b5502e,color:#2b2b2b
+    classDef state fill:#f1efe9,stroke:#9a9287,color:#4a443c
+    classDef win fill:#e6efe4,stroke:#4f7a52,stroke-width:2px,color:#2f4a31
+    class Home,Cat,House,Book,Pay,Conf,Trip,Review screen
+    class Proof state
+    class Start,Stay,Win win
+```
+
+**Повний флоу** — із розвилками, станами й тупиками.
+
 ```mermaid
 flowchart TD
     Start([Не відновлююсь там, де живу]) --> Home[Головна]
@@ -111,6 +137,27 @@ flowchart TD
 
 У матриці [`jtbd.md`](../research/jtbd.md) — 3 бали primary і 3 бали персоні ④.
 
+**Happy path.**
+
+```mermaid
+flowchart TD
+    Start([Плачу наперед людині, якої не знаю]) --> House[Оселя]
+    House --> Proof["Перевірка: дата, ім'я куратора, кадри з місця"]
+    Proof --> Flaws["Мінуси в описі названі чесно"]
+    Flaws -->|посилання в блоці господаря| Talk[Розповідь господаря]
+    Talk --> Owner["Господар — ім'я й обличчя"]
+    Owner --> Win([Джоб закрито: сумнів знятий, іде бронювати])
+
+    classDef screen fill:#fdf3ea,stroke:#b5502e,color:#2b2b2b
+    classDef state fill:#f1efe9,stroke:#9a9287,color:#4a443c
+    classDef win fill:#e6efe4,stroke:#4f7a52,stroke-width:2px,color:#2f4a31
+    class House,Owner,Talk screen
+    class Proof,Flaws state
+    class Start,Win win
+```
+
+**Повний флоу.**
+
 ```mermaid
 flowchart TD
     Start([Плачу всю суму наперед незнайомій людині]) --> House[Оселя]
@@ -161,6 +208,29 @@ flowchart TD
 > Коли мені потрібно перебути лише найважчі місяці, я хочу домовитись саме на цей строк, не беручи на себе рік, щоб не платити за житло тоді, коли воно мені вже не потрібне.
 
 3 бали primary, 3 бали ④, 3 бали ⑤. **Найсильніший related job із усіх.**
+
+**Happy path.**
+
+```mermaid
+flowchart TD
+    Start([Треба перебути лише найважчі місяці]) --> Cat[Каталог]
+    Cat -->|строк у смузі фільтрів — місяць| House[Оселя]
+    House --> Price["Місячна ціна показана окремо від добової"]
+    Price --> Cancel["Умова скасування — до оплати, не в оферті"]
+    Cancel --> Book[Бронювання]
+    Book --> Pay[Оплата]
+    Pay --> Conf[Підтвердження]
+    Conf --> Win([Джоб закрито: строк саме той, без року на себе])
+
+    classDef screen fill:#fdf3ea,stroke:#b5502e,color:#2b2b2b
+    classDef state fill:#f1efe9,stroke:#9a9287,color:#4a443c
+    classDef win fill:#e6efe4,stroke:#4f7a52,stroke-width:2px,color:#2f4a31
+    class Cat,House,Book,Pay,Conf screen
+    class Price,Cancel state
+    class Start,Win win
+```
+
+**Повний флоу.**
 
 ```mermaid
 flowchart TD
@@ -218,6 +288,26 @@ flowchart TD
 > Коли я вже живу в оселі й щось із обіцяного не працює, я хочу знати, що робити і на що маю право, щоб не з'ясовувати це з нуля посеред поїздки.
 
 Єдиний флоу, де є **справжнє відхилення заявки**: гарантія без механізму розгляду — просто текст.
+
+**Happy path.**
+
+```mermaid
+flowchart TD
+    Start([Живу в оселі, зникло світло]) --> Trip["Моя поїздка, режим «живу там»"]
+    Trip --> Know["Що робити при відключенні — написано тут же"]
+    Know --> Chat[Чат із господарем]
+    Chat --> Fixed["Полагодив за домовлений час"]
+    Fixed --> Win([Джоб закрито: гарантія не знадобилась])
+
+    classDef screen fill:#fdf3ea,stroke:#b5502e,color:#2b2b2b
+    classDef state fill:#f1efe9,stroke:#9a9287,color:#4a443c
+    classDef win fill:#e6efe4,stroke:#4f7a52,stroke-width:2px,color:#2f4a31
+    class Trip,Chat screen
+    class Know,Fixed state
+    class Start,Win win
+```
+
+**Повний флоу.**
 
 ```mermaid
 flowchart TD
@@ -279,6 +369,25 @@ flowchart TD
 > Коли я вже відклала щось і повертаюсь, я хочу додивитись те, що лишила, і дізнатись про місце більше, щоб вибір не починався щоразу спочатку.
 
 **Домальований після самоперевірки.** Чотири екрани — Відгук, Журнал, Кабінет гостя й Локальний гід — не фігурували в жодному флоу, хоча в матриці трасування мають Σ 1, 4, 3 і 2. Дві наші перевірки давали різну відповідь про одні й ті самі екрани; цей флоу їх мирить. Тут же живуть **усі порожні стани**, яких бракувало: Збережені, Добірка, Відгук, Розповідь, Гід, Журнал, Кабінет.
+
+**Happy path.**
+
+```mermaid
+flowchart TD
+    Start([Повертаюсь до того, що відклала]) --> Cab[Кабінет гостя]
+    Cab --> Saved[Збережені]
+    Saved --> House[Оселя]
+    House --> Rev[Відгуки тих, хто там жив]
+    Rev --> Guide["Локальний гід — місця поруч"]
+    Guide --> Win([Джоб закрито: вибір не починається спочатку])
+
+    classDef screen fill:#fdf3ea,stroke:#b5502e,color:#2b2b2b
+    classDef win fill:#e6efe4,stroke:#4f7a52,stroke-width:2px,color:#2f4a31
+    class Cab,Saved,House,Rev,Guide screen
+    class Start,Win win
+```
+
+**Повний флоу.**
 
 ```mermaid
 flowchart TD
