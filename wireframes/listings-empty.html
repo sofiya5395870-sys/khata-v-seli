@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Каталог · порожній стан</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Каталог — порожній стан</p>
+    <dl>
+      <dt>Екран</dt><dd>Каталог, вузол <code>Cat</code> у флоу MAIN</dd>
+      <dt>Крок джоба</dt><dd>другий: після розвилки «Знаю, як сформулювати?» → <strong>так</strong>. Далі — <code>Loading</code>, розвилка «Є відповідні оселі?» і перехід в Оселю</dd>
+      <dt>Джоби</dt><dd><strong>R2</strong> — одне місце, де зібрано придатні варіанти, щоб не збирати їх по дошках оголошень · <strong>R1</strong> чи воно мені підійде · <strong>R6</strong> дорога не з'їсть вихідні · MAIN</dd>
+      <dt>Стан</dt><dd>порожній: фільтри нічого не знайшли</dd>
+    </dl>
+  </div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: бачити, за яким запитом зараз видача</em></p>
+  <p class="zone">Зона 2 · Фільтри, приклеєні зверху <em>— головна дія: звузити видачу під свій строк і свою дорогу</em></p>
+  <p class="zone">Зона 3 · Місцевості <em>— головна дія: зайти з боку регіону, коли фільтри ще не сформульовані</em></p>
+  <p class="zone">Зона 4 · Список карток <em>— головна дія: порівняти оселі між собою</em></p>
+  <p class="zone">Зона 5 · Вхід у картку <em>— головна дія: відкрити оселю або одразу почати бронювання</em></p>
+  <p class="zone">Зона 6 · Нижнє меню, чотири пункти <em>— головна дія: перейти в інший розділ, не втрачаючи пошук</em></p>
+
+  <nav class="states" aria-label="Стани цього екрана">
+    <a href="listings.html">Основний</a>
+    <a href="listings-empty.html" aria-current="page">Порожній</a>
+    <a href="listings-error.html">Помилка</a>
+    <a href="listings-loading.html">Завантаження</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <figure class="device">
+    <div class="phone w-phone">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <!-- Зона 1 -->
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html" aria-current="page">Оселі</a></li>
+              <li><a href="#">Журнал</a></li>
+              <li><a href="#">Збережені · 2</a></li>
+              <li><a href="#">Кабінет</a></li>
+            </ul>
+          </nav>
+          <p class="query">Київ · 7–9 листопада · 2 людини · 2 доби</p>
+        </header>
+
+        <!-- Зона 2 -->
+        <section class="filters" aria-label="Фільтри">
+          <button type="button" class="first">Строк: 2 доби ✓</button>
+          <button type="button">До 2 годин від Києва ✓</button>
+          <button type="button">До 4 000 ₴</button>
+          <button type="button">Чан або сауна</button>
+          <button type="button">Камін</button>
+          <button type="button">Мангал</button>
+          <button type="button">Безбар'єрність</button>
+          <button type="button">Кімнат: 2+</button>
+          <button type="button">Їжа</button>
+          <button type="button">Мапа</button>
+        </section>
+
+        <!-- Зона 3 -->
+        <section aria-labelledby="places-h" class="count">
+          <h2 id="places-h">Місцевості</h2>
+          <ul class="bottom">
+            <li><a href="#">За годину від Києва</a></li>
+            <li><a href="#">Карпати</a></li>
+            <li><a href="#">Побужжя</a></li>
+            <li><a href="#">Слобожанщина</a></li>
+            <li><a href="#">Біля водойми</a></li>
+          </ul>
+        </section>
+
+        <!-- Зони 4 і 5 -->
+        <main>
+          <h1 class="count">Оселі</h1>
+          <p class="count"><strong>Нічого не знайшлось</strong> за цим набором фільтрів.</p>
+          <section class="card" aria-labelledby="empty-h" style="margin:16px">
+            <h2 id="empty-h">Спробуйте зняти один фільтр</h2>
+            <p class="guarantee">Найбільше ховає <strong>«до 2 годин від Києва»</strong> — без нього знайдеться 9 осель. Другий за «вагою» — «чан або сауна»: ще 4.</p>
+            <footer>
+              <a class="btn" href="listings.html">Зняти «до 2 годин від Києва» · 9 осель</a>
+              <a class="btn" href="listings.html">Зняти «чан або сауна» · 4 оселі</a>
+            </footer>
+          </section>
+          <section class="card" aria-labelledby="pop-h" style="margin:0 16px 16px">
+            <h2 id="pop-h">Або подивіться, куди дивляться найчастіше</h2>
+            <p class="guarantee">Поки в нас немає бронювань, це перегляди за останній місяць, а не бестселери.</p>
+            <ul class="bottom">
+              <li><a href="collection.html">Що найчастіше дивляться</a></li>
+              <li><a href="collection.html">За годину від Києва</a></li>
+              <li><a href="collection.html">Прокинутись у тиші</a></li>
+            </ul>
+          </section>
+        </main>
+
+        <!-- Зона 6 -->
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html" aria-current="page"><span class="box"></span>Оселі</a>
+          <a href="#"><span class="box"></span>Журнал</a>
+          <a href="#"><span class="box"></span>Збережені · 2</a>
+          <a href="#"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Мобільний веб · 390 × 844. Рамка телефона — риштування макета, не елемент продукту.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Назад → <a href="listings.html">список зі знятим фільтром</a> · убік → <a href="collection.html">добірки</a></p>
+
+  <ul class="note">
+    <li><strong>Вихід звірений із флоу MAIN:</strong> з вузла <code>Empty</code> виходять три ребра — «послабила» назад у Каталог, «найпопулярніше й добірки» в Добірку і тупик «повертається до OLX». Перші два тут є кнопками, третій лишається тільки тоді, коли людина сама закриє вкладку.</li>
+    <li><strong>Цифра під кожним фільтром</strong> — скільки осель він ховає. Без неї зняття фільтра — навмання.</li>
+    <li>Структура й зони ті самі, що в основному стані: шапка, фільтри, місцевості, нижнє меню. Міняється тільки те, що замість списку.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

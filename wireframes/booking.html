@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Бронювання · основний стан</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Бронювання — основний стан</p>
+    <dl>
+      <dt>Екран</dt><dd>Бронювання, вузол <code>Book</code> у флоу MAIN</dd>
+      <dt>Крок джоба</dt><dd>четвертий: гілка «так» із розвилки довіри. Далі — перевірка «дати вільні на потрібний строк?»</dd>
+      <dt>Джоби</dt><dd><strong>R4</strong> — домовитись саме на той строк за зрозумілою ціною · MAIN</dd>
+      <dt>Стан</dt><dd>успіх: дати вільні</dd>
+    </dl>
+  </div>
+
+  <nav class="states" aria-label="Стани цього екрана">
+    <a href="booking.html" aria-current="page">Основний</a>
+    <a href="booking-error.html">Помилка · дати зайняті</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в розділ</em></p>
+  <p class="zone">Зона 2 · Яка оселя <em>— головна дія: переконатись, що бронюєте саме її</em></p>
+  <p class="zone">Зона 3 · Дати й люди <em>— головна дія: поставити свій строк</em></p>
+  <p class="zone">Зона 4 · Вартість і умова скасування <em>— головна дія: побачити всю суму до оплати</em></p>
+  <p class="zone">Зона 5 · Дія <em>— головна дія: перейти до оплати</em></p>
+  <p class="zone">Зона 6 · Нижнє меню <em>— головна дія: перейти в інший розділ</em></p>
+
+  <figure class="device">
+    <div class="phone w-phone">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html" aria-current="page">Оселі</a></li>
+              <li><a href="#">Журнал</a></li>
+              <li><a href="#">Збережені · 2</a></li>
+              <li><a href="#">Кабінет</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main>
+          <h1 class="count">Бронювання</h1>
+
+          <section class="card" aria-labelledby="b-house" style="margin:16px">
+            <h2 id="b-house">Тиха Хата</h2>
+            <p class="guarantee">Витачів, Київська область · 1 год 10 хв від Києва</p>
+          </section>
+
+          <section class="search" aria-labelledby="b-when">
+            <h2 id="b-when">Коли і скільки вас</h2>
+            <form class="row" action="payment.html" method="get">
+              <div><label for="b-in">Заїзд</label><input id="b-in" name="in" type="text" value="7 листопада 2026"></div>
+              <div><label for="b-out">Виїзд</label><input id="b-out" name="out" type="text" value="9 листопада 2026"></div>
+              <div><label for="b-people">Людей</label><input id="b-people" name="people" type="number" value="2" min="1" max="4"></div>
+            </form>
+          </section>
+
+          <section class="count" aria-labelledby="b-sum">
+            <h2 id="b-sum">Скільки це коштує</h2>
+            <dl class="facts">
+              <dt>2 доби × 2 700 ₴</dt><dd>5 400 ₴</dd>
+              <dt>Входить у ціну</dt><dd>дрова, постіль, рушники, паркомісце</dd>
+              <dt>Застава</dt><dd>немає</dd>
+              <dt>До сплати зараз</dt><dd><strong>5 400 ₴ — уся сума</strong></dd>
+            </dl>
+            <p class="guarantee"><strong>Скасування:</strong> безкоштовно до 4 листопада. Пізніше — гроші не повертаються. Умова однакова для всіх осель, її ставить платформа, а не господиня.</p>
+          </section>
+
+          <section class="filters" aria-label="Дія">
+            <a class="btn first" href="payment.html">Перейти до оплати · 5 400 ₴</a>
+          </section>
+        </main>
+
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html" aria-current="page"><span class="box"></span>Оселі</a>
+          <a href="#"><span class="box"></span>Журнал</a>
+          <a href="#"><span class="box"></span>Збережені · 2</a>
+          <a href="#"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Телефон · 390 × 844. Рамка пристрою — риштування макета, не елемент продукту.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Перевірка «Дати вільні на потрібний строк?» → <a href="payment.html">так: Оплата</a> · <a href="booking-error.html">ні: дати зайняті</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Уся сума видна до оплати</strong>, разом із тим, що в неї входить. Застави немає — це рішення брифу.</li>
+    <li><strong>Умова скасування стоїть тут, а не в оферті:</strong> для довгого строку вона страшніша за ціну.</li>
+    <li><strong>Бронювання й Оплата поки два екрани.</strong> Рішення про злиття відкрите — у дереві лишаються два.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

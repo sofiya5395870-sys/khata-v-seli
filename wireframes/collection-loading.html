@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Добірка · завантаження</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Добірка — завантаження</p>
+    <dl>
+      <dt>Екран</dt><dd>Добірка, вузол <code>Coll</code> у флоу MAIN</dd>
+      <dt>Крок джоба</dt><dd>другий: гілка «ні» з розвилки «Знаю, як сформулювати?». Далі — в Оселю</dd>
+      <dt>Джоби</dt><dd><strong>R2</strong> — одне місце, де зібрано придатні варіанти · <strong>E2</strong> побути в місці, яке відчувається моїм · MAIN, R6, S1</dd>
+      <dt>Стан</dt><dd>завантаження: чекаємо на список</dd>
+    </dl>
+  </div>
+
+  <nav class="states" aria-label="Стани цього екрана">
+    <a href="collection.html">Основний</a>
+    <a href="collection-empty.html">Порожній</a>
+    <a href="collection-loading.html" aria-current="page">Завантаження</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в розділ</em></p>
+  <p class="zone">Зона 2 · Назва й пояснення добірки <em>— головна дія: зрозуміти, за яким правилом зібрані ці оселі</em></p>
+  <p class="zone">Зона 3 · Фільтри всередині добірки <em>— головна дія: звузити, не виходячи з добірки</em></p>
+  <p class="zone">Зона 4 · Список карток <em>— головна дія: порівняти оселі між собою</em></p>
+  <p class="zone">Зона 5 · Нижнє меню <em>— головна дія: перейти в інший розділ</em></p>
+
+  <figure class="device">
+    <div class="phone w-phone">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html" aria-current="page">Оселі</a></li>
+              <li><a href="#">Журнал</a></li>
+              <li><a href="#">Збережені · 2</a></li>
+              <li><a href="#">Кабінет</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <section class="search" aria-labelledby="coll-h">
+          <h1 id="coll-h">Прокинутись у тиші</h1>
+          <p class="guarantee">Сім осель, де найближчий сусід за кілометр, а вночі чути тільки воду й птахів. Добірку зібрала редакція.</p>
+        </section>
+
+        <section class="filters" aria-label="Фільтри всередині добірки">
+          <button type="button" class="first">Строк: 2 доби ✓</button>
+          <button type="button">До 2 годин від Києва</button>
+          <button type="button">До 4 000 ₴</button>
+          <button type="button">Чан або сауна</button>
+          <button type="button">Камін</button>
+          <button type="button">Мапа</button>
+        </section>
+
+        <main>
+          <p class="count">Вантажимо добірку…</p>
+          <ul class="list" aria-busy="true" aria-label="Оселі завантажуються">
+            <li class="card"><div class="photo">місце для фото</div><p class="skeleton w60"></p><p class="skeleton w40"></p><p class="skeleton w80"></p></li>
+            <li class="card"><div class="photo">місце для фото</div><p class="skeleton w60"></p><p class="skeleton w40"></p><p class="skeleton w80"></p></li>
+          </ul>
+        </main>
+
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html" aria-current="page"><span class="box"></span>Оселі</a>
+          <a href="#"><span class="box"></span>Журнал</a>
+          <a href="#"><span class="box"></span>Збережені · 2</a>
+          <a href="#"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Телефон · 390 × 844. Рамка пристрою — риштування макета, не елемент продукту.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Коли список приходить → <a href="collection.html">основний стан</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Поріг пів секунди:</strong> якщо добірка приходить швидше, цього екрана людина не бачить.</li>
+    <li>Заглушки повторюють форму картки, щоб список не стрибав, коли дані прийдуть.</li>
+    <li>Назва й пояснення добірки видно одразу: вони не залежать від списку.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

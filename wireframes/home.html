@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Головна</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Головна</p>
+    <dl>
+      <dt>Екран</dt><dd>Головна, вузол <code>Home</code> у флоу MAIN</dd>
+      <dt>Крок джоба</dt><dd>перший: вхід. Далі розвилка «Знаю, як сформулювати?» — у Добірку або в Каталог</dd>
+      <dt>Джоби</dt><dd><strong>R2</strong> — одне місце, де зібрано придатні варіанти · <strong>R6</strong> дорога не з'їсть вихідні · MAIN</dd>
+      <dt>Стани</dt><dd>немає: екран статичний, його вміст не залежить від фільтрів</dd>
+    </dl>
+  </div>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в розділ</em></p>
+  <p class="zone">Зона 2 · Головне питання і пошук <em>— головна дія: назвати строк і місто, від якого рахувати дорогу</em></p>
+  <p class="zone">Зона 3 · Добірки <em>— головна дія: зайти в каталог станом, а не параметрами</em></p>
+  <p class="zone">Зона 4 · Нижнє меню <em>— головна дія: перейти в інший розділ</em></p>
+
+  <figure class="device">
+    <div class="phone w-phone">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html" aria-current="page">Оселі</a></li>
+              <li><a href="#">Журнал</a></li>
+              <li><a href="#">Збережені · 2</a></li>
+              <li><a href="#">Кабінет</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main>
+          <section class="search" aria-labelledby="ask-h">
+            <h1 id="ask-h">Про яку оселю ви мрієте?</h1>
+            <p class="guarantee">Тридцять осель по всій Україні. У кожній є світло, вода, тепло, інтернет і паркомісце — або повертаємо 50% вартості доби.</p>
+            <form class="row" action="listings.html" method="get">
+              <div>
+                <label for="h-term">Строк і дати</label>
+                <input id="h-term" name="term" type="text" placeholder="7–9 листопада, 2 доби">
+              </div>
+              <div>
+                <label for="h-city">Дорогу рахувати від</label>
+                <select id="h-city" name="city"><option>Київ</option><option>Львів</option><option>Харків</option><option>Дніпро</option></select>
+              </div>
+              <div>
+                <label for="h-people">Скільки людей</label>
+                <input id="h-people" name="people" type="number" value="2" min="1" max="12">
+              </div>
+              <button type="submit">Шукати оселі</button>
+            </form>
+          </section>
+
+          <section aria-labelledby="coll-h" class="count">
+            <h2 id="coll-h">Коли ще не знаєш, як сформулювати</h2>
+            <ul class="list">
+              <li class="card"><article>
+                <h3><a href="collection.html">Прокинутись у тиші</a></h3>
+                <p class="photo">фото: ранок, туман над річкою</p>
+                <p class="guarantee">Сім осель, де найближчий сусід за кілометр</p>
+              </article></li>
+              <li class="card"><article>
+                <h3><a href="collection.html">За годину від Києва</a></h3>
+                <p class="photo">фото: ґрунтова дорога в село</p>
+                <p class="guarantee">Дев'ять осель, куди доїдете до обіду</p>
+              </article></li>
+              <li class="card"><article>
+                <h3><a href="collection.html">Зимівля</a></h3>
+                <p class="photo">фото: піч і дрова під стіною</p>
+                <p class="guarantee">Від місяця до трьох, із теплом і резервним живленням</p>
+              </article></li>
+            </ul>
+          </section>
+        </main>
+
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html" aria-current="page"><span class="box"></span>Оселі</a>
+          <a href="#"><span class="box"></span>Журнал</a>
+          <a href="#"><span class="box"></span>Збережені · 2</a>
+          <a href="#"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Телефон · 390 × 844. Рамка пристрою — риштування макета, не елемент продукту.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Розвилка «Знаю, як сформулювати?» → <a href="collection.html">ні: Добірка</a> · <a href="listings.html">так: Каталог</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Перше питання — про стан, а не «куди і коли».</strong> Єдиний екран продукту, який питає так; це рішення з кроку 3.</li>
+    <li><strong>Гарантія стоїть одразу під питанням</strong>, бо вона і є причина довіряти каталогу з тридцяти осель.</li>
+    <li><strong>Два входи в каталог:</strong> пошук для тієї, хто вже знає строк, і добірки для тієї, хто ще ні. Обидва ведуть на той самий Каталог.</li>
+    <li>Станів немає — і це не пропуск: вміст екрана робить редакція, фільтри на нього не впливають.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

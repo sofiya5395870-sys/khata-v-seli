@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Оселя · завантаження</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Оселя — завантаження</p>
+    <dl>
+      <dt>Екран</dt><dd>Оселя, вузол <code>House</code> у флоу MAIN</dd>
+      <dt>Крок джоба</dt><dd>третій: сюди ведуть і Каталог, і Добірка. Тут головний джоб і відбувається; далі — розвилки «тепло і вода?» та «достатньо довіри?»</dd>
+      <dt>Джоби</dt><dd><strong>MAIN</strong> · <strong>R3</strong> місце і ціна справжні · <strong>R1</strong> чи воно мені підійде · <strong>E3</strong> зрозуміти, як там насправді — і ще дев'ять: 13 джобів із 15</dd>
+      <dt>Стан</dt><dd>завантаження: вантажимо галерею й кадри перевірки</dd>
+    </dl>
+  </div>
+
+  <nav class="states" aria-label="Стани цього екрана">
+    <a href="listing.html">Основний</a>
+    <a href="listing-empty.html">Порожній · без відгуків</a>
+    <a href="listing-loading.html" aria-current="page">Завантаження</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в розділ</em></p>
+  <p class="zone">Зона 2 · Назва, місце, дорога <em>— головна дія: зрозуміти, де це і скільки їхати</em></p>
+  <p class="zone">Зона 3 · Фото й кадри з перевірки <em>— головна дія: побачити дім таким, який він є</em></p>
+  <p class="zone">Зона 4 · Гарантія й автономність <em>— головна дія: дізнатись, що буде, якщо вимкнуть світло</em></p>
+  <p class="zone">Зона 5 · Опис із чесними мінусами <em>— головна дія: приїхати без ілюзій</em></p>
+  <p class="zone">Зона 6 · Перевірка <em>— головна дія: побачити дату й того, хто перевіряв</em></p>
+  <p class="zone">Зона 7 · Господиня й розмова з нею <em>— головна дія: познайомитись до оплати</em></p>
+  <p class="zone">Зона 8 · Строки, ціна, скасування <em>— головна дія: порахувати свій строк</em></p>
+  <p class="zone">Зона 9 · Що поруч <em>— головна дія: зрозуміти, чим зайнятись</em></p>
+  <p class="zone">Зона 10 · Відгуки <em>— головна дія: почути тих, хто вже жив</em></p>
+  <p class="zone">Зона 11 · Панель дії <em>— головна дія: забронювати або зберегти</em></p>
+  <p class="zone">Зона 12 · Нижнє меню <em>— головна дія: перейти в інший розділ</em></p>
+
+  <figure class="device">
+    <div class="phone w-phone">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html" aria-current="page">Оселі</a></li>
+              <li><a href="#">Журнал</a></li>
+              <li><a href="#">Збережені · 2</a></li>
+              <li><a href="#">Кабінет</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main>
+          <section aria-labelledby="h-name" class="search">
+            <h1 id="h-name">Тиха Хата</h1>
+            <p class="guarantee">Дім під вербами, де вночі чути тільки річку · Витачів, Київська область · 1 год 10 хв від Києва</p>
+          <div class="photo">вантажимо галерею й кадри з перевірки…</div>
+          <p class="skeleton w80"></p>
+          <p class="skeleton w60"></p>
+          </section>
+
+          <section class="count" aria-labelledby="h-guar">
+            <h2 id="h-guar">Що гарантуємо</h2>
+            <p class="guarantee">Світло, вода, тепло, інтернет, паркомісце. Якщо чогось із цього не буде — повертаємо 50% вартості доби.</p>
+            <dl class="facts">
+              <dt>Якщо вимкнуть світло</dt><dd>генератор на 8 годин, дрова в сараї, вода з власної свердловини</dd>
+              <dt>Інтернет</dt><dd>120 Мбіт, оптоволокно — міряли 12.09.2026</dd>
+            </dl>
+          </section>
+
+          <section class="count" aria-labelledby="h-desc">
+            <h2 id="h-desc">Про цей дім</h2>
+            <p class="guarantee">Хату збудував дід нинішньої господині, у 2019-му її утеплили й зробили душ. Вікна кухні дивляться на воду, і вранці в них стоїть туман. До крамниці пішки сім хвилин, автобус із Києва двічі на день.</p>
+            <p class="guarantee"><strong>Чесно про незручності:</strong> підлога в спальні холодна до обіду, навіть коли піч топлена. Душ один на всіх, і вода гріється 20 хвилин. Сусідський собака гавкає зранку.</p>
+          </section>
+
+          <section class="count" aria-labelledby="h-check">
+            <h2 id="h-check">Перевірка</h2>
+            <p class="checked">Перевірено <strong>12.09.2026</strong>, куратором. Знято на місці: кухня, душ, спальня, двір, під'їзд до хати. Перевірили все, що гарантуємо.</p>
+          </section>
+
+          <section class="count" aria-labelledby="h-host">
+            <h2 id="h-host">Господиня</h2>
+            <p class="photo">фото: Марія, господиня, на подвір'ї</p>
+            <p class="guarantee">Марія, живе в сусідньому селі, приїжджає зустріти й показати, що де.</p>
+            <p><a href="#">Прочитати розмову з Марією</a> — ми записали її до того, як відкриється чат</p>
+          </section>
+
+          <section class="count" aria-labelledby="h-price">
+            <h2 id="h-price">Строки й ціна</h2>
+            <dl class="facts">
+              <dt>Доба</dt><dd>2 700 ₴</dd>
+              <dt>Тиждень</dt><dd>16 800 ₴ — на 11% дешевше за добову</dd>
+              <dt>Місяць</dt><dd>48 000 ₴</dd>
+              <dt>Що входить</dt><dd>дрова, постіль, рушники, паркомісце</dd>
+              <dt>Скасування</dt><dd>безкоштовно до 3 днів перед заїздом</dd>
+            </dl>
+          </section>
+
+          <section class="count" aria-labelledby="h-near">
+            <h2 id="h-near">Що поруч</h2>
+            <dl class="facts">
+              <dt>Пекарня «Зерно»</dt><dd>700 м, працює з 8:00</dd>
+              <dt>Дніпро, дикий берег</dt><dd>1,2 км стежкою через луг</dd>
+              <dt>Музей Трипілля</dt><dd>9 км, Ржищів</dd>
+            </dl>
+          </section>
+
+          <section class="count" aria-labelledby="h-rev">
+            <h2 id="h-rev">Відгуки тих, хто тут жив</h2>
+            <p class="skeleton w80"></p><p class="skeleton w60"></p>
+          </section>
+
+        </main>
+
+        <section class="filters" aria-label="Дія">
+          <a class="btn first" href="booking.html">Забронювати · 2 700 ₴ за добу</a>
+          <button type="button">Зберегти</button>
+          <a class="btn" href="listings.html">Інші оселі</a>
+        </section>
+
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html" aria-current="page"><span class="box"></span>Оселі</a>
+          <a href="#"><span class="box"></span>Журнал</a>
+          <a href="#"><span class="box"></span>Збережені · 2</a>
+          <a href="#"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Телефон · 390 × 844. Рамка пристрою — риштування макета, не елемент продукту.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Коли галерея приходить → <a href="listing.html">основний стан</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Назва, село й дорога видно одразу</strong> — вони приходять зі списку, їх не треба чекати.</li>
+    <li><strong>Чекають тільки фото й кадри перевірки</strong>: вони найважчі й водночас найголовніші для R3.</li>
+    <li>Поріг той самий — пів секунди.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

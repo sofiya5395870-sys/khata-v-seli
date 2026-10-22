@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Бронювання · дати зайняті</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Бронювання — дати зайняті</p>
+    <dl>
+      <dt>Екран</dt><dd>Бронювання, вузол <code>Book</code> у флоу MAIN</dd>
+      <dt>Крок джоба</dt><dd>четвертий: гілка «так» із розвилки довіри. Далі — перевірка «дати вільні на потрібний строк?»</dd>
+      <dt>Джоби</dt><dd><strong>R4</strong> — домовитись саме на той строк за зрозумілою ціною · MAIN</dd>
+      <dt>Стан</dt><dd>помилка: оселя зайнята на ці дати</dd>
+    </dl>
+  </div>
+
+  <nav class="states" aria-label="Стани цього екрана">
+    <a href="booking.html">Основний</a>
+    <a href="booking-error.html" aria-current="page">Помилка · дати зайняті</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в розділ</em></p>
+  <p class="zone">Зона 2 · Яка оселя <em>— головна дія: переконатись, що бронюєте саме її</em></p>
+  <p class="zone">Зона 3 · Дати й люди <em>— головна дія: поставити свій строк</em></p>
+  <p class="zone">Зона 4 · Вартість і умова скасування <em>— головна дія: побачити всю суму до оплати</em></p>
+  <p class="zone">Зона 5 · Дія <em>— головна дія: перейти до оплати</em></p>
+  <p class="zone">Зона 6 · Нижнє меню <em>— головна дія: перейти в інший розділ</em></p>
+
+  <figure class="device">
+    <div class="phone w-phone">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html" aria-current="page">Оселі</a></li>
+              <li><a href="#">Журнал</a></li>
+              <li><a href="#">Збережені · 2</a></li>
+              <li><a href="#">Кабінет</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main>
+          <h1 class="count">Бронювання</h1>
+
+          <section class="card" aria-labelledby="be-h" style="margin:16px">
+            <h2 id="be-h">Ці дати вже зайняті</h2>
+            <p class="guarantee">7–9 листопада Тиху Хату щойно забронювали. Гроші не списували.</p>
+            <dl class="facts">
+              <dt>Найближчі вільні</dt><dd>14–16 листопада · та сама ціна</dd>
+              <dt>Ще варіант</dt><dd>21–23 листопада</dd>
+            </dl>
+            <footer>
+              <a class="btn" href="booking.html">Взяти 14–16 листопада</a>
+              <a href="listings.html">Подивитись інші оселі поруч</a>
+            </footer>
+          </section>
+
+          <section class="count">
+            <p class="guarantee">Ми показуємо спершу вільні дати <strong>цієї ж оселі</strong>, а не чужі оселі: ви вже повірили цьому дому, і втратити цю довіру дорожче, ніж дати.</p>
+          </section>
+        </main>
+
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html" aria-current="page"><span class="box"></span>Оселі</a>
+          <a href="#"><span class="box"></span>Журнал</a>
+          <a href="#"><span class="box"></span>Збережені · 2</a>
+          <a href="#"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Телефон · 390 × 844. Рамка пристрою — риштування макета, не елемент продукту.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Назад → <a href="booking.html">бронювання на вільні дати</a> · убік → <a href="listings.html">Каталог</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Вихід звірений із флоу:</strong> з вузла <code>ErrDates</code> два ребра — «найближчі вільні дати цієї ж оселі» назад у Бронювання й «інша оселя» в Каталог. Обидва тут є.</li>
+    <li><strong>Перша дія — дати цієї ж оселі.</strong> Викидати в каталог ту, кому людина вже повірила, — найдорожча помилка з усіх дев'яти тупиків.</li>
+    <li><strong>«Гроші не списували» — у першому ж абзаці.</strong> Це перше, про що думають.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>
