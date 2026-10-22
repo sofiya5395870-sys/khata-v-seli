@@ -20,6 +20,8 @@
   .pcard.primary .av { background: var(--accent); border-color: var(--accent); }
   .pcard.primary .av svg { stroke: #fff; }
   .pcard .head .badge { margin-bottom: 0; }
+  .pcard .head .pnum { margin-left: auto; font-size: 1.35rem; line-height: 1; color: var(--dim); font-variant-numeric: tabular-nums; }
+  .pcard.primary .head .pnum { color: var(--accent); }
   .pcard .quote { margin-top: auto; }
   .pcard.primary { border-color: var(--accent); box-shadow: 0 2px 14px rgba(181,80,46,0.10); }
   .pcard .badge { display: inline-block; font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; padding: 0.2rem 0.5rem; border-radius: 5px; background: var(--surface-2); color: var(--muted); margin-bottom: 0.7rem; }
@@ -157,13 +159,14 @@
       <p class="eyebrow">Частина 1</p>
       <h2>Персони</h2>
       <div class="pull"><span class="qt">Оселя має відчуватися домом, а не прихистком.</span><span class="who">Принцип, що випливає з усіх семи персон — і найгостріше з голосів переселенців</span></div>
+      <p><strong>Цифра в кутку картки</strong> — номер персони; ним вони позначені в дереві екранів на кроці 3, щоб було видно, кому який екран потрібен. Картки стоять не за номером, а за вагою: primary першою.</p>
       <p>Сім персон стоять на одній осі — <strong>як надовго людина їде</strong>. Від двох діб до трьох місяців, і джоб у них спільний: тиша, сон, відновлення. Різниця лише в строку, який вона обирає, та в тому, що цей строк робить важливим.</p>
     </div>
 
     <div class="pcards">
 
       <div class="pcard primary">
-        <div class="head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><circle cx="16.5" cy="9" r="2.6"/><path d="M2.5 20c.7-3.6 3.4-5.6 6.5-5.6 3.1 0 5.8 2 6.5 5.6"/><path d="M16.5 14.4c2.6 0 4.4 1.8 5 5.6"/></svg></span><span class="badge">Primary</span></div>
+        <div class="head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><circle cx="16.5" cy="9" r="2.6"/><path d="M2.5 20c.7-3.6 3.4-5.6 6.5-5.6 3.1 0 5.8 2 6.5 5.6"/><path d="M16.5 14.4c2.6 0 4.4 1.8 5 5.6"/></svg></span><span class="badge">Primary</span><span class="pnum" aria-hidden="true">⑤</span></div>
         <h3>Та, хто їде нічого не робити</h3>
         <p class="ctx">З Києва, Львова чи Харкова. Їде на дві доби — найчастіше не сама: з партнером, друзями або сім'єю. Привід буденний: удома не виходить відпочити. Шукає в соцмережах, бо більше ніде.</p>
         <dl>
@@ -181,7 +184,7 @@
       </div>
 
       <div class="pcard">
-        <div class="head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5C7 17 3.5 14 3.5 10.2A3.7 3.7 0 0 1 12 8a3.7 3.7 0 0 1 8.5 2.2c0 3.8-3.5 6.8-8.5 10.3z"/></svg></span><span class="badge">Secondary</span></div>
+        <div class="head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5C7 17 3.5 14 3.5 10.2A3.7 3.7 0 0 1 12 8a3.7 3.7 0 0 1 8.5 2.2c0 3.8-3.5 6.8-8.5 10.3z"/></svg></span><span class="badge">Secondary</span><span class="pnum" aria-hidden="true">⑦</span></div>
         <h3>Та, хто чекає його з війни</h3>
         <p class="ctx">Шукає не він, а вона — дружина або партнерка. У профілі однієї з них дослівно: «Чекаю чоловіка з війни». Потрібні кілька днів тиші вдвох, і вона не знає, коли саме вони трапляться. Чотири голоси з трьох родин.</p>
         <dl>
@@ -199,7 +202,7 @@
       </div>
 
       <div class="pcard">
-        <div class="head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg></span><span class="badge">Secondary</span></div>
+        <div class="head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg></span><span class="badge">Secondary</span><span class="pnum" aria-hidden="true">⑥</span></div>
         <h3>Той, хто відкриває Україну</h3>
         <p class="ctx">Іноземець, який живе в Україні або приїздить до близьких. Їде недалеко від міста — вода, тиша, краєвид — і розповідає про це англомовній аудиторії. Сьогодні ночує в наметі, бо хати на дві ночі знайти ніде. Даних під нею найменше — але мотив тут єдиний у дослідженні, підтверджений розмовою, а не вичитаний із поста.</p>
         <dl>
@@ -217,7 +220,7 @@
       </div>
 
       <div class="pcard">
-        <div class="head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.7-3.8 3.8-6 7.5-6s6.8 2.2 7.5 6"/></svg></span><span class="badge">Secondary</span></div>
+        <div class="head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20c.7-3.8 3.8-6 7.5-6s6.8 2.2 7.5 6"/></svg></span><span class="badge">Secondary</span><span class="pnum" aria-hidden="true">①</span></div>
         <h3>Та, хто їде виспатись надовго</h3>
         <p class="ctx">З Києва, Одеси, Сум чи Харкова. Їде по відпочинок і тишу — надовго, на місяці. Нічні тривоги й відключення роблять цю потребу гострою, особливо взимку. Джоб у неї той самий, що в primary: різниця тільки в строку.</p>
         <dl>
@@ -235,7 +238,7 @@
       </div>
 
       <div class="pcard">
-        <div class="head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.5" r="3.3"/><path d="M5 19.5c.6-3.4 3.4-5.4 7-5.4s6.4 2 7 5.4"/><path d="M17.5 4.5c1.6 1.6 1.6 4.2 0 5.8M19.8 2.2c2.9 2.9 2.9 7.5 0 10.4"/></svg></span><span class="badge">Secondary</span></div>
+        <div class="head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.5" r="3.3"/><path d="M5 19.5c.6-3.4 3.4-5.4 7-5.4s6.4 2 7 5.4"/><path d="M17.5 4.5c1.6 1.6 1.6 4.2 0 5.8M19.8 2.2c2.9 2.9 2.9 7.5 0 10.4"/></svg></span><span class="badge">Secondary</span><span class="pnum" aria-hidden="true">②</span></div>
         <h3>Той, хто мусить не зірвати дзвінок</h3>
         <p class="ctx">Працює віддалено й не може зникнути з ефіру.</p>
         <dl>
@@ -253,7 +256,7 @@
       </div>
 
       <div class="pcard">
-        <div class="head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="7.5" r="3.3"/><path d="M3 19.5c.6-3.4 3.4-5.4 7-5.4 1 0 2 .15 2.8.45"/><path d="M15 21v-5.2l3.5-2.8 3.5 2.8V21z"/></svg></span><span class="badge">Secondary</span></div>
+        <div class="head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="7.5" r="3.3"/><path d="M3 19.5c.6-3.4 3.4-5.4 7-5.4 1 0 2 .15 2.8.45"/><path d="M15 21v-5.2l3.5-2.8 3.5 2.8V21z"/></svg></span><span class="badge">Secondary</span><span class="pnum" aria-hidden="true">③</span></div>
         <h3>Та, хто придивляється до купівлі</h3>
         <p class="ctx">Мріє про власну хату, гортає оголошення роками. Оренда для неї — перевірка рішення, а не відпочинок.</p>
         <dl>
@@ -271,7 +274,7 @@
       </div>
 
       <div class="pcard">
-        <div class="head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="7.5" r="3.3"/><path d="M3 19.5c.6-3.4 3.4-5.4 7-5.4.8 0 1.6.1 2.3.3"/><circle cx="17.5" cy="16.5" r="4.5"/><path d="M19.3 14.7l-1.1 2.9-2.9 1.1 1.1-2.9z"/></svg></span><span class="badge">Secondary</span></div>
+        <div class="head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="7.5" r="3.3"/><path d="M3 19.5c.6-3.4 3.4-5.4 7-5.4.8 0 1.6.1 2.3.3"/><circle cx="17.5" cy="16.5" r="4.5"/><path d="M19.3 14.7l-1.1 2.9-2.9 1.1 1.1-2.9z"/></svg></span><span class="badge">Secondary</span><span class="pnum" aria-hidden="true">④</span></div>
         <h3>Та, хто їде по глибину</h3>
         <p class="ctx">Їде не відпочивати, а зануритись: ремесла, місцевість, люди. Для цього потрібен місяць, бо за вихідні не встигнути.</p>
         <dl>
