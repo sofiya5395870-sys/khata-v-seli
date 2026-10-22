@@ -55,7 +55,12 @@
   td .q { font-size: 0.72rem; }
 
   /* --- матриця --- */
+  table.matrix { min-width: 0; table-layout: fixed; }
   table.matrix td { font-size: 0.82rem; }
+  /* колонка джоба переноситься й не тягне таблицю в горизонтальний скрол */
+  table.matrix tbody th { white-space: normal; width: 16%; line-height: 1.3; padding-right: 0.5rem; }
+  table.matrix td.sc { width: 4.6%; }
+  table.matrix thead th.vert { height: 9rem; }
   table.matrix td.sc { text-align: center; font-weight: 700; font-size: 1rem; vertical-align: top; line-height: 1.5; }
   table.matrix td.sc .q { vertical-align: baseline; }
   .sc3 { color: var(--accent); }
@@ -298,7 +303,7 @@
     </div>
 
     <div class="col">
-      <div class="mainjob">
+      <div class="mainjob" id="job-MAIN">
         <span class="lbl">Main job</span>
         <p>Коли вдома вже не виходить відпочити, я хочу побути там, де вночі тихо, а вранці є вода й тепло, <strong>щоб повернути собі сон, сили та натхнення</strong>.</p>
       </div>
@@ -306,35 +311,35 @@
       <h3>R — пов'язані: шлях до головного</h3>
       <p>Шість кроків до головного джоба, кожен із яких може зламатись окремо. Якщо ламається бодай один, головний не відбувається.</p>
       <div class="joblist">
-        <div class="job rel"><span class="code">R1 · надовго · купівля</span><p>Коли я зважую, чи переїхати на кілька місяців, я хочу заздалегідь знати, що саме піде не так і чи я з цим упораюсь, щоб не з'ясовувати це в мороз, коли виїхати вже складно.</p><p class="src">Перелік пасток від журналіста й рієлтора: вода, дрова, вуличний туалет, зв'язок.</p></div>
-        <div class="job rel"><span class="code">R2 · вікенд · надовго · дзвінок</span><p>Коли я вирішила шукати житло на зиму поза містом, я хочу одне місце, де зібрано придатні варіанти, щоб не збирати їх по дошках оголошень, чатах і знайомих.</p><p class="src">На питання «де почати пошуки» відповідають OLX, ютуб-канал, інстаграм і знайомі — жодного сервісу.</p></div>
-        <div class="job rel"><span class="code">R3 · вікенд · надовго · купівля</span><p>Коли я маю віддати гроші за житло, якого не бачила, людині, якої не знаю, я хочу впевнитись, що воно існує, виглядає так, як на знімках, і коштує стільки, скільки написано, щоб не стати черговою історією про ошуканих.</p><p class="src">Кіберполіція і МВС вчать розпізнавати «лише набір чужих фото». А ціну читачі перевіряють самі: «спершу подумала шо не може бути такої ціни… зараз ВІД 2700 грн».</p></div>
-        <div class="job rel"><span class="code">R4 · вікенд · надовго · купівля · глибина</span><p>Коли мені треба поїхати на дві доби або перебути три місяці, я хочу домовитись саме на цей строк за зрозумілою ціною, щоб не брати житло на рік і не платити втричі за сезон.</p><p class="src">Надовго ринок відмовляє прямо: «вам розсміються в обличчя». На дві доби строк дає, але ціну тримає непрозорою.</p></div>
-        <div class="job rel"><span class="code">R5 · дзвінок</span><p>Коли я їду надовго, але не припиняю працювати й дбати про своїх, я хочу щоб переїзд не вибив мене з ритму, щоб не обирати між спокоєм і заробітком.</p><p class="src">Оптоволокно — вимога номер один; школи й садочки шукають одразу з житлом.</p></div>
-        <div class="job rel"><span class="code">R6 · вікенд</span><p>Коли в мене всього дві доби, я хочу одразу бачити, скільки їхати від мого міста, щоб дорога не з'їла половину відпочинку.</p><p class="src">Відмова звучить дослівно: «дякую, але 2,5 години їхати від Києва і не дуже хочеться в таку погоду».</p></div>
+        <div class="job rel" id="job-R1"><span class="code">R1 · надовго · купівля</span><p>Коли я зважую, чи переїхати на кілька місяців, я хочу заздалегідь знати, що саме піде не так і чи я з цим упораюсь, щоб не з'ясовувати це в мороз, коли виїхати вже складно.</p><p class="src">Перелік пасток від журналіста й рієлтора: вода, дрова, вуличний туалет, зв'язок.</p></div>
+        <div class="job rel" id="job-R2"><span class="code">R2 · вікенд · надовго · дзвінок</span><p>Коли я вирішила шукати житло на зиму поза містом, я хочу одне місце, де зібрано придатні варіанти, щоб не збирати їх по дошках оголошень, чатах і знайомих.</p><p class="src">На питання «де почати пошуки» відповідають OLX, ютуб-канал, інстаграм і знайомі — жодного сервісу.</p></div>
+        <div class="job rel" id="job-R3"><span class="code">R3 · вікенд · надовго · купівля</span><p>Коли я маю віддати гроші за житло, якого не бачила, людині, якої не знаю, я хочу впевнитись, що воно існує, виглядає так, як на знімках, і коштує стільки, скільки написано, щоб не стати черговою історією про ошуканих.</p><p class="src">Кіберполіція і МВС вчать розпізнавати «лише набір чужих фото». А ціну читачі перевіряють самі: «спершу подумала шо не може бути такої ціни… зараз ВІД 2700 грн».</p></div>
+        <div class="job rel" id="job-R4"><span class="code">R4 · вікенд · надовго · купівля · глибина</span><p>Коли мені треба поїхати на дві доби або перебути три місяці, я хочу домовитись саме на цей строк за зрозумілою ціною, щоб не брати житло на рік і не платити втричі за сезон.</p><p class="src">Надовго ринок відмовляє прямо: «вам розсміються в обличчя». На дві доби строк дає, але ціну тримає непрозорою.</p></div>
+        <div class="job rel" id="job-R5"><span class="code">R5 · дзвінок</span><p>Коли я їду надовго, але не припиняю працювати й дбати про своїх, я хочу щоб переїзд не вибив мене з ритму, щоб не обирати між спокоєм і заробітком.</p><p class="src">Оптоволокно — вимога номер один; школи й садочки шукають одразу з житлом.</p></div>
+        <div class="job rel" id="job-R6"><span class="code">R6 · вікенд</span><p>Коли в мене всього дві доби, я хочу одразу бачити, скільки їхати від мого міста, щоб дорога не з'їла половину відпочинку.</p><p class="src">Відмова звучить дослівно: «дякую, але 2,5 години їхати від Києва і не дуже хочеться в таку погоду».</p></div>
       </div>
 
       <h3>E — емоційні</h3>
       <p>Чого людина хоче відчувати, а не отримати.</p>
       <div class="joblist">
-        <div class="job emo"><span class="code">E1</span><p>Коли все навколо непередбачуване, я хочу мати бодай одне місце, про яке точно знаю, чого від нього чекати, щоб не носити з собою ще одну тривогу.</p></div>
-        <div class="job emo"><span class="code">E2 · <span class="hyp-tag">гіпотеза</span></span><p>Коли я почуваюся вирваною з власного життя, я хочу побути там, де все довкола своє, щоб повернути відчуття, що я вдома у своїй країні.</p><p class="src">Для primary даних немає <span class="q">?</span> — підкріплено лише постом про місяць серед ремесел.</p></div>
-        <div class="job emo"><span class="code">E3</span><p>Коли я наперед плачу за те, чого не бачила, я хочу заздалегідь почути найгірше про це місце, щоб приїхати без ілюзій і не відчути себе дурною.</p></div>
+        <div class="job emo" id="job-E1"><span class="code">E1</span><p>Коли все навколо непередбачуване, я хочу мати бодай одне місце, про яке точно знаю, чого від нього чекати, щоб не носити з собою ще одну тривогу.</p></div>
+        <div class="job emo" id="job-E2"><span class="code">E2 · <span class="hyp-tag">гіпотеза</span></span><p>Коли я почуваюся вирваною з власного життя, я хочу побути там, де все довкола своє, щоб повернути відчуття, що я вдома у своїй країні.</p><p class="src">Для primary даних немає <span class="q">?</span> — підкріплено лише постом про місяць серед ремесел.</p></div>
+        <div class="job emo" id="job-E3"><span class="code">E3</span><p>Коли я наперед плачу за те, чого не бачила, я хочу заздалегідь зрозуміти, як там насправді, щоб приїхати без ілюзій і без неприємних несподіванок.</p></div>
       </div>
 
       <h3>S — соціальні</h3>
       <p>Як людина хоче виглядати в очах інших.</p>
       <div class="joblist">
-        <div class="job soc"><span class="code">S1 · <span class="hyp-tag">гіпотеза</span></span><p>Коли я розповідаю, як проведу цю зиму, я хочу щоб це звучало як свідоме рішення, а не як те, що мене змусили, щоб не виглядати тією, хто здалася.</p><p class="src">Виведено з того, що люди публікують пости. Ніхто цього не казав прямо <span class="q">?</span></p></div>
-        <div class="job soc"><span class="code">S2</span><p>Коли я приїжджаю надовго туди, де мене ніхто не знає, я хочу щоб місцеві прийняли мене за свою, щоб не прожити ці місяці стороннім спостерігачем.</p></div>
-        <div class="job soc"><span class="code">S3 · глибина</span><p>Коли я опиняюся в незнайомій місцевості надовго, я хочу розуміти, хто тут що робить і до кого можна прийти, щоб не витратити весь строк на з'ясовування.</p></div>
+        <div class="job soc" id="job-S1"><span class="code">S1 · <span class="hyp-tag">гіпотеза</span></span><p>Коли я розповідаю, як проведу цю зиму, я хочу щоб це звучало як свідоме рішення, а не як те, що мене змусили, щоб не виглядати тією, хто здалася.</p><p class="src">Виведено з того, що люди публікують пости. Ніхто цього не казав прямо <span class="q">?</span></p></div>
+        <div class="job soc" id="job-S2"><span class="code">S2</span><p>Коли я приїжджаю надовго туди, де мене ніхто не знає, я хочу щоб місцеві прийняли мене за свою, щоб не прожити ці місяці стороннім спостерігачем.</p></div>
+        <div class="job soc" id="job-S3"><span class="code">S3 · глибина</span><p>Коли я опиняюся в незнайомій місцевості надовго, я хочу розуміти, хто тут що робить і до кого можна прийти, щоб не витратити весь строк на з'ясовування.</p></div>
       </div>
 
       <h3>P — паралельні: інший прогрес</h3>
       <p>Ці двоє не ведуть до головного джоба й не є його частиною. Це власний прогрес вторинних персон — те, заради чого вони їдуть, навіть якщо тиша й сон їх не цікавлять. Тому вони стоять збоку, а не в ряду R.</p>
       <div class="joblist">
-        <div class="job par"><span class="code">P1 · купівля</span><p>Коли я подумую змінити спосіб життя назовсім, я хочу спершу прожити його по-справжньому обмежений час, щоб вирішувати з досвіду, а не з уявлення.</p><p class="src">«Зніму (а може і куплю) стару красиву хату» — Threads, @grechka.yulia, 23.07.2026.</p></div>
-        <div class="job par"><span class="code">P2 · глибина</span><p>Коли мені бракує часу на головне через короткі поїздки, я хочу пожити достатньо довго поруч із тим, що мене цікавить, щоб нарешті дійти туди, куди за вихідні не доходила.</p><p class="src">«Зняти хату в Карпатах на місяць і нарешті зробити те, на що завжди не вистачало часу в коротких поїздках» — @darka.ceramics.</p></div>
+        <div class="job par" id="job-P1"><span class="code">P1 · купівля</span><p>Коли я подумую змінити спосіб життя назовсім, я хочу спершу прожити його по-справжньому обмежений час, щоб вирішувати з досвіду, а не з уявлення.</p><p class="src">«Зніму (а може і куплю) стару красиву хату» — Threads, @grechka.yulia, 23.07.2026.</p></div>
+        <div class="job par" id="job-P2"><span class="code">P2 · глибина</span><p>Коли мені бракує часу на головне через короткі поїздки, я хочу пожити достатньо довго поруч із тим, що мене цікавить, щоб нарешті дійти туди, куди за вихідні не доходила.</p><p class="src">«Зняти хату в Карпатах на місяць і нарешті зробити те, на що завжди не вистачало часу в коротких поїздках» — @darka.ceramics.</p></div>
       </div>
     </div>
   </div>
@@ -354,7 +359,7 @@
         <thead><tr><th>Job</th><th class="num vert"><span>Їде нічого не робити</span></th><th class="num vert"><span>Їде виспатись надовго</span></th><th class="num vert"><span>Не зірвати дзвінок</span></th><th class="num vert"><span>Придивляється до купівлі</span></th><th class="num vert"><span>Їде по глибину</span></th><th class="num vert"><span>Відкриває Україну</span></th><th class="num vert"><span>Чекає його з війни</span></th><th>Що закриває в продукті</th><th>Хто з ринку вже закриває</th></tr></thead>
         <tbody>
           <tr><th>MAIN Побути в тиші й повернути сон</th><td class="sc sc3">3</td><td class="sc sc3">3</td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc sc1">1</td><td class="sc"><span class="q">?</span></td><td class="sc sc3">3</td><td>Усе позиціонування: тиша, ніч, відновлення</td><td><strong>Ніхто.</strong> Ринок продає вікенд</td></tr>
-          <tr><th>R1 Зрозуміти, чи витримаю</th><td class="sc sc1">1</td><td class="sc sc3">3</td><td class="sc sc2">2</td><td class="sc sc3">3</td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td>чесні мінуси в описі оселі, рівень автономності</td><td><strong>Ніхто</strong></td></tr>
+          <tr><th>R1 Чи підійде мені</th><td class="sc sc1">1</td><td class="sc sc3">3</td><td class="sc sc2">2</td><td class="sc sc3">3</td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td>чесні мінуси в описі оселі, рівень автономності</td><td><strong>Ніхто</strong></td></tr>
           <tr><th>R2 Знайти, де шукати</th><td class="sc sc3">3</td><td class="sc sc3">3</td><td class="sc sc3">3</td><td class="sc sc2">2</td><td class="sc"><span class="q">?</span></td><td class="sc sc3">3</td><td class="sc sc3">3</td><td>Сам каталог і добірки</td><td><strong>Ніхто як сервіс</strong></td></tr>
           <tr><th>R3 Переконатись, що місце і ціна справжні</th><td class="sc sc3">3</td><td class="sc sc3">3</td><td class="sc sc2">2</td><td class="sc sc3">3</td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc sc2">2</td><td>Перевірка на місці з датою й автором</td><td>Частково Airbnb — доказ ховає</td></tr>
           <tr><th>R4 Домовитись на потрібний строк</th><td class="sc sc2">2</td><td class="sc sc3">3</td><td class="sc sc2">2</td><td class="sc sc3">3</td><td class="sc sc3">3</td><td class="sc"><span class="q">?</span></td><td class="sc sc3">3</td><td>Місячні ціни, розділ «Зимівля»</td><td><strong>Ніхто.</strong> Рік або ×3 за сезон</td></tr>
@@ -362,7 +367,7 @@
           <tr><th>R6 Не віддати дорозі половину вихідних</th><td class="sc sc3">3</td><td class="sc sc1">1</td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td>Час у дорозі від обраного міста: фільтр і рядок на картці</td><td><strong>Ніхто.</strong> Відстань живе у вільному тексті чужих коментарів</td></tr>
           <tr><th>E1 Перестати додавати невизначеності</th><td class="sc sc2">2</td><td class="sc sc3">3</td><td class="sc sc2">2</td><td class="sc sc2">2</td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc sc2">2</td><td>Гарантія з компенсацією</td><td><strong>Ніхто</strong></td></tr>
           <tr><th>E2 Побути там, де все своє</th><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc sc2">2</td><td class="sc sc3">3</td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td>Категорія свят, локальний контекст</td><td><strong>Ніхто</strong></td></tr>
-          <tr><th>E3 Не почуватися обдуреною потім</th><td class="sc sc3">3</td><td class="sc sc3">3</td><td class="sc sc2">2</td><td class="sc sc3">3</td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td>Блок недоліків, публічні критерії</td><td>Ніхто в Україні</td></tr>
+          <tr><th>E3 Зрозуміти, як там насправді</th><td class="sc sc3">3</td><td class="sc sc3">3</td><td class="sc sc2">2</td><td class="sc sc3">3</td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td>Блок недоліків, публічні критерії</td><td>Ніхто в Україні</td></tr>
           <tr><th>S1 Щоб читалось як вибір</th><td class="sc sc2">2</td><td class="sc sc2">2</td><td class="sc"><span class="q">?</span></td><td class="sc sc3">3</td><td class="sc sc2">2</td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td>Естетика сторінки оселі</td><td>Частково Airbnb і Kip</td></tr>
           <tr><th>S2 Бути прийнятою, а не чужою</th><td class="sc"><span class="q">?</span></td><td class="sc sc2">2</td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc sc2">2</td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td>Голос господаря в описі</td><td><strong>Ніхто</strong></td></tr>
           <tr><th>S3 Знати, до кого тут іти</th><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td class="sc sc3">3</td><td class="sc"><span class="q">?</span></td><td class="sc"><span class="q">?</span></td><td>Локальний гід із іменами</td><td>Частково Canopy &amp; Stars</td></tr>
