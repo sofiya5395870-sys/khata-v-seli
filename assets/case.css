@@ -215,7 +215,13 @@ mark { background: linear-gradient(transparent 58%, rgba(181,80,46,0.22) 58%); c
 .diagram .expand:hover { color: var(--ink); border-color: var(--ink); }
 .diagram.full {
   position: fixed; inset: 0; z-index: 9999; margin: 0; overflow: auto;
-  background: var(--bg); padding: 3rem 1.5rem 2rem; display: grid; place-items: center;
+  background: var(--bg); padding: 3.2rem 1.5rem 2rem; display: grid; place-items: center;
+  /* висоту задають і .diagram (max-height: 76vh), і ручний resize інлайн-стилем —
+     без цього розгорнута діаграма вкривала лише три чверті екрана, а під нею
+     прозирала сторінка */
+  width: 100vw; height: 100vh !important; max-height: none !important;
+  border: none; border-radius: 0; resize: none;
 }
-.diagram.full svg { max-width: 100%; height: auto; }
+.diagram.full svg { max-width: 100%; max-height: calc(100vh - 5rem); height: auto; }
+.diagram.full .expand { position: fixed; top: 0.9rem; right: 1.1rem; }
 body.diagram-open { overflow: hidden; }
