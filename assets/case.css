@@ -192,6 +192,9 @@ mark { background: linear-gradient(transparent 58%, rgba(181,80,46,0.22) 58%); c
 }
 
 /* вертикальні заголовки колонок у матриці трасування */
+/* увесь рядок заголовків стоїть на одній лінії з даними: інакше «Job» і «Що закриває
+   в продукті» висять угорі, відірвані від своїх колонок на висоту повернутих підписів */
+.matrix thead th { vertical-align: bottom; }
 .matrix thead th.vert {
   height: 10.5rem; vertical-align: bottom; text-align: center;
   padding: 0.5rem 0.3rem 0.6rem;
