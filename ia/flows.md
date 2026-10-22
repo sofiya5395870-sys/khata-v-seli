@@ -289,21 +289,22 @@ flowchart TD
 
 Єдиний флоу, де є **справжнє відхилення заявки**: гарантія без механізму розгляду — просто текст.
 
-**Happy path.**
+**Happy path.** Не «нічого не зламалось», а «зламалось, і гроші повернулись»: саме це робить гарантію справжньою.
 
 ```mermaid
 flowchart TD
-    Start(["Живу в оселі, зникло світло"]) --> Trip["Моя поїздка, режим «живу там»"]
-    Trip --> Know["Що робити при відключенні — написано тут же"]
-    Know --> Chat["Чат із господарем"]
-    Chat --> Fixed["Полагодив за домовлений час"]
-    Fixed --> Win(["Джоб закрито: гарантія не знадобилась"])
+    Start(["Живу в оселі, зникла вода"]) --> Trip["Моя поїздка, режим «живу там»"]
+    Trip --> Know["Тут же написано, що робити і скільки повернуть — 50% вартості доби"]
+    Know --> Chat["Чат із господарем: пишу, що води немає"]
+    Chat -->|не з'явилась за домовлений час| Claim["Звернення по гарантії: фото з часом, що саме не працює"]
+    Claim --> Review["Платформа розглядає у названий строк"]
+    Review --> Win(["Джоб закрито: 50% вартості доби повернуто"])
 
     classDef screen fill:#fdf3ea,stroke:#b5502e,color:#2b2b2b
     classDef state fill:#f1efe9,stroke:#9a9287,color:#4a443c
     classDef win fill:#e6efe4,stroke:#4f7a52,stroke-width:2px,color:#2f4a31
-    class Trip,Chat screen
-    class Know,Fixed state
+    class Trip,Chat,Claim screen
+    class Know,Review state
     class Start,Win win
 ```
 

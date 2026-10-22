@@ -33,6 +33,20 @@
   }
   pre.taps { font-size: 0.82rem; line-height: 1.9; }
 
+  /* перемикач «Happy path / Повний флоу» біля кожного флоу — сегментована кнопка,
+     щоб порівняти два погляди на той самий джоб, не гортаючи сторінку */
+  .tabs.seg { margin: 1rem 0 0; }
+  .tabs.seg .tabbar {
+    display: inline-flex; gap: 0.2rem; border: 1px solid var(--line); border-radius: 11px;
+    background: var(--surface-2); padding: 3px; margin-bottom: 1.2rem;
+  }
+  .tabs.seg .tabbar button {
+    border: 1px solid transparent; border-radius: 8px; padding: 0.42rem 0.9rem; font-size: 0.86rem;
+  }
+  .tabs.seg .tabbar button[aria-selected="true"] {
+    background: var(--surface); color: var(--ink); border-color: var(--accent); font-weight: 600;
+  }
+
   /* mermaid міряє текст, поки малює, а всередині display:none міряти нічого —
      тому діаграма в закритій вкладці падала в картинку помилки. На час малювання
      виносимо такі панелі за екран: бокс є, людина його не бачить. */
@@ -631,20 +645,20 @@
       </div>
     </div>
 
-    <div class="tabs">
-      <div class="tabbar" role="tablist">
-        <button id="tab-happy" role="tab" aria-selected="true" aria-controls="fl-happy">Happy path</button>
-        <button id="tab-jobs" role="tab" aria-selected="false" aria-controls="fl-jobs">Повний флоу</button>
-      </div>
-
-      <div class="tabpanel" data-open id="fl-happy" role="tabpanel" aria-labelledby="tab-happy">
         <div class="flow">
-          <div class="col">
-            <p>Сценарій, у якому нічого не ламається. Для кожного джоба — найкоротший шлях від входу до результату; що буває, коли щось іде не так, — у вкладці <strong>«Повний флоу»</strong>.</p>
-            <h3>MAIN — побути в тиші й повернути собі сон</h3>
-            <p style="font-size:0.9rem;color:var(--muted)">Формулювання джоба — <a href="personas.html#job-MAIN">у кроці 2</a>. Сім кроків від першого екрана до відгуку: два тапи до каталогу, один екран на бронювання й оплату.</p>
-          </div>
-          <div class="diagram">
+      <div class="col">
+        <h3>MAIN — побути в тиші й повернути собі сон</h3>
+        <blockquote><p>Коли вдома вже не виходить відпочити, я хочу побути там, де вночі тихо, а вранці є вода й тепло, щоб повернути собі сон, сили та натхнення.</p></blockquote>
+        <p style="font-size:0.85rem;color:var(--muted);margin:-0.4rem 0 0.6rem">Формулювання джоба — <a href="personas.html#job-MAIN">у розділі «Джоби»</a></p>
+      </div>
+      <div class="tabs seg">
+        <div class="tabbar" role="tablist">
+          <button type="button" role="tab" aria-selected="true" aria-controls="fl-main-h" id="tab-main-h">Happy path</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="fl-main-f" id="tab-main-f">Повний флоу</button>
+        </div>
+        <div class="tabpanel" data-open id="fl-main-h" role="tabpanel" aria-labelledby="tab-main-h">
+          <p style="font-size:0.9rem;color:var(--muted)">Формулювання джоба — <a href="personas.html#job-MAIN">у розділі «Джоби»</a>. Сім кроків від першого екрана до відгуку: два тапи до каталогу, один екран на бронювання й оплату.</p>
+<div class="diagram">
 <pre class="mermaid">flowchart TD
     Start(["Хочу кілька днів тиші"]) --> Home["Головна"]
     Home -->|пошук — локація, дати, люди| Cat["Каталог"]
@@ -665,105 +679,8 @@
     class Start,Stay,Win win</pre>
           </div>
         </div>
-
-        <div class="flow">
-          <div class="col">
-            <h3>R3 — переконатись, що місце і ціна справжні</h3>
-            <p style="font-size:0.9rem;color:var(--muted)">Формулювання джоба — <a href="personas.html#job-R3">у кроці 2</a>. Докази стоять на самому екрані оселі: перевірка, чесні мінуси, обличчя господаря.</p>
-          </div>
-          <div class="diagram">
-<pre class="mermaid">flowchart TD
-    Start(["Плачу наперед людині, якої не знаю"]) --> House["Оселя"]
-    House --> Proof["Перевірка: дата, ім'я того, хто перевіряв, кадри з місця"]
-    Proof --> Flaws["Мінуси в описі названі чесно"]
-    Flaws -->|посилання в блоці господаря| Talk["Розповідь господаря"]
-    Talk --> Owner["Господар — ім'я й обличчя"]
-    Owner --> Win(["Джоб закрито: сумнів знятий, іде бронювати"])
-    classDef screen fill:#fdf3ea,stroke:#b5502e,color:#2b2b2b
-    classDef state fill:#f1efe9,stroke:#9a9287,color:#4a443c
-    classDef win fill:#e6efe4,stroke:#4f7a52,stroke-width:2px,color:#2f4a31
-    class House,Owner,Talk screen
-    class Proof,Flaws state
-    class Start,Win win</pre>
-          </div>
-        </div>
-
-        <div class="flow">
-          <div class="col">
-            <h3>R4 — домовитись саме на той строк</h3>
-            <p style="font-size:0.9rem;color:var(--muted)">Формулювання джоба — <a href="personas.html#job-R4">у кроці 2</a>. Два входи в один каталог: розділ «Зимівля» і строк у смузі фільтрів, який стоїть там першим. Місячна ціна показана окремо від добової.</p>
-          </div>
-          <div class="diagram">
-<pre class="mermaid">flowchart TD
-    Start(["Треба перебути лише найважчі місяці"]) --> Cat["Каталог"]
-    Cat -->|«Зимівля» або строк у фільтрах — від місяця| House["Оселя"]
-    House --> Price["Місячна ціна показана окремо від добової"]
-    Price --> Cancel["Умова скасування — до оплати, не в оферті"]
-    Cancel --> Book["Бронювання"]
-    Book --> Pay["Оплата"]
-    Pay --> Conf["Підтвердження"]
-    Conf --> Win(["Джоб закрито: строк саме той, без року на себе"])
-    classDef screen fill:#fdf3ea,stroke:#b5502e,color:#2b2b2b
-    classDef state fill:#f1efe9,stroke:#9a9287,color:#4a443c
-    classDef win fill:#e6efe4,stroke:#4f7a52,stroke-width:2px,color:#2f4a31
-    class Cat,House,Book,Pay,Conf screen
-    class Price,Cancel state
-    class Start,Win win</pre>
-          </div>
-        </div>
-
-        <div class="flow">
-          <div class="col">
-            <h3>E1 — перестати додавати собі невизначеності</h3>
-            <p style="font-size:0.9rem;color:var(--muted)">Формулювання джоба — <a href="personas.html#job-E1">у кроці 2</a>. Що робити при відключенні, людина читає у своїй поїздці, а не в довідці.</p>
-          </div>
-          <div class="diagram">
-<pre class="mermaid">flowchart TD
-    Start(["Живу в оселі, зникло світло"]) --> Trip["Моя поїздка, режим «живу там»"]
-    Trip --> Know["Що робити при відключенні — написано тут же"]
-    Know --> Chat["Чат із господарем"]
-    Chat --> Fixed["Полагодив за домовлений час"]
-    Fixed --> Win(["Джоб закрито: гарантія не знадобилась"])
-    classDef screen fill:#fdf3ea,stroke:#b5502e,color:#2b2b2b
-    classDef state fill:#f1efe9,stroke:#9a9287,color:#4a443c
-    classDef win fill:#e6efe4,stroke:#4f7a52,stroke-width:2px,color:#2f4a31
-    class Trip,Chat screen
-    class Know,Fixed state
-    class Start,Win win</pre>
-          </div>
-        </div>
-
-        <div class="flow">
-          <div class="col">
-            <h3>Повертаюсь і читаю — R2 · S3 · P2 · E3</h3>
-            <p style="font-size:0.9rem;color:var(--muted)">Формулювання джоба — <a href="personas.html#job-R2">у кроці 2</a>. Другий вхід у каталог: через збережене, відгуки й місцевість, а не через пошук.</p>
-          </div>
-          <div class="diagram">
-<pre class="mermaid">flowchart TD
-    Start(["Повертаюсь до того, що відклала"]) --> Cab["Кабінет гостя"]
-    Cab --> Saved["Збережені"]
-    Saved --> House["Оселя"]
-    House --> Rev["Відгуки тих, хто там жив"]
-    Rev --> Guide["Локальний гід — місця поруч"]
-    Guide --> Win(["Джоб закрито: вибір не починається спочатку"])
-    classDef screen fill:#fdf3ea,stroke:#b5502e,color:#2b2b2b
-    classDef state fill:#f1efe9,stroke:#9a9287,color:#4a443c
-    classDef win fill:#e6efe4,stroke:#4f7a52,stroke-width:2px,color:#2f4a31
-    class Cab,Saved,House,Rev,Guide screen
-    class Start,Win win</pre>
-          </div>
-        </div>
-      </div>
-
-      <div class="tabpanel" id="fl-jobs" role="tabpanel" aria-labelledby="tab-jobs">
-    <div class="flow">
-      <div class="col">
-        <h3>MAIN — побути в тиші й повернути собі сон</h3>
-        <p style="font-size:0.85rem;color:var(--muted);margin:-0.4rem 0 0.6rem"><a href="personas.html#job-MAIN">Формулювання джоба — у кроці 2</a></p>
-        <blockquote><p>Коли вдома вже не виходить відпочити, я хочу побути там, де вночі тихо, а вранці є вода й тепло, щоб повернути собі сон, сили та натхнення.</p></blockquote>
-        <p style="font-size:0.9rem;color:var(--muted)">Персона: «Та, хто їде нічого не робити» — primary. Флоу той самий і для тієї, хто їде надовго: різниця лише в строку, який вона обирає на кроці дат.</p>
-      </div>
-      <div class="diagram">
+        <div class="tabpanel" id="fl-main-f" role="tabpanel" aria-labelledby="tab-main-f">
+<div class="diagram">
 <pre class="mermaid">flowchart TD
     Start(["Не відновлююсь там, де живу"]) --> Home["Головна"]
     Home --> Know{"Знаю, як сформулювати?"}
@@ -836,16 +753,40 @@
           </tbody>
         </table>
       </div>
+        </div>
+      </div>
     </div>
-
     <div class="flow">
       <div class="col">
         <h3>R3 — переконатись, що місце і ціна справжні</h3>
-        <p style="font-size:0.85rem;color:var(--muted);margin:-0.4rem 0 0.6rem"><a href="personas.html#job-R3">Формулювання джоба — у кроці 2</a></p>
         <blockquote><p>Коли я плачу всю суму наперед людині, якої не знаю, я хочу бачити доказ, що оселя існує і виглядає як на фото, щоб не приїхати в інше місце.</p></blockquote>
-        <p style="font-size:0.9rem;color:var(--muted)">3 бали primary, 3 бали персоні ④.</p>
+        <p style="font-size:0.85rem;color:var(--muted);margin:-0.4rem 0 0.6rem">Формулювання джоба — <a href="personas.html#job-R3">у розділі «Джоби»</a></p>
       </div>
-      <div class="diagram">
+      <div class="tabs seg">
+        <div class="tabbar" role="tablist">
+          <button type="button" role="tab" aria-selected="true" aria-controls="fl-r3-h" id="tab-r3-h">Happy path</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="fl-r3-f" id="tab-r3-f">Повний флоу</button>
+        </div>
+        <div class="tabpanel" data-open id="fl-r3-h" role="tabpanel" aria-labelledby="tab-r3-h">
+          <p style="font-size:0.9rem;color:var(--muted)">Формулювання джоба — <a href="personas.html#job-R3">у розділі «Джоби»</a>. Докази стоять на самому екрані оселі: перевірка, чесні мінуси, обличчя господаря.</p>
+<div class="diagram">
+<pre class="mermaid">flowchart TD
+    Start(["Плачу наперед людині, якої не знаю"]) --> House["Оселя"]
+    House --> Proof["Перевірка: дата, ім'я того, хто перевіряв, кадри з місця"]
+    Proof --> Flaws["Мінуси в описі названі чесно"]
+    Flaws -->|посилання в блоці господаря| Talk["Розповідь господаря"]
+    Talk --> Owner["Господар — ім'я й обличчя"]
+    Owner --> Win(["Джоб закрито: сумнів знятий, іде бронювати"])
+    classDef screen fill:#fdf3ea,stroke:#b5502e,color:#2b2b2b
+    classDef state fill:#f1efe9,stroke:#9a9287,color:#4a443c
+    classDef win fill:#e6efe4,stroke:#4f7a52,stroke-width:2px,color:#2f4a31
+    class House,Owner,Talk screen
+    class Proof,Flaws state
+    class Start,Win win</pre>
+          </div>
+        </div>
+        <div class="tabpanel" id="fl-r3-f" role="tabpanel" aria-labelledby="tab-r3-f">
+<div class="diagram">
 <pre class="mermaid">flowchart TD
     Start(["Плачу всю суму наперед незнайомій людині"]) --> House["Оселя"]
     House --> Load["Loading: галерея і кадри перевірки"]
@@ -880,16 +821,42 @@
         <p class="note" style="margin-top:1rem"><strong>Полагоджено.</strong> Каталог раніше не мав вихідного ребра — флоу обривався посеред екрана. Насправді вихід є й він скрізь однаковий: на кожній картці оселі стоїть CTA «Забронювати», тож із Каталогу людина завжди повертається в цикл вибору.</p>
         <p class="note"><strong>Розповідь — з картки оселі, не через профіль.</strong> Раніше флоу вів Оселя → Господар → Розповідь, тобто на перехід більше, ніж обіцяла навігація. Для R3, а це 3 бали для primary-персони, різниця суттєва: посилання стоїть у блоці господаря просто на картці.</p>
       </div>
+        </div>
+      </div>
     </div>
-
     <div class="flow">
       <div class="col">
         <h3>R4 — домовитись саме на той строк</h3>
-        <p style="font-size:0.85rem;color:var(--muted);margin:-0.4rem 0 0.6rem"><a href="personas.html#job-R4">Формулювання джоба — у кроці 2</a></p>
         <blockquote><p>Коли мені потрібно перебути лише найважчі місяці, я хочу домовитись саме на цей строк, не беручи на себе рік, щоб не платити за житло тоді, коли воно мені вже не потрібне.</p></blockquote>
-        <p style="font-size:0.9rem;color:var(--muted)">3 бали primary, 3 бали ④, 3 бали ⑤. <strong>Найсильніший related job із усіх.</strong></p>
+        <p style="font-size:0.85rem;color:var(--muted);margin:-0.4rem 0 0.6rem">Формулювання джоба — <a href="personas.html#job-R4">у розділі «Джоби»</a></p>
       </div>
-      <div class="diagram">
+      <div class="tabs seg">
+        <div class="tabbar" role="tablist">
+          <button type="button" role="tab" aria-selected="true" aria-controls="fl-r4-h" id="tab-r4-h">Happy path</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="fl-r4-f" id="tab-r4-f">Повний флоу</button>
+        </div>
+        <div class="tabpanel" data-open id="fl-r4-h" role="tabpanel" aria-labelledby="tab-r4-h">
+          <p style="font-size:0.9rem;color:var(--muted)">Формулювання джоба — <a href="personas.html#job-R4">у розділі «Джоби»</a>. Два входи в один каталог: розділ «Зимівля» і строк у смузі фільтрів, який стоїть там першим. Місячна ціна показана окремо від добової.</p>
+<div class="diagram">
+<pre class="mermaid">flowchart TD
+    Start(["Треба перебути лише найважчі місяці"]) --> Cat["Каталог"]
+    Cat -->|«Зимівля» або строк у фільтрах — від місяця| House["Оселя"]
+    House --> Price["Місячна ціна показана окремо від добової"]
+    Price --> Cancel["Умова скасування — до оплати, не в оферті"]
+    Cancel --> Book["Бронювання"]
+    Book --> Pay["Оплата"]
+    Pay --> Conf["Підтвердження"]
+    Conf --> Win(["Джоб закрито: строк саме той, без року на себе"])
+    classDef screen fill:#fdf3ea,stroke:#b5502e,color:#2b2b2b
+    classDef state fill:#f1efe9,stroke:#9a9287,color:#4a443c
+    classDef win fill:#e6efe4,stroke:#4f7a52,stroke-width:2px,color:#2f4a31
+    class Cat,House,Book,Pay,Conf screen
+    class Price,Cancel state
+    class Start,Win win</pre>
+          </div>
+        </div>
+        <div class="tabpanel" id="fl-r4-f" role="tabpanel" aria-labelledby="tab-r4-f">
+<div class="diagram">
 <pre class="mermaid">flowchart TD
     Start(["Треба перебути лише найважчі місяці"]) --> Cat["Каталог"]
     Cat --> Long{"Потрібен місяць і більше?"}
@@ -927,16 +894,40 @@
         <p><strong>Розвилки, яких ринок не ставить узагалі.</strong> «Потрібен місяць і більше?» — у Hutshub 90% бронювань до трьох діб. «Ціна за місяць окремо від доби?» — технічно рядок, по суті весь джоб. «Умова скасування зрозуміла?» — для довгого строку страшніше за ціну. <strong>Вихід із них є:</strong> окремий каталог осель, які здаються надовго, і звичний для сайтів бронювання календар, де людина сама ставить дати й одразу бачить, чи хата вільна.</p>
         <p>Тупик «розсміються в обличчя» — це те, що відбувається з людиною на ринку сьогодні (<a href="https://lb.ua/society/2026/10/15/773364_vid_pereyaslava_uzhgoroda_de.html">LB.ua, 15.10.2026</a>). Якщо порожній стан не запропонує виходу, ми повторимо ринок у кращому оформленні.</p>
       </div>
+        </div>
+      </div>
     </div>
-
     <div class="flow">
       <div class="col">
         <h3>E1 — перестати додавати собі невизначеності</h3>
-        <p style="font-size:0.85rem;color:var(--muted);margin:-0.4rem 0 0.6rem"><a href="personas.html#job-E1">Формулювання джоба — у кроці 2</a></p>
         <blockquote><p>Коли я вже живу в оселі й щось із обіцяного не працює, я хочу знати, що робити і на що маю право, щоб не з'ясовувати це з нуля посеред поїздки.</p></blockquote>
-        <p style="font-size:0.9rem;color:var(--muted)">Єдиний флоу, де є справжнє відхилення заявки: гарантія без механізму розгляду — просто текст.</p>
+        <p style="font-size:0.85rem;color:var(--muted);margin:-0.4rem 0 0.6rem">Формулювання джоба — <a href="personas.html#job-E1">у розділі «Джоби»</a></p>
       </div>
-      <div class="diagram">
+      <div class="tabs seg">
+        <div class="tabbar" role="tablist">
+          <button type="button" role="tab" aria-selected="true" aria-controls="fl-e1-h" id="tab-e1-h">Happy path</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="fl-e1-f" id="tab-e1-f">Повний флоу</button>
+        </div>
+        <div class="tabpanel" data-open id="fl-e1-h" role="tabpanel" aria-labelledby="tab-e1-h">
+          <p style="font-size:0.9rem;color:var(--muted)">Формулювання джоба — <a href="personas.html#job-E1">у розділі «Джоби»</a>. Щасливий шлях тут — не «нічого не зламалось», а «зламалось, і гроші повернулись». Людина читає у своїй поїздці, що робити і скільки їй належить, а не шукає це в довідці.</p>
+<div class="diagram">
+<pre class="mermaid">flowchart TD
+    Start(["Живу в оселі, зникла вода"]) --> Trip["Моя поїздка, режим «живу там»"]
+    Trip --> Know["Тут же написано, що робити і скільки повернуть — 50% вартості доби"]
+    Know --> Chat["Чат із господарем: пишу, що води немає"]
+    Chat -->|не з'явилась за домовлений час| Claim["Звернення по гарантії: фото з часом, що саме не працює"]
+    Claim --> Review["Платформа розглядає у названий строк"]
+    Review --> Win(["Джоб закрито: 50% вартості доби повернуто"])
+    classDef screen fill:#fdf3ea,stroke:#b5502e,color:#2b2b2b
+    classDef state fill:#f1efe9,stroke:#9a9287,color:#4a443c
+    classDef win fill:#e6efe4,stroke:#4f7a52,stroke-width:2px,color:#2f4a31
+    class Trip,Chat,Claim screen
+    class Know,Review state
+    class Start,Win win</pre>
+          </div>
+        </div>
+        <div class="tabpanel" id="fl-e1-f" role="tabpanel" aria-labelledby="tab-e1-f">
+<div class="diagram">
 <pre class="mermaid">flowchart TD
     Start(["Живу в оселі, щось із обіцяного не працює"]) --> Trip["Моя поїздка"]
     Trip --> Broken{"Світло, вода, тепло чи інтернет не працює?"}
@@ -981,16 +972,39 @@
           <span class="qt">«Гарантія виявилась словами» — найдорожчий тупик у продукті: людина, якій відмовили, забирає з собою рівно те відчуття, проти якого ми будуємося.</span>
         </div>
       </div>
+        </div>
+      </div>
     </div>
-
     <div class="flow">
       <div class="col">
         <h3>Повертаюсь і читаю — R2 · S3 · P2 · E3</h3>
-        <p style="font-size:0.85rem;color:var(--muted);margin:-0.4rem 0 0.6rem"><a href="personas.html#job-R2">Формулювання джоба — у кроці 2</a></p>
         <blockquote><p>Коли я вже відклала щось і повертаюсь, я хочу додивитись те, що лишила, і дізнатись про місце більше, щоб вибір не починався щоразу спочатку.</p></blockquote>
-        <p style="font-size:0.9rem;color:var(--muted)">Чотири екрани — Відгук, Журнал, Кабінет гостя й Локальний гід — не фігурували в жодному флоу, хоча в матриці трасування мають Σ 1, 4, 3 і 2. Дві перевірки давали різну відповідь про одні й ті самі екрани; цей флоу їх мирить — і збирає всі порожні стани, яких бракувало.</p>
+        <p style="font-size:0.85rem;color:var(--muted);margin:-0.4rem 0 0.6rem">Формулювання джоба — <a href="personas.html#job-R2">у розділі «Джоби»</a></p>
       </div>
-      <div class="diagram">
+      <div class="tabs seg">
+        <div class="tabbar" role="tablist">
+          <button type="button" role="tab" aria-selected="true" aria-controls="fl-back-h" id="tab-back-h">Happy path</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="fl-back-f" id="tab-back-f">Повний флоу</button>
+        </div>
+        <div class="tabpanel" data-open id="fl-back-h" role="tabpanel" aria-labelledby="tab-back-h">
+          <p style="font-size:0.9rem;color:var(--muted)">Формулювання джоба — <a href="personas.html#job-R2">у розділі «Джоби»</a>. Другий вхід у каталог: через збережене, відгуки й місцевість, а не через пошук.</p>
+<div class="diagram">
+<pre class="mermaid">flowchart TD
+    Start(["Повертаюсь до того, що відклала"]) --> Cab["Кабінет гостя"]
+    Cab --> Saved["Збережені"]
+    Saved --> House["Оселя"]
+    House --> Rev["Відгуки тих, хто там жив"]
+    Rev --> Guide["Локальний гід — місця поруч"]
+    Guide --> Win(["Джоб закрито: вибір не починається спочатку"])
+    classDef screen fill:#fdf3ea,stroke:#b5502e,color:#2b2b2b
+    classDef state fill:#f1efe9,stroke:#9a9287,color:#4a443c
+    classDef win fill:#e6efe4,stroke:#4f7a52,stroke-width:2px,color:#2f4a31
+    class Cab,Saved,House,Rev,Guide screen
+    class Start,Win win</pre>
+          </div>
+        </div>
+        <div class="tabpanel" id="fl-back-f" role="tabpanel" aria-labelledby="tab-back-f">
+<div class="diagram">
 <pre class="mermaid">flowchart TD
     Start(["Повертаюсь: відклала й хочу додивитись"]) --> Cab["Кабінет гостя"]
     Cab --> HasTrip{"Є поїздки?"}
@@ -1041,10 +1055,10 @@
         <p><strong>Сім порожніх станів і жодного тупика.</strong> Кабінет новий гість бачить порожнім ще до першої поїздки; Добірка теж фільтрується, отже теж може спорожніти — і скидання фільтра <strong>зберігає добірку</strong>, а не викидає в загальний каталог. Відгуків на старті немає в усіх тридцяти осель, тому «тут ще ніхто не лишав відгуку» треба написати так, щоб воно не читалось як покинутий сайт.</p>
         <p>Обидві гілки глибини — Розповідь й Гід — на старті будуть заповнені не скрізь, тому обидві мають падіння: Розповідь назад на профіль господаря, Гід — на місця з описів сусідніх осель. <strong>Вихід із кожного порожнього екрана веде вглиб каталогу, а не з нього.</strong></p>
       </div>
-    </div>
-  </div>
+        </div>
       </div>
     </div>
+  </div>
 </section>
 
 <section id="review">
