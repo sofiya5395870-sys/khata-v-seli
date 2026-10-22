@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Звернення по гарантії · відхилено</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Звернення по гарантії — відхилено</p>
+    <dl>
+      <dt>Екран</dt><dd>Звернення по гарантії, вузол <code>Err</code> у флоу E1</dd>
+      <dt>Крок джоба</dt><dd>четвертий, розвилка «Звернення задоволено?» → <strong>ні</strong>. Назад на розгляд веде оскарження; убік — Післявиїзна оцінка</dd>
+      <dt>Джоби</dt><dd><strong>E1</strong> — знати, що робити і на що я маю право · <strong>E3</strong> зрозуміти, як там насправді</dd>
+      <dt>Стан</dt><dd>помилка: єдина справжня відмова в усьому продукті, тому причина обов'язкова</dd>
+    </dl>
+  </div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в інший розділ</em></p>
+  <p class="zone">Зона 2 · Стан звернення і право на компенсацію <em>— головна дія: прочитати рішення і побачити, що його можна оскаржити</em></p>
+  <p class="zone">Зона 3 · Поїздка, по якій звернення <em>— головна дія: переконатись, що це та сама доба і та сама оселя</em></p>
+  <p class="zone">Зона 4 · Що не працювало й коли <em>— головна дія: звірити рішення з тим, що ви надсилали</em></p>
+  <p class="zone">Зона 5 · Докази <em>— головна дія: бачити, що саме ми дивились</em></p>
+  <p class="zone">Зона 6 · Строк і сума <em>— головна дія: знати, скільки часу на оскарження і що воно може дати</em></p>
+  <p class="zone">Зона 7 · Дія <em>— головна дія: оскаржити або піти в оцінку після виїзду</em></p>
+  <p class="zone">Зона 8 · Нижнє меню <em>— головна дія: перейти в інший розділ</em></p>
+
+  <nav class="states" aria-label="Стани цього екрана">
+    <a href="claim.html">Успіх</a>
+    <a href="claim-empty.html">Порожній · без доказів</a>
+    <a href="claim-loading.html">Завантаження · на розгляді</a>
+    <a href="claim-error.html" aria-current="page">Помилка · відхилено</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <figure class="device">
+    <div class="phone w-phone">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <!-- Зона 1 -->
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html">Оселі</a></li>
+              <li><a href="journal.html">Журнал</a></li>
+              <li><a href="saved.html">Збережені · 2</a></li>
+              <li><a href="#" aria-current="page">Кабінет</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main>
+
+          <!-- Зона 2 -->
+          <h1 class="count">Щось із обіцяного не працювало</h1>
+          <section class="card" aria-labelledby="cr-h" style="margin:16px">
+            <h2 id="cr-h">Звернення відхилено. Оскаржити його можна до 25 листопада</h2>
+            <p class="guarantee"><strong>Причина:</strong> не вмикалась духовка. Кухня є в кожній оселі каталогу, але під компенсацію вона не підпадає — гарантія покриває п'ять речей: світло, воду, тепло, інтернет і паркомісце. Так написано в умовах бронювання і так само написано у формі, яку ви заповнювали.</p>
+            <p class="guarantee">Рішення ухвалила Олена, кураторка Київської області, 11 листопада о 16:05.</p>
+          </section>
+
+          <section class="card" aria-labelledby="cr-appeal" style="margin:0 16px 16px">
+            <h2 id="cr-appeal">Коли оскарження має сенс</h2>
+            <p class="guarantee">Якщо духовка не вмикалась <strong>через те, що не було світла</strong>, — це вже гарантійний випадок, і сума та сама, 1 350 ₴. Напишіть це в оскарженні, і ми запитаємо в обленерго про відключення у Витачеві того вечора.</p>
+            <p class="checked">Оскарження розглядає інша людина, не та, що ухвалила рішення.</p>
+          </section>
+
+          <!-- Зона 3 -->
+          <section class="card" aria-labelledby="cr-trip" style="margin:0 16px 16px">
+            <h2 id="cr-trip">Поїздка, по якій звернення</h2>
+            <dl class="facts">
+              <dt>Оселя</dt><dd>Тиха Хата, Витачів, Київська область</dd>
+              <dt>Господиня</dt><dd>Марія</dd>
+              <dt>Коли</dt><dd><time datetime="2026-11-07">7</time>–<time datetime="2026-11-09">9 листопада 2026</time>, 2 доби</dd>
+            </dl>
+          </section>
+
+          <!-- Зона 4 -->
+          <section class="count" aria-labelledby="cr-what">
+            <h2 id="cr-what">Що ви надсилали</h2>
+            <dl class="facts">
+              <dt>Не працювало</dt><dd>інше — духовка</dd>
+              <dt>Почалось</dt><dd>8 листопада, 19:30</dd>
+              <dt>Відновилось</dt><dd>не відновилось до виїзду</dd>
+              <dt>Вашими словами</dt><dd>«Духовка не вмикається, вечерю готували на плитці»</dd>
+            </dl>
+          </section>
+
+          <!-- Зона 5 -->
+          <section class="card" aria-labelledby="cr-proof" style="margin:16px">
+            <h2 id="cr-proof">Що ми дивились</h2>
+            <p class="photo">відео: панель духовки без індикації, 8 листопада, 19:41</p>
+            <p class="checked">Доказ прийнято, час збігається з добою бронювання. Рішення не про доказ, а про те, що саме покриває гарантія.</p>
+          </section>
+
+          <!-- Зона 6 -->
+          <section class="count" aria-labelledby="cr-terms">
+            <h2 id="cr-terms">Строк і сума</h2>
+            <dl class="facts">
+              <dt>До повернення зараз</dt><dd><strong><data value="0">0 ₴</data></strong></dd>
+              <dt>Якщо оскарження підтвердить світло</dt><dd><data value="1350">1 350 ₴</data> — 50% вартості доби</dd>
+              <dt>Оскаржити можна до</dt><dd><strong><time datetime="2026-11-25">25 листопада</time></strong> — 14 днів від рішення</dd>
+              <dt>Відповідь на оскарження</dt><dd>за 3 робочі дні, з тією самою автоескалацією</dd>
+            </dl>
+            <p class="guarantee">Якщо оскаржувати нема чого — оцінка після виїзду все одно працює. Перша низька оцінка — попередження Марії, друга знімає оселю з каталогу. Гроші вона не повертає, але каталог тримає чесним саме вона.</p>
+          </section>
+
+          <!-- Зона 7 -->
+          <section class="filters" aria-label="Дія">
+            <a class="btn first" href="claim-loading.html">Оскаржити рішення</a>
+            <a class="btn" href="rating.html">Оцінка після виїзду</a>
+            <a class="btn" href="trip-after.html">Назад у поїздку</a>
+          </section>
+
+        </main>
+
+        <!-- Зона 8 -->
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html"><span class="box"></span>Оселі</a>
+          <a href="journal.html"><span class="box"></span>Журнал</a>
+          <a href="saved.html"><span class="box"></span>Збережені · 2</a>
+          <a href="#" aria-current="page"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Телефон · 390 × 844. Рамка пристрою — риштування макета, не елемент продукту.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Оскарження → <a href="claim-loading.html">знову на розгляд</a> · убік → <a href="rating.html">Післявиїзна оцінка</a> · вихід → <a href="trip-after.html">Моя поїздка</a> · назад → <a href="claim.html">звернення</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Перше речення каже і що сталось, і на що людина має право.</strong> «Відхилено» без «оскаржити можна до 25 листопада» — це тупик, а тупик тут найдорожчий у продукті: людина забирає з собою рівно те відчуття, проти якого ми будуємось.</li>
+    <li><strong>Відмова намальована на кухні, а не на воді.</strong> За брифом власник платить незалежно від причини — отже, аварія на водогоні підставою для відмови бути не може. Кухня свідомо поза компенсацією, і це єдина чесна підстава відмовити. Випадок той самий, поїздка та сама.</li>
+    <li><strong>Оскарження названо не кнопкою, а умовою:</strong> сказано, коли воно має сенс — духовка без світла це вже гарантія. Кнопка «оскаржити» без цього абзацу відправляє людину на другий круг намарно.</li>
+    <li><strong>Сказано, що розглядає інша людина.</strong> Оскарження, яке розглядає автор рішення, — це не оскарження, і люди це знають.</li>
+    <li><strong>Рішення має ім'я, дату й годину.</strong> Безіменна відмова читається як відмова системи, а з системою не сперечаються.</li>
+    <li><strong>Другий вихід — Післявиїзна оцінка</strong>, як і написано у «Виходах із глухих кутів»: спершу шлях оскарження, потім оцінка, яка знімає оселю з каталогу.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

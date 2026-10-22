@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Кабінет гостя · порожній стан</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Кабінет гостя — порожній стан</p>
+    <dl>
+      <dt>Екран</dt><dd>Кабінет гостя, вузол <code>Cab</code> у флоу «Повертаюсь і читаю»</dd>
+      <dt>Крок джоба</dt><dd>розвилка «Є поїздки?» → <strong>ще немає</strong>. Далі за флоу — Збережені, а з них Добірка й Оселя</dd>
+      <dt>Джоби</dt><dd><strong>R2</strong> — повернутись до відкладеного · <strong>R4</strong> бачити свої строки · <strong>P1</strong></dd>
+      <dt>Стан</dt><dd>порожній: поїздок ще немає. Єдиний екран, який новий гість бачить порожнім ще до першої поїздки</dd>
+    </dl>
+  </div>
+
+  <nav class="states" aria-label="Стани цього екрана">
+    <a href="account.html">Успіх</a>
+    <a href="account-empty.html" aria-current="page">Порожній</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в інший розділ</em></p>
+  <p class="zone">Зона 2 · Хто ви <em>— головна дія: перевірити пошту, на яку приходитимуть листи</em></p>
+  <p class="zone">Зона 3 · Поїздок ще немає і вихід <em>— головна дія: відкрити Збережені й додивитись відкладене</em></p>
+  <p class="zone">Зона 4 · Поїздка, заброньована без акаунта <em>— головна дія: підтягнути сюди бронювання, зроблене гостем</em></p>
+  <p class="zone">Зона 5 · Збережені списки <em>— головна дія: повернутись до відкладеного</em></p>
+  <p class="zone">Зона 6 · Чати <em>— головна дія: зрозуміти, коли вони з'являться</em></p>
+  <p class="zone">Зона 7 · Нижнє меню <em>— головна дія: перейти в інший розділ</em></p>
+
+  <figure class="device">
+    <div class="phone w-desktop">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <!-- Зона 1 -->
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html">Оселі</a></li>
+              <li><a href="journal.html">Журнал</a></li>
+              <li><a href="saved.html">Збережені · 2</a></li>
+              <li><a href="account.html" aria-current="page">Кабінет</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main>
+          <h1 class="count">Кабінет гостя</h1>
+
+          <!-- Зона 2 -->
+          <section class="card" aria-labelledby="ae-who" style="margin:16px">
+            <h2 id="ae-who">Катерина</h2>
+            <dl class="facts">
+              <dt>Пошта</dt><dd>katrusia@ukr.net — сюди приходитимуть листи про поїздки</dd>
+              <dt>Мова</dt><dd>українська</dd>
+            </dl>
+            <footer>
+              <button type="button">Змінити</button>
+            </footer>
+          </section>
+
+          <!-- Зона 3 -->
+          <section class="card" aria-labelledby="ae-h" style="margin:0 16px 16px">
+            <h2 id="ae-h">Поїздок ще немає</h2>
+            <p class="guarantee">Коли ви забронюєте, тут з'являться адреса, ключ і час заїзду — і лишаться, навіть якщо лист не дійде. Поки що найближче до поїздки — те, що ви вже відклали.</p>
+            <footer>
+              <a class="btn" href="saved.html">Відкрити збережені · 2 оселі</a>
+              <a href="collection.html">Добірки</a>
+              <a href="listings.html">Весь каталог</a>
+            </footer>
+          </section>
+
+          <!-- Зона 4 -->
+          <section class="card" aria-labelledby="ae-guest" style="margin:0 16px 16px">
+            <h2 id="ae-guest">Бронювали без акаунта?</h2>
+            <p class="guarantee">Бронювання гостем — звичайна річ, акаунт для нього не потрібен. Введіть пошту, на яку прийшов лист, і поїздка стане тут поруч із рештою.</p>
+            <form class="search" style="padding:0">
+              <div class="row">
+                <p>
+                  <label for="ae-mail">Пошта з листа про бронювання</label>
+                  <input id="ae-mail" type="email" name="mail" placeholder="katrusia@ukr.net">
+                </p>
+              </div>
+              <p><button type="submit">Знайти мою поїздку</button></p>
+            </form>
+          </section>
+
+          <!-- Зона 5 -->
+          <section class="card" aria-labelledby="ae-saved" style="margin:0 16px 16px">
+            <h2 id="ae-saved">Збережені списки</h2>
+            <ul class="bottom">
+              <li><a href="saved.html">Хочу туди взимку · 2 оселі</a></li>
+              <li><a href="saved.html">Надовго, якщо вирішусь · 1 оселя</a></li>
+            </ul>
+            <footer>
+              <a href="saved.html">Усі збережені</a>
+            </footer>
+          </section>
+
+          <!-- Зона 6 -->
+          <section class="card" aria-labelledby="ae-chat" style="margin:0 16px 16px">
+            <h2 id="ae-chat">Чатів ще немає</h2>
+            <p class="guarantee">Листування з господарем відкривається після оплати. До неї писати нема куди — і це не збій, а те, як продукт влаштований.</p>
+          </section>
+        </main>
+
+        <!-- Зона 7 -->
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html"><span class="box"></span>Оселі</a>
+          <a href="journal.html"><span class="box"></span>Журнал</a>
+          <a href="saved.html"><span class="box"></span>Збережені · 2</a>
+          <a href="account.html" aria-current="page"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Десктоп · 1200 × 800. Перемикач над рамкою показує той самий екран на планшеті й телефоні.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Вихід за флоу → <a href="saved.html">Збережені</a> · далі <a href="collection.html">Добірка</a> і <a href="listings.html">Каталог</a>. Назад → <a href="account.html">кабінет із поїздкою</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Вихід — у Збережені, а не в Каталог.</strong> Правило кроку 3: спершу найближче. У людини, яка відкриває порожній кабінет, уже є відкладене — це ближче за новий пошук.</li>
+    <li><strong>Рядок «бронювали без акаунта» стоїть у порожньому стані, а не в довідці.</strong> Бронювати гостем дозволено брифом, тож «поїздок немає» може бути неправдою — і екран мусить дати це виправити, а не сперечатись із людиною.</li>
+    <li><strong>Порожній чат пояснює причину.</strong> Без пояснення відсутність листування читається як поламаний розділ.</li>
+    <li><strong>Структура та сама, що в основному стані</strong>: хто ви · поїздки · збережене · чати. Порожнім тут буває вміст, а не екран.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

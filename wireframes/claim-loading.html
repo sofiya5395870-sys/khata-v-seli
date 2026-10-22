@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Звернення по гарантії · на розгляді</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Звернення по гарантії — на розгляді</p>
+    <dl>
+      <dt>Екран</dt><dd>Звернення по гарантії, вузол <code>Review</code> у флоу E1</dd>
+      <dt>Крок джоба</dt><dd>четвертий: звернення надіслане. Далі — розвилка «Звернення задоволено?» і гілка автоескалації, коли строк минув</dd>
+      <dt>Джоби</dt><dd><strong>E1</strong> — знати, що робити і на що я маю право · <strong>E3</strong> зрозуміти, як там насправді</dd>
+      <dt>Стан</dt><dd>завантаження: спокійний індикатор, зі строком розгляду й автоескалацією</dd>
+    </dl>
+  </div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в інший розділ</em></p>
+  <p class="zone">Зона 2 · Стан звернення і право на компенсацію <em>— головна дія: бачити, на чому воно зараз і коли буде відповідь</em></p>
+  <p class="zone">Зона 3 · Поїздка, по якій звернення <em>— головна дія: переконатись, що це та сама доба і та сама оселя</em></p>
+  <p class="zone">Зона 4 · Що не працювало й коли <em>— головна дія: перечитати, що саме пішло на розгляд</em></p>
+  <p class="zone">Зона 5 · Докази <em>— головна дія: бачити, що прийнято, і додати ще, якщо з'явилось</em></p>
+  <p class="zone">Зона 6 · Строк і сума <em>— головна дія: знати строк і те, що буде, якщо ми його пропустимо</em></p>
+  <p class="zone">Зона 7 · Дія <em>— головна дія: доповнити звернення або вийти в поїздку</em></p>
+  <p class="zone">Зона 8 · Нижнє меню <em>— головна дія: перейти в інший розділ</em></p>
+
+  <nav class="states" aria-label="Стани цього екрана">
+    <a href="claim.html">Успіх</a>
+    <a href="claim-empty.html">Порожній · без доказів</a>
+    <a href="claim-loading.html" aria-current="page">Завантаження · на розгляді</a>
+    <a href="claim-error.html">Помилка · відхилено</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <figure class="device">
+    <div class="phone w-phone">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <!-- Зона 1 -->
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html">Оселі</a></li>
+              <li><a href="journal.html">Журнал</a></li>
+              <li><a href="saved.html">Збережені · 2</a></li>
+              <li><a href="#" aria-current="page">Кабінет</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main>
+
+          <!-- Зона 2 -->
+          <h1 class="count">Щось із обіцяного не працювало</h1>
+          <section class="card" aria-labelledby="cw-h" style="margin:16px">
+            <h2 id="cw-h">Звернення на розгляді</h2>
+            <p class="guarantee">Воно в роботі з <time datetime="2026-11-08T21:20">8 листопада, 21:20</time>. Закривати сторінку можна — відповідь прийде в поїздку й на пошту.</p>
+            <p class="skeleton w60"></p>
+            <dl class="facts">
+              <dt>Подано</dt><dd>8 листопада, 21:20</dd>
+              <dt>Розглядає</dt><dd>Олена, кураторка Київської області</dd>
+              <dt>Відповідь до</dt><dd><strong><time datetime="2026-11-11T18:00">11 листопада, 18:00</time></strong> — це 3 робочі дні</dd>
+            </dl>
+          </section>
+
+          <!-- Зона 3 -->
+          <section class="card" aria-labelledby="cw-trip" style="margin:0 16px 16px">
+            <h2 id="cw-trip">Поїздка, по якій звернення</h2>
+            <dl class="facts">
+              <dt>Оселя</dt><dd>Тиха Хата, Витачів, Київська область</dd>
+              <dt>Господиня</dt><dd>Марія</dd>
+              <dt>Коли</dt><dd><time datetime="2026-11-07">7</time>–<time datetime="2026-11-09">9 листопада 2026</time>, 2 доби</dd>
+            </dl>
+          </section>
+
+          <!-- Зона 4 -->
+          <section class="count" aria-labelledby="cw-what">
+            <h2 id="cw-what">Що пішло на розгляд</h2>
+            <dl class="facts">
+              <dt>Не працювало</dt><dd>вода</dd>
+              <dt>Почалось</dt><dd>8 листопада, 18:20</dd>
+              <dt>Відновилось</dt><dd>9 листопада, 07:10 — 12 годин 50 хвилин</dd>
+              <dt>Вашими словами</dt><dd>«Крани сухі з вечора»</dd>
+            </dl>
+            <p class="checked">Переписку з Марією від 8 листопада, 18:35 ми додали самі.</p>
+          </section>
+
+          <!-- Зона 5 -->
+          <section class="card" aria-labelledby="cw-proof" style="margin:16px">
+            <h2 id="cw-proof">Докази прийнято</h2>
+            <p class="photo">відео: кран без води, 8 листопада, 18:42 — час видно</p>
+            <p class="photo">фото: порожній бак над душем, 8 листопада, 21:05</p>
+            <p class="checked">Час на обох файлах збігається з добою бронювання.</p>
+          </section>
+
+          <!-- Зона 6 -->
+          <section class="count" aria-labelledby="cw-terms">
+            <h2 id="cw-terms">Строк і сума</h2>
+            <dl class="facts">
+              <dt>Сума до повернення</dt><dd><strong><data value="1350">1 350 ₴</data></strong> — 50% від 2 700 ₴ за добу 8 листопада</dd>
+              <dt>Відповідь до</dt><dd>11 листопада, 18:00</dd>
+              <dt>Якщо спізнимось</dt><dd>звернення <strong>саме</strong> переходить до керівника підтримки, строк стає 12 листопада, 18:00, і тут з'явиться нове ім'я</dd>
+              <dt>Нагадувати</dt><dd>не треба: лічильник наш, не ваш</dd>
+            </dl>
+            <p class="guarantee">Ми не маємо права мовчати всередині того, що продаємо як гарантію. Тому строк названий у самому екрані, а не в листі, який можна не знайти.</p>
+          </section>
+
+          <!-- Зона 7 -->
+          <section class="filters" aria-label="Дія">
+            <a class="btn first" href="claim.html">Додати ще доказ</a>
+            <a class="btn" href="trip.html">Назад у поїздку</a>
+          </section>
+
+        </main>
+
+        <!-- Зона 8 -->
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html"><span class="box"></span>Оселі</a>
+          <a href="journal.html"><span class="box"></span>Журнал</a>
+          <a href="saved.html"><span class="box"></span>Збережені · 2</a>
+          <a href="#" aria-current="page"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Телефон · 390 × 844. Рамка пристрою — риштування макета, не елемент продукту.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Розвилка «Звернення задоволено?» → так: 1 350 ₴ повернуто, далі <a href="rating.html">Післявиїзна оцінка</a> · <a href="claim-error.html">ні: відхилено</a> · назад → <a href="claim.html">звернення</a> · вихід → <a href="trip.html">Моя поїздка</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Тут спокійний індикатор, а не мила вставка.</strong> Людина доводить, що в неї не було води; анімація в цю мить читається як несерйозність. Те саме рішення, що й на Оплаті.</li>
+    <li><strong>Строк названий датою й годиною</strong>, а не словами «найближчим часом». Невизначеність — це саме те, проти чого стоїть джоб E1; відповідати на неї невизначеністю було б знущанням.</li>
+    <li><strong>Автоескалація описана до того, як вона знадобиться.</strong> Вона наша, а не ваша: гість нічого не натискає й нікому не нагадує. Платформа, яка продає гарантію, не має права відповідати тоді, коли згадає.</li>
+    <li><strong>Розгляд має ім'я й область.</strong> Той самий хід, що й у перевірки оселі: механізм, за який відповідає конкретна людина, — це механізм, а не сторінка умов.</li>
+    <li><strong>Успіху окремим екраном немає.</strong> «Задоволено» — це гроші на картці й рядок у поїздці; малювати для цього сторінку нема чого. Далі за флоу — оцінка після виїзду.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

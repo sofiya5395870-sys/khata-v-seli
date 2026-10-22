@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Господар · основний стан</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Господар — єдиний стан</p>
+    <dl>
+      <dt>Екран</dt><dd>Господар, вузол <code>Owner</code> у флоу R3</dd>
+      <dt>Крок джоба</dt><dd>передостанній: сюди веде і гілка «так» із розвилки про критерії, і сама сторінка Критеріїв, і Розповідь. Далі — розвилка «Профіль вселяє довіру?»</dd>
+      <dt>Джоби</dt><dd><strong>S2</strong> бути прийнятою, а не чужою · <strong>E2</strong> побути в місці, яке відчувається моїм · <strong>R3</strong> людину видно на ім’я й обличчя, отже оселя не фікція</dd>
+      <dt>Стан</dt><dd>єдиний. Профіль господаря без імені й фото не публікується, тому порожнім він не буває</dd>
+    </dl>
+  </div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в інший розділ</em></p>
+  <p class="zone">Зона 2 · Ім’я й обличчя <em>— головна дія: побачити, у кого саме бронюєш</em></p>
+  <p class="zone">Зона 3 · Кілька слів від господині <em>— головна дія: почути її голос, а не опис від платформи</em></p>
+  <p class="zone">Зона 4 · Розповідь <em>— головна дія: познайомитись до оплати</em></p>
+  <p class="zone">Зона 5 · Контакт <em>— головна дія: зрозуміти, коли відкриється листування</em></p>
+  <p class="zone">Зона 6 · Оселі Марії <em>— головна дія: повірити людині, якщо не повірив конкретному дому</em></p>
+  <p class="zone">Зона 7 · Панель дії <em>— головна дія: піти в розповідь або повернутись до оселі</em></p>
+  <p class="zone">Зона 8 · Нижнє меню, чотири пункти <em>— головна дія: перейти в інший розділ</em></p>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <figure class="device">
+    <div class="phone w-desktop">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <!-- Зона 1 -->
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html" aria-current="page">Оселі</a></li>
+              <li><a href="journal.html">Журнал</a></li>
+              <li><a href="saved.html">Збережені · 2</a></li>
+              <li><a href="account.html">Кабінет</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main>
+
+          <!-- Зона 2 -->
+          <section aria-labelledby="h-name" class="search">
+            <h1 id="h-name">Марія</h1>
+            <p class="guarantee">Стайки, Київська область — за сім кілометрів від Витачева. Приймає гостей із 2021 року.</p>
+            <p class="photo">фото: Марія, господиня, на подвір’ї</p>
+          </section>
+
+          <!-- Зона 3 -->
+          <section class="count" aria-labelledby="h-about">
+            <h2 id="h-about">Кілька слів від Марії</h2>
+            <p class="guarantee">«Хату будував мій дід, і я в ній виросла. Сама живу в Стайках, а сюди приїжджаю зустріти, показати, де дрова й як топити піч, щоб уночі було тепло. Далі ви мене не бачите, якщо самі не покличете — я це добре розумію, по те сюди й їдуть.»</p>
+          </section>
+
+          <!-- Зона 4 -->
+          <section class="count" aria-labelledby="h-story">
+            <h2 id="h-story">Розповідь</h2>
+            <p class="guarantee">Ми приїхали до Марії й записали розмову: чому вона відкрила дім, що тут любить, чого не радить робити взимку. Публікуємо так, як вона розповіла.</p>
+            <p><a href="story.html">Прочитати розмову з Марією</a> — записано 20.09.2026</p>
+          </section>
+
+          <!-- Зона 5 -->
+          <section class="count" aria-labelledby="h-contact">
+            <h2 id="h-contact">Контакт</h2>
+            <p class="guarantee">Телефон Марії й листування з нею відкриваються <strong>після оплати</strong> — разом із адресою та часом заїзду. До того ми не обіцяємо того, чого немає: познайомитись можна в розповіді, і саме тому ми записали її наперед.</p>
+          </section>
+
+          <!-- Зона 6 -->
+          <section class="count" aria-labelledby="h-houses">
+            <h2 id="h-houses">Оселі Марії</h2>
+            <ul class="list">
+
+              <li class="card">
+                <article>
+                  <h3><a href="listing.html">Тиха Хата</a></h3>
+                  <p class="guarantee">Дім під вербами, де вночі чути тільки річку</p>
+                  <p class="photo">фото: хата з боку саду, ранкове світло</p>
+                  <dl class="facts">
+                    <dt>Де</dt><dd>Витачів, Київська область</dd>
+                    <dt>Ціна</dt><dd>2 700 ₴ за добу</dd>
+                    <dt>Кімнат</dt><dd>2, до 4 людей</dd>
+                  </dl>
+                  <p class="checked">Перевірено 12.09.2026, куратором.</p>
+                  <footer>
+                    <a href="listing.html">Подивитись оселю</a>
+                    <a class="btn" href="booking.html">Забронювати</a>
+                  </footer>
+                </article>
+              </li>
+
+              <li class="card">
+                <article>
+                  <h3><a href="listing.html">Клуня</a></h3>
+                  <p class="guarantee">Перероблена стодола на тому ж подвір’ї — на двох, без сусідів</p>
+                  <p class="photo">фото: клуня зсередини, світло з-під даху</p>
+                  <dl class="facts">
+                    <dt>Де</dt><dd>Витачів, Київська область</dd>
+                    <dt>Ціна</dt><dd>2 100 ₴ за добу</dd>
+                    <dt>Кімнат</dt><dd>1, до 2 людей</dd>
+                  </dl>
+                  <p class="checked">Перевірено 14.09.2026, куратором.</p>
+                  <footer>
+                    <a href="listing.html">Подивитись оселю</a>
+                    <a class="btn" href="booking.html">Забронювати</a>
+                  </footer>
+                </article>
+              </li>
+
+            </ul>
+            <p class="guarantee">Обидві оселі перевірені на місці — за тими самими <a href="criteria.html">критеріями відбору</a>, що й решта каталогу.</p>
+          </section>
+
+        </main>
+
+        <!-- Зона 7 -->
+        <section class="filters" aria-label="Дія">
+          <a class="btn first" href="story.html">Прочитати розмову з Марією</a>
+          <a class="btn" href="listing.html">Повернутись до «Тихої Хати»</a>
+          <a class="btn" href="listings.html">Інші оселі</a>
+        </section>
+
+        <!-- Зона 8 -->
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html" aria-current="page"><span class="box"></span>Оселі</a>
+          <a href="journal.html"><span class="box"></span>Журнал</a>
+          <a href="saved.html"><span class="box"></span>Збережені · 2</a>
+          <a href="account.html"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Десктоп · 1200 × 800. Перемикач над рамкою показує той самий екран на планшеті й телефоні.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Розвилка «Профіль вселяє довіру?» → <a href="booking.html">так: Бронювання</a> · <a href="listings.html">не ця оселя: Каталог</a>. Поруч → <a href="story.html">Розповідь господаря</a> · <a href="criteria.html">Критерії відбору</a> · <a href="listing.html">Оселя</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Іконки чату на екрані немає жодної.</strong> Єдина іконка розмови в продукті належить Чату, а він відкривається тільки після оплати. До оплати на екрані не повинно бути значка, який обіцяє листування, — обіцяти нема чого.</li>
+    <li><strong>Про це сказано словами, а не замовчано.</strong> Блок «Контакт» називає момент, коли відкриється телефон: людина платить усе наперед, тож має знати правило до оплати, а не після.</li>
+    <li><strong>Розповідь тут — другий вхід, не перший.</strong> Головний стоїть у блоці господині на картці оселі: інакше до розмови три переходи замість двох, а R3 для primary-персони — 3 бали.</li>
+    <li><strong>Блок «Оселі Марії» — це вихід із глухого кута «сумнів лишився».</strong> Людина часто вірить людині, а не дому: якщо не підійшла «Тиха Хата», поруч стоїть її ж «Клуня», а не загальний каталог.</li>
+    <li><strong>Станів у цього екрана немає</strong> — у таблиці «Стани екранів» по всіх трьох колонках стоїть «—»: профіль без імені й фото не публікується.</li>
+    <li>Дані господині й осель — демонстраційні, для макета.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

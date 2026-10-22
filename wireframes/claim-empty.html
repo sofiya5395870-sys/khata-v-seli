@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Звернення по гарантії · без доказів</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Звернення по гарантії — порожній стан, доказів немає</p>
+    <dl>
+      <dt>Екран</dt><dd>Звернення по гарантії, вузол <code>Empty</code> у флоу E1</dd>
+      <dt>Крок джоба</dt><dd>третій, розвилка «Є фото або відео з часом?» → <strong>ні</strong>. Назад у форму веде «зніму зараз»</dd>
+      <dt>Джоби</dt><dd><strong>E1</strong> — знати, що робити і на що я маю право · <strong>E3</strong> зрозуміти, як там насправді</dd>
+      <dt>Стан</dt><dd>порожній: умова сказана <strong>до</strong> заповнення форми, а не після</dd>
+    </dl>
+  </div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в інший розділ</em></p>
+  <p class="zone">Зона 2 · Стан звернення і право на компенсацію <em>— головна дія: дізнатись про умову до того, як заповнювати форму</em></p>
+  <p class="zone">Зона 3 · Поїздка, по якій звернення <em>— головна дія: переконатись, що це та сама доба і та сама оселя</em></p>
+  <p class="zone">Зона 4 · Що не працювало й коли <em>— головна дія: знати наперед, про що спитаємо</em></p>
+  <p class="zone">Зона 5 · Докази <em>— головна дія: зрозуміти, що саме годиться за доказ</em></p>
+  <p class="zone">Зона 6 · Строк і сума <em>— головна дія: бачити, скільки часу лишилось зняти доказ</em></p>
+  <p class="zone">Зона 7 · Дія <em>— головна дія: зняти зараз або вийти назад у поїздку</em></p>
+  <p class="zone">Зона 8 · Нижнє меню <em>— головна дія: перейти в інший розділ</em></p>
+
+  <nav class="states" aria-label="Стани цього екрана">
+    <a href="claim.html">Успіх</a>
+    <a href="claim-empty.html" aria-current="page">Порожній · без доказів</a>
+    <a href="claim-loading.html">Завантаження · на розгляді</a>
+    <a href="claim-error.html">Помилка · відхилено</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <figure class="device">
+    <div class="phone w-phone">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <!-- Зона 1 -->
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html">Оселі</a></li>
+              <li><a href="journal.html">Журнал</a></li>
+              <li><a href="saved.html">Збережені · 2</a></li>
+              <li><a href="#" aria-current="page">Кабінет</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main>
+
+          <!-- Зона 2 -->
+          <h1 class="count">Щось із обіцяного не працювало</h1>
+          <section class="card" aria-labelledby="ce-h" style="margin:16px">
+            <h2 id="ce-h">Без фото або відео звернення не приймається</h2>
+            <p class="guarantee">Кажемо це до того, як ви почнете заповнювати форму, а не після. Гарантію платить господиня за договором, і вимагати гроші ми можемо тільки з доказом — інакше це слово проти слова, а в такому спорі програє гість.</p>
+          </section>
+
+          <!-- Зона 3 -->
+          <section class="card" aria-labelledby="ce-trip" style="margin:0 16px 16px">
+            <h2 id="ce-trip">Поїздка, по якій звернення</h2>
+            <dl class="facts">
+              <dt>Оселя</dt><dd>Тиха Хата, Витачів, Київська область</dd>
+              <dt>Господиня</dt><dd>Марія</dd>
+              <dt>Коли</dt><dd><time datetime="2026-11-07">7</time>–<time datetime="2026-11-09">9 листопада 2026</time>, 2 доби</dd>
+            </dl>
+          </section>
+
+          <!-- Зона 4 -->
+          <section class="count" aria-labelledby="ce-ask">
+            <h2 id="ce-ask">Про що спитаємо далі</h2>
+            <p class="guarantee">Що саме не працювало — світло, вода, тепло, інтернет чи паркомісце. Коли почалось і коли відновилось. І кілька слів від вас. Це все, форма коротка.</p>
+          </section>
+
+          <!-- Зона 5 -->
+          <section class="card" aria-labelledby="ce-what" style="margin:16px">
+            <h2 id="ce-what">Що годиться за доказ</h2>
+            <dl class="facts">
+              <dt>Відео</dt><dd>кран, лічильник, вимкнений бойлер — головне, щоб телефон записав час</dd>
+              <dt>Фото</dt><dd>те саме; час беремо з файлу, а не з ваших слів</dd>
+              <dt>Чат</dt><dd>переписку з Марією додамо самі, окремо надсилати не треба</dd>
+            </dl>
+            <p class="photo">сюди стане перший знімок — поки порожньо</p>
+          </section>
+
+          <!-- Зона 6 -->
+          <section class="count" aria-labelledby="ce-time">
+            <h2 id="ce-time">Скільки часу лишилось</h2>
+            <dl class="facts">
+              <dt>Звернутись можна</dt><dd>до <time datetime="2026-11-09T12:00">9 листопада, 12:00</time> — поки триває поїздка</dd>
+              <dt>Якщо встигнете</dt><dd>повернемо <strong><data value="1350">1 350 ₴</data></strong> — 50% вартості доби</dd>
+            </dl>
+            <p class="guarantee">Якщо знімати вже нема чого — гроші за цією гарантією повернути не вийде, і ми скажемо це прямо, а не будемо водити вас по формі. Але оселя без наслідків не лишиться: після виїзду є оцінка, і друга низька знімає оселю з каталогу.</p>
+          </section>
+
+          <!-- Зона 7 -->
+          <section class="filters" aria-label="Дія">
+            <a class="btn first" href="claim.html">Зняти зараз і повернутись</a>
+            <a class="btn" href="trip.html">Назад у поїздку</a>
+            <a class="btn" href="rating.html">Оцінка після виїзду</a>
+          </section>
+
+        </main>
+
+        <!-- Зона 8 -->
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html"><span class="box"></span>Оселі</a>
+          <a href="journal.html"><span class="box"></span>Журнал</a>
+          <a href="saved.html"><span class="box"></span>Збережені · 2</a>
+          <a href="#" aria-current="page"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Телефон · 390 × 844. Рамка пристрою — риштування макета, не елемент продукту.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Назад у форму → <a href="claim.html">зніму зараз</a> · вихід → <a href="trip.html">Моя поїздка</a> · убік → <a href="rating.html">Післявиїзна оцінка</a> · <a href="confirmation.html">де про це попереджали заздалегідь</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Умова стоїть першою, над формою.</strong> Дізнатись про неї після того, як усе заповнено, — це той самий збій, тільки з витраченими десятьма хвилинами.</li>
+    <li><strong>Сказано, чому умова саме така.</strong> Не «такі правила», а «без доказу в спорі програє гість»: жорстке правило стає зрозумілим, коли видно, кого воно захищає.</li>
+    <li><strong>Тупик «не зняла вчасно» з макета прибраний, але не захований.</strong> У флоу E1 він є, і єдине місце, де його можна відвернути, — <a href="confirmation.html">Підтвердження</a>, де про відео сказано ще до поїздки. Тут лишаються три виходи: зняти зараз, повернутись у поїздку, поставити оцінку.</li>
+    <li><strong>Оцінка названа прямо в цьому стані.</strong> Людина, якій не повернуть гроші, має бачити, що її випадок усе одно щось робить: друга низька оцінка знімає оселю з каталогу.</li>
+    <li>Структура й зони ті самі, що в основному стані. Міняється тільки те, що замість заповненої форми.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

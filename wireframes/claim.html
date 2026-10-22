@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Звернення по гарантії · форма звернення</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Звернення по гарантії — основний стан</p>
+    <dl>
+      <dt>Екран</dt><dd>Звернення по гарантії, вузол <code>Claim</code> у флоу E1</dd>
+      <dt>Крок джоба</dt><dd>третій: після Чату, де господиня не відповіла за домовлений час. Далі — розвилка «Є фото або відео з часом?» і <code>Loading</code> на розгляді</dd>
+      <dt>Джоби</dt><dd><strong>E1</strong> — знати, що робити і на що я маю право, не з'ясовуючи це з нуля посеред поїздки · <strong>E3</strong> зрозуміти, як там насправді</dd>
+      <dt>Стан</dt><dd>основний: форма звернення, докази вже додані</dd>
+    </dl>
+  </div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в інший розділ</em></p>
+  <p class="zone">Зона 2 · Стан звернення і право на компенсацію <em>— головна дія: знати, на що я маю право й скільки це в гривнях</em></p>
+  <p class="zone">Зона 3 · Поїздка, по якій звернення <em>— головна дія: переконатись, що це та сама доба і та сама оселя</em></p>
+  <p class="zone">Зона 4 · Що не працювало й коли <em>— головна дія: назвати збій словами самої гарантії</em></p>
+  <p class="zone">Зона 5 · Докази <em>— головна дія: додати фото або відео, де видно час</em></p>
+  <p class="zone">Зона 6 · Строк і сума <em>— головна дія: бачити, до коли можна звернутись, скільки повернуть і коли відповімо</em></p>
+  <p class="zone">Зона 7 · Дія <em>— головна дія: надіслати звернення</em></p>
+  <p class="zone">Зона 8 · Нижнє меню <em>— головна дія: перейти в інший розділ</em></p>
+
+  <nav class="states" aria-label="Стани цього екрана">
+    <a href="claim.html" aria-current="page">Успіх</a>
+    <a href="claim-empty.html">Порожній · без доказів</a>
+    <a href="claim-loading.html">Завантаження · на розгляді</a>
+    <a href="claim-error.html">Помилка · відхилено</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <figure class="device">
+    <div class="phone w-desktop">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <!-- Зона 1 -->
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html">Оселі</a></li>
+              <li><a href="journal.html">Журнал</a></li>
+              <li><a href="saved.html">Збережені · 2</a></li>
+              <li><a href="#" aria-current="page">Кабінет</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main>
+
+          <!-- Зона 2 -->
+          <h1 class="count">Щось із обіцяного не працювало</h1>
+          <section class="count" aria-labelledby="cl-right">
+            <h2 id="cl-right">На що ви маєте право</h2>
+            <p class="guarantee">Гарантія покриває п'ять речей: світло, воду, тепло, інтернет і паркомісце. Якщо чогось із них не було — повертаємо <strong>50% вартості доби</strong>, за яку це сталось. Для Тихої Хати це <strong>1 350 ₴</strong>.</p>
+          </section>
+
+          <!-- Зона 3 -->
+          <section class="card" aria-labelledby="cl-trip" style="margin:16px">
+            <h2 id="cl-trip">Поїздка, по якій звернення</h2>
+            <dl class="facts">
+              <dt>Оселя</dt><dd>Тиха Хата, Витачів, Київська область</dd>
+              <dt>Господиня</dt><dd>Марія</dd>
+              <dt>Коли</dt><dd><time datetime="2026-11-07">7</time>–<time datetime="2026-11-09">9 листопада 2026</time>, 2 доби</dd>
+              <dt>Ціна доби</dt><dd><data value="2700">2 700 ₴</data></dd>
+            </dl>
+            <p class="checked">Ви писали Марії 8 листопада о 18:35. Відповіді немає 2 години 45 хвилин — домовлений час відповіді минув.</p>
+          </section>
+
+          <!-- Зона 4 -->
+          <section class="search" aria-labelledby="cl-what-h">
+            <h2 id="cl-what-h">Що не працювало й коли</h2>
+            <form class="row" action="claim-loading.html" method="get">
+              <div>
+                <label for="cl-what">Що саме не працювало</label>
+                <select id="cl-what" name="what">
+                  <option selected>Вода</option>
+                  <option>Світло</option>
+                  <option>Тепло</option>
+                  <option>Інтернет</option>
+                  <option>Паркомісце</option>
+                  <option>Інше — опишу словами</option>
+                </select>
+              </div>
+              <div><label for="cl-from">Коли почалось</label><input id="cl-from" name="from" type="text" value="8 листопада, 18:20"></div>
+              <div><label for="cl-to">Коли відновилось</label><input id="cl-to" name="to" type="text" value="ще немає"></div>
+              <div><label for="cl-words">Своїми словами</label><input id="cl-words" name="words" type="text" value="Крани сухі з вечора"></div>
+            </form>
+            <p class="guarantee">Кухня є в кожній оселі, але під компенсацію не підпадає — так написано в умовах бронювання. Повторюємо це тут, щоб відмова потім не була несподіванкою.</p>
+          </section>
+
+          <!-- Зона 5 -->
+          <section class="card" aria-labelledby="cl-proof" style="margin:16px">
+            <h2 id="cl-proof">Докази</h2>
+            <p class="photo">відео: кран без води, 8 листопада, 18:42 — час видно</p>
+            <p class="photo">фото: порожній бак над душем, 8 листопада, 21:05</p>
+            <p class="guarantee">Час записує телефон. Вписувати його не треба — і вписати його не можна: саме тому ми можемо просити в господині гроші, а не вірити на слово.</p>
+            <footer>
+              <button type="button">Додати фото або відео</button>
+              <a href="claim-empty.html">Доказу немає</a>
+            </footer>
+          </section>
+
+          <!-- Зона 6 -->
+          <section class="count" aria-labelledby="cl-terms">
+            <h2 id="cl-terms">Скільки повернемо і коли відповімо</h2>
+            <dl class="facts">
+              <dt>Сума до повернення</dt><dd><strong><data value="1350">1 350 ₴</data></strong> — 50% від 2 700 ₴ за добу 8 листопада</dd>
+              <dt>Звернутись можна</dt><dd>поки триває поїздка — до <time datetime="2026-11-09T12:00">9 листопада, 12:00</time>. Після виїзду гарантія вже не діє</dd>
+              <dt>Відповімо</dt><dd>за 3 робочі дні. Якщо спізнимось — звернення саме піде вище, нагадувати не треба</dd>
+              <dt>Якщо відмовимо</dt><dd>напишемо причину і лишимо 14 днів на оскарження</dd>
+            </dl>
+          </section>
+
+          <!-- Зона 7 -->
+          <section class="filters" aria-label="Дія">
+            <a class="btn first" href="claim-loading.html">Надіслати звернення</a>
+          </section>
+          <p class="guarantee" style="padding:0 16px 16px">Гроші повертає господиня — за договором із платформою. Звернення ні на кого не скаржиться: воно просто запускає те, на що ви вже маєте право.</p>
+
+        </main>
+
+        <!-- Зона 8 -->
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html"><span class="box"></span>Оселі</a>
+          <a href="journal.html"><span class="box"></span>Журнал</a>
+          <a href="saved.html"><span class="box"></span>Збережені · 2</a>
+          <a href="#" aria-current="page"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Десктоп · 1200 × 800. Перемикач над рамкою показує той самий екран на планшеті й телефоні.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Далі → <a href="claim-loading.html">звернення на розгляді</a> · розвилка «Є фото або відео з часом?» → <a href="claim-empty.html">ні: доказів немає</a> · назад → <a href="trip.html">Моя поїздка</a> · після виїзду → <a href="rating.html">Післявиїзна оцінка</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Сума стоїть у самій формі, а не в умовах.</strong> «50% вартості доби» — це відсоток, а 1 350 ₴ — це гроші. Джоб E1 закривається другим, не першим.</li>
+    <li><strong>Вхід сюди — з «Моєї поїздки», не з довідки.</strong> Коли немає води, людина відкриває свою поїздку, а не розділ питань і відповідей.</li>
+    <li><strong>Чат уже відбувся, і це видно рядком.</strong> Звернення — третій крок, а не перший: більшість випадків має закритись на господині, інакше платформа платить за кожну перегорілу лампочку.</li>
+    <li><strong>Строк звернення названий тут же</strong> — «поки триває поїздка». Гарантія діє в межах проживання, тому після виїзду цього екрана вже не буде; сказати про це треба, поки він ще є.</li>
+    <li><strong>Про кухню попереджено до надсилання, а не у відмові.</strong> Це єдина річ із побуту, яку гарантія свідомо не покриває — і єдина чесна підстава відмовити.</li>
+    <li>Багаторядкове поле тут показане рядком: у вайрфреймі полями служать ті самі елементи, що й на решті екранів. Висота поля — питання хай-фаю.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Локальний гід · порожній стан</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Локальний гід — порожній стан</p>
+    <dl>
+      <dt>Екран</dt><dd>Локальний гід, вузол <code>Guide</code> у флоу «Повертаюсь і читаю»</dd>
+      <dt>Крок джоба</dt><dd>розвилка «Гід по цій місцевості є?» → <strong>ні</strong>. Падіння — на місця з описів сусідніх осель, далі за флоу — Журнал</dd>
+      <dt>Джоби</dt><dd><strong>S3</strong> — розуміти, до кого тут іти · <strong>P2</strong> встигнути те, заради чого їхала</dd>
+      <dt>Стан</dt><dd>порожній: гіда по цій місцевості ще немає. На старті це стан більшості місцевостей</dd>
+    </dl>
+  </div>
+
+  <nav class="states" aria-label="Стани цього екрана">
+    <a href="guide.html">Успіх</a>
+    <a href="guide-empty.html" aria-current="page">Порожній</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в інший розділ</em></p>
+  <p class="zone">Зона 2 · Звідки рахуємо відстань і чому гіда немає <em>— головна дія: зрозуміти, що це початок, а не поломка</em></p>
+  <p class="zone">Зона 3 · Місця з описів осель поруч <em>— головна дія: усе одно отримати конкретні назви, а не порожній екран</em></p>
+  <p class="zone">Зона 4 · Як дістатись без авто <em>— головна дія: дійти туди, не маючи машини</em></p>
+  <p class="zone">Зона 5 · Вихід у Журнал <em>— головна дія: читати про місцевість там, де вже є що читати</em></p>
+  <p class="zone">Зона 6 · Нижнє меню <em>— головна дія: перейти в інший розділ</em></p>
+
+  <figure class="device">
+    <div class="phone w-phone">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <!-- Зона 1 -->
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html" aria-current="page">Оселі</a></li>
+              <li><a href="journal.html">Журнал</a></li>
+              <li><a href="saved.html">Збережені · 2</a></li>
+              <li><a href="account.html">Кабінет</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main>
+          <!-- Зона 2 -->
+          <section class="search" aria-labelledby="ge-h">
+            <h1 id="ge-h">Локальний гід</h1>
+            <p class="guarantee">Витачів і навколо. Відстань рахуємо від <a href="listing.html">«Тихої Хати»</a>, від хвіртки.</p>
+          </section>
+          <p class="count"><strong>Гіда по цій місцевості ще немає.</strong> Жоден господар поруч ще не склав його — гіди пишемо разом із ними, і це займає більше часу, ніж зібрати оголошення.</p>
+
+          <!-- Зона 3 -->
+          <section aria-labelledby="ge-places">
+            <h2 class="count" id="ge-places">Поки що — місця з описів осель поруч</h2>
+            <p class="count">Це витяг із того, що господарі написали про своє село у власних оселях. Годин роботи й сезону ми тут не звіряли — на відміну від готового гіда.</p>
+            <ul class="list">
+
+              <li class="card">
+                <article>
+                  <h3>Пекарня «Зерно»</h3>
+                  <p class="guarantee">700 м, працює з 8:00</p>
+                  <dl class="facts">
+                    <dt>Звідки</dt><dd>з опису оселі <a href="listing.html">«Тиха Хата»</a></dd>
+                  </dl>
+                </article>
+              </li>
+
+              <li class="card">
+                <article>
+                  <h3>Дніпро, дикий берег</h3>
+                  <p class="guarantee">1,2 км стежкою через луг</p>
+                  <dl class="facts">
+                    <dt>Звідки</dt><dd>з опису оселі <a href="listing.html">«Тиха Хата»</a></dd>
+                  </dl>
+                </article>
+              </li>
+
+              <li class="card">
+                <article>
+                  <h3>Музей Трипілля</h3>
+                  <p class="guarantee">9 км, Ржищів</p>
+                  <dl class="facts">
+                    <dt>Звідки</dt><dd>з опису оселі <a href="listing.html">«Тиха Хата»</a></dd>
+                  </dl>
+                </article>
+              </li>
+
+            </ul>
+          </section>
+
+          <!-- Зона 4 -->
+          <section class="count" aria-labelledby="ge-road">
+            <h2 id="ge-road">Як дістатись без авто</h2>
+            <dl class="facts">
+              <dt>Автобус</dt><dd>«Київ — Ржищів», о 9:10 і 15:40, зупинка «Витачів, центр»</dd>
+              <dt>Від зупинки</dt><dd>900 м пішки до хвіртки</dd>
+            </dl>
+          </section>
+
+          <!-- Зона 5 -->
+          <section class="card" aria-labelledby="ge-out" style="margin:16px">
+            <h2 id="ge-out">Де про місцевість уже є що почитати</h2>
+            <p class="guarantee">У Журналі гіди пишуться по одній місцевості за раз, і там видно, які вже готові. Витачів у черзі.</p>
+            <footer>
+              <a class="btn" href="journal.html">Гіди в Журналі</a>
+              <a href="listings.html">Оселі в цій місцевості</a>
+            </footer>
+          </section>
+        </main>
+
+        <!-- Зона 6 -->
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html" aria-current="page"><span class="box"></span>Оселі</a>
+          <a href="journal.html"><span class="box"></span>Журнал</a>
+          <a href="saved.html"><span class="box"></span>Збережені · 2</a>
+          <a href="account.html"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Телефон · 390 × 844. Рамка пристрою — риштування макета, не елемент продукту.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Вихід за флоу → <a href="journal.html">Журнал</a> · убік → <a href="listings.html">Каталог</a> і <a href="listing.html">Оселя</a>. Назад → <a href="guide.html">гід зі списком місць</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Порожній гід не порожній.</strong> Падіння з <code>ia/sitemap.md</code>: показуємо місця з описів сусідніх осель. Назви вже є в продукті — лишати людину ні з чим, маючи ці дані, було б вигадано.</li>
+    <li><strong>Різниця між станами — не кількість карток, а джерело й перевірка.</strong> В основному стані в кожного місця є автор поради й години роботи; тут є тільки назва, відстань і посилання на опис, з якого вона взята. Екран каже це вголос.</li>
+    <li><strong>Причина названа без виправдань:</strong> гіди пишемо з господарями, і це довго. «Скоро буде» без пояснення читається як покинутий сайт.</li>
+    <li><strong>Вихід — у Журнал</strong>, як у флоу «Повертаюсь і читаю»: там гіди по інших місцевостях уже є, і звідти є вхід назад у каталог.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

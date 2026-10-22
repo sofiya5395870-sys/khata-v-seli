@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Відгук · ще немає відгуків</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Відгук — порожній стан, відгуків ще немає</p>
+    <dl>
+      <dt>Екран</dt><dd>Відгук, вузол <code>Rev</code> у флоу «повертаюсь і читаю», гілка «Відгуки вже є?» → <strong>ні</strong></dd>
+      <dt>Крок джоба</dt><dd>той самий крок, інша гілка. Далі — назад в Оселю, у кадри з перевірки або в Бронювання</dd>
+      <dt>Джоби</dt><dd><strong>E3</strong> — зрозуміти, як там насправді · <strong>R3</strong> переконатись, що місце і ціна справжні</dd>
+      <dt>Стан</dt><dd>порожній і <strong>нормальний</strong>: на старті це стан усіх тридцяти осель</dd>
+    </dl>
+  </div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в інший розділ</em></p>
+  <p class="zone">Зона 2 · Оселя, про яку відгуки <em>— головна дія: не загубити, про який саме дім ідеться</em></p>
+  <p class="zone">Зона 3 · Звідки ці відгуки <em>— головна дія: розуміти, чому їх поки немає</em></p>
+  <p class="zone">Зона 4 · Замість відгуків <em>— головна дія: судити по тому, що перевірено на місці</em></p>
+  <p class="zone">Зона 5 · Вихід <em>— головна дія: повернутись в оселю або забронювати</em></p>
+  <p class="zone">Зона 6 · Нижнє меню <em>— головна дія: перейти в інший розділ</em></p>
+
+  <nav class="states" aria-label="Стани цього екрана">
+    <a href="review.html">Успіх</a>
+    <a href="review-empty.html" aria-current="page">Порожній · відгуків ще немає</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <figure class="device">
+    <div class="phone w-phone">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <!-- Зона 1 -->
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html" aria-current="page">Оселі</a></li>
+              <li><a href="journal.html">Журнал</a></li>
+              <li><a href="saved.html">Збережені · 2</a></li>
+              <li><a href="account.html">Кабінет</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main>
+
+          <!-- Зона 2 -->
+          <h1 class="count">Відгуки тих, хто тут жив</h1>
+          <p class="count"><a href="listing.html">Тиха Хата</a>, Витачів, Київська область</p>
+
+          <!-- Зона 3 -->
+          <section class="card" aria-labelledby="re-h" style="margin:16px">
+            <h2 id="re-h">Тут ще ніхто не лишав відгуку</h2>
+            <p>Ми відкрились у листопаді 2026 року, і перші гості тільки виїжджають. Так зараз у всіх тридцяти осель каталогу — це не про Тиху Хату, а про те, що ми щойно почали.</p>
+            <p class="guarantee">Відгуків про Тиху Хату на інших майданчиках ми теж не знайшли, а вигадувати їх не будемо: краще порожньо, ніж придумано.</p>
+          </section>
+
+          <!-- Зона 4 -->
+          <section class="card" aria-labelledby="re-instead" style="margin:0 16px 16px">
+            <h2 id="re-instead">По чому судити поки що</h2>
+            <dl class="facts">
+              <dt>Перевірка на місці</dt><dd>12 вересня 2026, куратор був у домі, зняв кухню, душ і піч</dd>
+              <dt>Мінуси в описі</dt><dd>чотири, і написала їх платформа, а не господиня</dd>
+              <dt>Критерії відбору</dt><dd>за що беремо оселю в каталог і кого не беремо</dd>
+              <dt>Гарантія</dt><dd>світло, вода, тепло, інтернет і паркомісце. Якщо чогось не буде — 50% вартості доби</dd>
+            </dl>
+            <footer>
+              <a href="listing.html">Подивитись кадри з перевірки</a>
+              <a href="criteria.html">Чому ми взяли цю оселю в каталог</a>
+            </footer>
+          </section>
+
+          <section class="count" aria-labelledby="re-soon">
+            <h2 id="re-soon">Коли вони з'являться</h2>
+            <p class="guarantee">Відгук пишуть після виїзду — без зірок і без оцінок, самими словами. Поряд із ним стоїть <a href="rating.html">оцінка для нас</a>, яку ми не публікуємо: друга низька знімає оселю з каталогу. Тому перші відгуки тут з'являться повільно, зате всі будуть від тих, хто справді жив.</p>
+          </section>
+
+          <!-- Зона 5 -->
+          <section class="filters" aria-label="Дія">
+            <a class="btn first" href="booking.html">Забронювати · 2 700 ₴ за добу</a>
+            <a class="btn" href="listing.html">Повернутись до оселі</a>
+            <a class="btn" href="listings.html">Інші оселі</a>
+          </section>
+
+        </main>
+
+        <!-- Зона 6 -->
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html" aria-current="page"><span class="box"></span>Оселі</a>
+          <a href="journal.html"><span class="box"></span>Журнал</a>
+          <a href="saved.html"><span class="box"></span>Збережені · 2</a>
+          <a href="account.html"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Телефон · 390 × 844. Рамка пристрою — риштування макета, не елемент продукту.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Назад → <a href="listing.html">Оселя</a> · далі → <a href="booking.html">Бронювання</a> · убік → <a href="listings.html">Каталог</a> · інший стан → <a href="review.html">відгуки є</a> · той самий порожній блок усередині оселі → <a href="listing-empty.html">Оселя без відгуків</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Це нормальний стан, а не збій.</strong> На старті він у всіх тридцяти осель, тому написаний так, щоб не читався як покинутий сайт: названа причина — наш вік як сервісу, а не брак інтересу до цього дому.</li>
+    <li><strong>Порожнеча замінена доказами того самого.</strong> Кадри з перевірки, мінуси в описі й критерії відбору доводять те, що довели б відгуки: дім існує й виглядає так, як на знімках.</li>
+    <li><strong>Сказано, коли й звідки відгуки з'являться.</strong> Порожній екран без строку читається як недороблений; зі строком — як чесний.</li>
+    <li><strong>Тут не ставимо чужих відгуків мовчки.</strong> В основному стані вони з інших сайтів і підписані джерелом; у цьому стані сказано, чому їх ще немає. Різниця між станами — у даних, а не в тому, що ми про них розповідаємо.</li>
+    <li><strong>Той самий текст уже стоїть блоком усередині <a href="listing-empty.html">Оселі</a>.</strong> Це один і той самий порожній стан, показаний у двох місцях: у блоці на Оселі й на власному екрані, коли по ньому перейшли.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

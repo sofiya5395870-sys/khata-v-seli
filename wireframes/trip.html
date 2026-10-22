@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Моя поїздка · живу там</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Моя поїздка — режим «живу там»</p>
+    <dl>
+      <dt>Екран</dt><dd>Моя поїздка, вузол <code>Trip</code> у флоу E1. Базовий режим екрана: саме звідси флоу E1 і починається</dd>
+      <dt>Крок джоба</dt><dd>перший: людина вже живе в оселі й щось із обіцяного не працює. Далі — розвилка «світло, вода, тепло чи інтернет не працює?», <a href="chat.html">Чат із господинею</a> і <a href="claim.html">Звернення по гарантії</a></dd>
+      <dt>Джоби</dt><dd><strong>E1</strong> знати, що робити і на що маю право, не з'ясовуючи це з нуля посеред поїздки · <strong>R5</strong> не вибитись із робочого ритму · MAIN — він закрився ще на Підтвердженні, тут поїздка просто триває</dd>
+      <dt>Стан</dt><dd>режим «живу там»: від заїзду до виїзду. Сьогодні 8 листопада, друга доба з двох</dd>
+    </dl>
+  </div>
+
+  <nav class="states" aria-label="Режими цього екрана">
+    <a href="trip-before.html">До заїзду</a>
+    <a href="trip.html" aria-current="page">Живу там</a>
+    <a href="trip-after.html">Після виїзду</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в інший розділ</em></p>
+  <p class="zone">Зона 2 · Поїздка: де, доки, скільки сплачено <em>— головна дія: бачити, де і доки я живу</em></p>
+  <p class="zone">Зона 3 · Як дістатись і де ключ <em>— головна дія: згадати код скриньки й час виїзду</em></p>
+  <p class="zone">Зона 4 · Господиня і чат <em>— головна дія: написати Марії</em></p>
+  <p class="zone">Зона 5 · Дія режиму «живу там» <em>— головна дія: сказати, що щось не працює; поруч — Локальний гід</em></p>
+  <p class="zone">Зона 6 · Нижнє меню, чотири пункти <em>— головна дія: перейти в інший розділ</em></p>
+
+  <figure class="device">
+    <div class="phone w-desktop">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <!-- Зона 1 -->
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html">Оселі</a></li>
+              <li><a href="journal.html">Журнал</a></li>
+              <li><a href="saved.html">Збережені · 2</a></li>
+              <li><a href="trip.html" aria-current="page">Кабінет</a></li>
+            </ul>
+          </nav>
+          <p class="query">Тиха Хата · ви тут до завтра, 12:00</p>
+        </header>
+
+        <main>
+          <h1 class="count">Ви в Тихій Хаті. Виїзд завтра до 12:00</h1>
+
+          <!-- Зона 2 -->
+          <section class="card" aria-labelledby="t-trip" style="margin:16px">
+            <h2 id="t-trip">Тиха Хата, 7–9 листопада</h2>
+            <dl class="facts">
+              <dt>Оселя</dt><dd><a href="listing.html">Тиха Хата</a>, Витачів, Київська область</dd>
+              <dt>Строк</dt><dd>2 доби, <time datetime="2026-11-07">7</time>–<time datetime="2026-11-09">9 листопада 2026</time></dd>
+              <dt>Зараз</dt><dd>друга доба з двох</dd>
+              <dt>Людей</dt><dd>2</dd>
+              <dt>Сплачено</dt><dd><data value="5400">5 400 ₴</data>, повністю, <time datetime="2026-11-05">5 листопада</time></dd>
+            </dl>
+          </section>
+
+          <!-- Зона 3 -->
+          <section class="card" aria-labelledby="t-how" style="margin:0 16px 16px">
+            <h2 id="t-how">Як дістатись і де ключ</h2>
+            <dl class="facts">
+              <dt>Адреса</dt><dd>Витачів, вул. Набережна 14</dd>
+              <dt>Ключ</dt><dd>у скриньці біля хвіртки, код 2714</dd>
+              <dt>Виїзд</dt><dd>до 12:00, ключ назад у скриньку</dd>
+              <dt>Без авто</dt><dd>автобус «Київ — Ржищів» о 9:10 і 15:40, зупинка «Витачів, центр», далі 900 м пішки</dd>
+            </dl>
+          </section>
+
+          <!-- Зона 4 -->
+          <section class="card" aria-labelledby="t-host" style="margin:0 16px 16px">
+            <h2 id="t-host">Марія, господиня</h2>
+            <p class="photo">фото: Марія, господиня, на подвір'ї</p>
+            <p class="guarantee">Живе в сусідньому селі, приїжджає зустріти й показати, що де.</p>
+            <p class="guarantee">Чат відкрився після оплати і прив'язаний до цього бронювання. У ньому вже 6 повідомлень.</p>
+            <footer>
+              <a class="btn" href="chat.html">Написати Марії</a>
+              <button type="button">Зателефонувати</button>
+            </footer>
+          </section>
+
+          <!-- Зона 5 -->
+          <section class="card" aria-labelledby="t-guar" style="margin:0 16px 16px">
+            <h2 id="t-guar">Що гарантуємо, поки ви тут</h2>
+            <p class="guarantee">Світло, вода, тепло, інтернет і паркомісце. Якщо чогось із цього немає — повертаємо 50% вартості доби, за яку це сталось. Тут це <data value="1350">1 350 ₴</data>.</p>
+            <p>Спершу напишіть Марії: більшість такого вона вирішує за годину. Якщо за 2 години не відповість або не полагодить — відкривайте звернення, і далі з власником розмовляємо ми.</p>
+            <p class="guarantee"><strong>Знімайте відео одразу</strong>, щоб на кадрі було видно час: без доказів звернення не приймається.</p>
+            <footer>
+              <a class="btn first" href="claim.html">Щось не працює</a>
+              <a href="chat.html">Спершу написати Марії</a>
+            </footer>
+          </section>
+
+          <section class="card" aria-labelledby="t-guide" style="margin:0 16px 16px">
+            <h2 id="t-guide">Локальний гід · Витачів</h2>
+            <dl class="facts">
+              <dt>Пекарня «Зерно»</dt><dd>700 м, працює з 8:00</dd>
+              <dt>Дніпро, дикий берег</dt><dd>1,2 км стежкою через луг</dd>
+              <dt>Музей Трипілля</dt><dd>9 км, Ржищів</dd>
+            </dl>
+            <p class="guarantee">Гід по Витачеву поки неповний: у ньому те, що назвали господарі сусідніх осель. Своє місце теж можна додати — скажіть Марії або напишіть нам.</p>
+            <p><a href="guide.html">Увесь гід по Витачеву — у Журналі</a></p>
+          </section>
+        </main>
+
+        <!-- Зона 6 -->
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html"><span class="box"></span>Оселі</a>
+          <a href="journal.html"><span class="box"></span>Журнал</a>
+          <a href="saved.html"><span class="box"></span>Збережені · 2</a>
+          <a href="trip.html" aria-current="page"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Десктоп · 1200 × 800. Перемикач над рамкою показує той самий екран на планшеті й телефоні.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Флоу E1 → <a href="chat.html">Чат із Марією</a> · <a href="claim.html">Звернення по гарантії</a>. Інші режими → <a href="trip-before.html">до заїзду</a> · <a href="trip-after.html">після виїзду</a>. Поруч → <a href="guide.html">Локальний гід</a> · <a href="listing.html">Оселя</a> · <a href="account.html">Кабінет</a> · <a href="confirmation.html">Підтвердження</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Моя поїздка — один екран у трьох режимах, а не три екрани.</strong> Структура однакова, змінюється тільки блок дії: до заїзду ламатись ще нічому, після виїзду гарантія вже не діє.</li>
+    <li><strong>Вхід у гарантію стоїть тут, а не в довідці.</strong> Коли о сьомій ранку немає води, людина відкриває свою поїздку, а не розділ запитань.</li>
+    <li><strong>Спершу господиня, потім платформа.</strong> Перший крок навмисний: більшість поломок має закриватись у чаті, інакше платформа платить за кожну перегорілу лампочку.</li>
+    <li><strong>Про докази нагадуємо до того, як вони знадобляться</strong> — і тут, і раніше, у Підтвердженні. Той, хто не зняв відео вчасно, лишається без компенсації, і цей тупик лагодиться тільки попередженням наперед.</li>
+    <li><strong>Строк відповіді — 2 години.</strong> Цифру поставлено в макеті, щоб лічильнику в чаті було що рахувати, а мовчанню — мати наслідок. Рішення по скоупу за Софією.</li>
+    <li><strong>Локальний гід живе в цьому режимі, а не в усіх трьох:</strong> поради, куди сходити, потрібні тому, хто вже на місці.</li>
+    <li>Дані поїздки демонстраційні, для макета.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

@@ -17,6 +17,39 @@
   }
   header.hero h1 { color: #15110f; }
   .wf-open { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.4rem; }
+
+  /* --- інтерактивний прототип --- */
+  .proto { margin: 1.75rem 0; }
+  .proto .row { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.7rem; }
+  .proto .row button {
+    font: inherit; font-size: 0.86rem; cursor: pointer;
+    padding: 0.45rem 0.8rem; border: 1px solid var(--line); border-radius: 8px;
+    background: var(--surface); color: var(--muted);
+  }
+  .proto .row button:hover { color: var(--ink); }
+  .proto .row button[aria-selected="true"] { border-color: var(--accent); color: var(--ink); font-weight: 600; background: var(--surface-2); }
+  /* ряд станів — сегментована кнопка: один фон, активний сегмент білий */
+  .proto .row.states {
+    display: inline-flex; gap: 0.15rem; flex-wrap: wrap;
+    background: var(--surface-2); border: 1px solid var(--line);
+    border-radius: 12px; padding: 4px; margin-bottom: 0.9rem;
+  }
+  .proto .row.states button {
+    font-size: 0.86rem; padding: 0.45rem 0.9rem; border: 1px solid transparent;
+    border-radius: 9px; background: none;
+  }
+  .proto .row.states button[aria-selected="true"] {
+    background: var(--surface); border-color: var(--accent); color: var(--ink); font-weight: 600;
+  }
+  .proto .stage {
+    display: grid; place-items: start center;
+    background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem;
+  }
+  .proto iframe {
+    width: 100%; height: 780px; border: 1px solid var(--ink);
+    border-radius: 12px; background: #fff;
+  }
+  .proto .hint { font-size: 0.82rem; color: var(--dim); margin: 0.7rem 0 0; }
 </style>
 </head>
 <body data-page="04">
@@ -28,11 +61,11 @@
     <p class="eyebrow">Крок 4 — прототипування</p>
     <h1>Вайрфрейм як перший шар коду</h1>
     <p class="lede">Не ескіз на викид: справжня розмітка, справжній текст і всі стани екрана — кожен окремою сторінкою, яку можна відкрити посиланням.</p>
-    <p class="lede">Продукт — <strong>мобільний веб</strong>, тому кожен екран стоїть у рамці телефона, меню живе внизу, а смуга фільтрів приклеєна зверху. Кольору, шрифтових прикрас і готового UI тут немає: це крок 7.</p>
+    <p class="lede">Основний макет — <strong>десктоп</strong>: із нього видно всю структуру екрана. Перемикач над рамкою показує ту саму розмітку на планшеті й телефоні, де меню переїжджає вниз, а список стає в одну колонку. Кольору, шрифтових прикрас і готового UI тут немає: це крок 7.</p>
     <div class="meta">
       <div><b>7 екранів</b>головного флоу</div>
       <div><b>21 сторінок</b>разом зі станами</div>
-      <div><b>390 × 844</b>основний пристрій</div>
+      <div><b>1200 × 800</b>основний пристрій</div>
       <div><b>0 глухих кутів</b>у кожного стану є вихід</div>
     </div>
   </div>
@@ -49,17 +82,99 @@
       <div class="card"><h4>Справжній текст</h4><p>Жодного lorem. Витачів, 2 700 ₴ за добу, «перевірено 12.09.2026, куратором», холодна підлога до обіду. Якщо тексту ще немає — він пишеться зараз, бо це частина роботи.</p></div>
       <div class="card"><h4>Семантична розмітка</h4><p><code>header</code>, <code>nav</code>, <code>main</code>, <code>article</code>, <code>form</code>, <code>button</code> — а не стос <code>div</code>. Один <code>h1</code> на екран, списки списками.</p></div>
       <div class="card"><h4>Стан — окрема сторінка</h4><p>Порожній, помилка й завантаження відкриваються посиланням, тож кожен можна показати й покритикувати окремо. Структура та сама, міняється вміст.</p></div>
-      <div class="card"><h4>Мобільний перший</h4><p>390 × 844, меню з чотирьох пунктів унизу, фільтри зверху. Перемикач над рамкою показує ту саму розмітку на планшеті й десктопі.</p></div>
+      <div class="card"><h4>Десктоп основний</h4><p>1200 × 800, меню в шапці, фільтри приклеєні зверху, список у три колонки. Перемикач показує ту саму розмітку на планшеті й телефоні — там меню йде вниз, а список в одну колонку.</p></div>
       <div class="card"><h4>Сіра шкала</h4><p>Кольору немає, шрифт один — Inter, іконки лінійні й завжди при підписі. Усе, що про вигляд, чекає кроку 7.</p></div>
     </div>
   </div>
 </section>
 
-<section id="screens">
+<section id="proto">
   <div class="wrap">
     <div class="col">
       <p class="eyebrow">Частина 2</p>
-      <h2>Екрани головного флоу</h2>
+      <h2>Інтерактивний прототип</h2>
+      <p>Той самий макет, у якому можна ходити. Верхній ряд перемикає екрани, нижній — стани обраного екрана. Усередині працюють справжні посилання: «Забронювати» веде на Бронювання, «Зняти фільтр» — на заповнений список, помилка оплати — назад на Оплату.</p>
+    </div>
+
+    <div class="proto">
+      <div class="row" id="pt-screens" role="tablist" aria-label="Екрани"></div>
+      <div class="row states" id="pt-states" role="tablist" aria-label="Стани екрана"></div>
+      <div class="stage">
+        <iframe id="pt-frame" src="wireframes/home.html?embed=1" title="Вайрфрейм екрана" loading="lazy"></iframe>
+      </div>
+      <p class="hint">Прототип відкривається і окремою вкладкою: <a href="wireframes/home.html">повна версія зі службовою панеллю, деревом і перемикачем пристрою</a>.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var SCREENS = [
+    { t: 'Головна', f: 'home', s: [] },
+    { t: 'Добірка', f: 'collection', s: [['empty','Порожній'],['loading','Завантаження']] },
+    { t: 'Каталог', f: 'listings', s: [['empty','Порожній'],['error','Помилка'],['loading','Завантаження']] },
+    { t: 'Оселя', f: 'listing', s: [['empty','Без відгуків'],['loading','Завантаження']] },
+    { t: 'Бронювання', f: 'booking', s: [['error','Дати зайняті']] },
+    { t: 'Оплата', f: 'payment', s: [['error','Платіж не пройшов'],['loading','Завантаження']] },
+    { t: 'Підтвердження', f: 'confirmation', s: [['error','Лист не дійшов']] }
+  ];
+  var frame = document.getElementById('pt-frame');
+  var rowS = document.getElementById('pt-screens');
+  var rowT = document.getElementById('pt-states');
+  var cur = 0, curState = '';
+
+  function show(file) { frame.src = 'wireframes/' + file + '.html?embed=1'; }
+
+  function paintStates() {
+    rowT.innerHTML = '';
+    var sc = SCREENS[cur];
+    var all = [['', 'Успіх']].concat(sc.s);
+    all.forEach(function (st) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.setAttribute('role', 'tab');
+      b.textContent = st[1];
+      b.setAttribute('aria-selected', String(st[0] === curState));
+      b.onclick = function () { curState = st[0]; paintStates(); show(sc.f + (st[0] ? '-' + st[0] : '')); };
+      rowT.appendChild(b);
+    });
+    rowT.style.display = all.length > 1 ? 'inline-flex' : 'none';
+  }
+
+  SCREENS.forEach(function (sc, i) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('role', 'tab');
+    b.textContent = sc.t;
+    b.setAttribute('aria-selected', String(i === cur));
+    b.onclick = function () {
+      cur = i; curState = '';
+      Array.prototype.forEach.call(rowS.children, function (x, k) { x.setAttribute('aria-selected', String(k === i)); });
+      paintStates(); show(sc.f);
+    };
+    rowS.appendChild(b);
+  });
+  paintStates();
+
+  /* клік усередині прототипу перемикає вкладки назовні */
+  frame.addEventListener('load', function () {
+    var file;
+    try { file = frame.contentWindow.location.pathname.split('/').pop().replace('.html', ''); } catch (e) { return; }
+    var base = file.split('-')[0], st = file.indexOf('-') > -1 ? file.slice(base.length + 1) : '';
+    SCREENS.forEach(function (sc, i) {
+      if (sc.f === base) {
+        cur = i; curState = st;
+        Array.prototype.forEach.call(rowS.children, function (x, k) { x.setAttribute('aria-selected', String(k === i)); });
+        paintStates();
+      }
+    });
+  });
+})();
+</script>
+
+<section id="screens">
+  <div class="wrap">
+    <div class="col">
+      <p class="eyebrow">Частина 3</p>
+      <h2>Усі сторінки списком</h2>
       <p>Шлях primary-персони від входу до оплаченої поїздки. Кожне посилання відкриває окрему сторінку — її можна гортати, перемикати пристрій і ходити по флоу кліками.</p>
     </div>
     <div class="tablewrap">
@@ -86,7 +201,7 @@
 <section id="decisions">
   <div class="wrap">
     <div class="col">
-      <p class="eyebrow">Частина 3</p>
+      <p class="eyebrow">Частина 4</p>
       <h2>Що видно просто в макеті</h2>
       <p>Рішення кроку 3 перестали бути текстом і стали екраном. Чотири з них видно без пояснень.</p>
     </div>

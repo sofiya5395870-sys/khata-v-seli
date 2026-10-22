@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Кабінет гостя · основний стан</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Кабінет гостя — основний стан</p>
+    <dl>
+      <dt>Екран</dt><dd>Кабінет гостя, вузол <code>Cab</code> у флоу «Повертаюсь і читаю». Сюди ж падає Підтвердження, коли лист не дійшов</dd>
+      <dt>Крок джоба</dt><dd>перший: вхід у флоу. Далі — розвилка «Є поїздки?»: «попереду або триває» веде у флоу E1, «вже минула» — у Мою поїздку й Післявиїзну оцінку, «ще немає» — у Збережені</dd>
+      <dt>Джоби</dt><dd><strong>R2</strong> — повернутись до відкладеного · <strong>R4</strong> бачити свої строки · <strong>P1</strong> перевірити рішення до того, як вкладати гроші</dd>
+      <dt>Стан</dt><dd>успіх: є поточна поїздка й одна минула</dd>
+    </dl>
+  </div>
+
+  <nav class="states" aria-label="Стани цього екрана">
+    <a href="account.html" aria-current="page">Успіх</a>
+    <a href="account-empty.html">Порожній</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в інший розділ</em></p>
+  <p class="zone">Зона 2 · Хто ви <em>— головна дія: перевірити пошту, на яку приходять листи про поїздку</em></p>
+  <p class="zone">Зона 3 · Поїздка попереду <em>— головна дія: знайти адресу й ключ, навіть якщо лист не дійшов</em></p>
+  <p class="zone">Зона 4 · Минулі поїздки <em>— головна дія: оцінити оселю або лишити відгук</em></p>
+  <p class="zone">Зона 5 · Збережені списки <em>— головна дія: повернутись до відкладеного</em></p>
+  <p class="zone">Зона 6 · Чати <em>— головна дія: написати господині, у якої вже заброньовано</em></p>
+  <p class="zone">Зона 7 · Нижнє меню <em>— головна дія: перейти в інший розділ</em></p>
+
+  <figure class="device">
+    <div class="phone w-desktop">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <!-- Зона 1 -->
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html">Оселі</a></li>
+              <li><a href="journal.html">Журнал</a></li>
+              <li><a href="saved.html">Збережені · 2</a></li>
+              <li><a href="account.html" aria-current="page">Кабінет</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main>
+          <h1 class="count">Кабінет гостя</h1>
+
+          <!-- Зона 2 -->
+          <section class="card" aria-labelledby="a-who" style="margin:16px">
+            <h2 id="a-who">Катерина</h2>
+            <dl class="facts">
+              <dt>Пошта</dt><dd>katrusia@ukr.net — сюди приходять листи про поїздки</dd>
+              <dt>Телефон</dt><dd>+380 67 ••• •• 18</dd>
+              <dt>Мова</dt><dd>українська</dd>
+            </dl>
+            <footer>
+              <button type="button">Змінити</button>
+            </footer>
+          </section>
+
+          <!-- Зона 3 -->
+          <section class="card" aria-labelledby="a-now" style="margin:0 16px 16px">
+            <h2 id="a-now">Поїздка попереду</h2>
+            <h3>Тиха Хата · <time datetime="2026-11-07">7</time>–<time datetime="2026-11-09">9 листопада</time></h3>
+            <dl class="facts">
+              <dt>Адреса</dt><dd>Витачів, вул. Набережна 14</dd>
+              <dt>Ключ</dt><dd>у скриньці біля хвіртки, код 2714</dd>
+              <dt>Заїзд</dt><dd>з 14:00, виїзд до 12:00</dd>
+              <dt>Сплачено</dt><dd>5 400 ₴ за 2 доби</dd>
+            </dl>
+            <p class="guarantee">Адреса, ключ і час заїзду лежать тут завжди — навіть якщо лист із ними не дійшов.</p>
+            <footer>
+              <a class="btn" href="trip-before.html">Моя поїздка</a>
+              <button type="button">Написати Марії</button>
+            </footer>
+          </section>
+
+          <!-- Зона 4 -->
+          <section class="card" aria-labelledby="a-past" style="margin:0 16px 16px">
+            <h2 id="a-past">Минулі поїздки</h2>
+            <h3>Стара Груша · <time datetime="2026-08-12">12</time>–<time datetime="2026-08-15">15 серпня 2026</time></h3>
+            <p class="guarantee">Оцінку бачимо тільки ми: друга низька знімає оселю з каталогу. Відгук бачать усі — це різні речі, і ви можете лишити одне без другого.</p>
+            <footer>
+              <a class="btn" href="rating.html">Оцінити оселю</a>
+              <a href="review.html">Лишити відгук</a>
+              <a href="trip-after.html">Відкрити поїздку</a>
+            </footer>
+          </section>
+
+          <!-- Зона 5 -->
+          <section class="card" aria-labelledby="a-saved" style="margin:0 16px 16px">
+            <h2 id="a-saved">Збережені списки</h2>
+            <ul class="bottom">
+              <li><a href="saved.html">Хочу туди взимку · 2 оселі</a></li>
+              <li><a href="saved.html">Надовго, якщо вирішусь · 1 оселя</a></li>
+            </ul>
+            <footer>
+              <a href="saved.html">Усі збережені</a>
+            </footer>
+          </section>
+
+          <!-- Зона 6 -->
+          <section class="card" aria-labelledby="a-chat" style="margin:0 16px 16px">
+            <h2 id="a-chat">Чати</h2>
+            <p class="guarantee">Марія, «Тиха Хата» — відповіла вчора. Чат відкривається після оплати: до неї листування немає ні тут, ні на сторінці оселі.</p>
+            <footer>
+              <button type="button">Написати Марії</button>
+            </footer>
+          </section>
+        </main>
+
+        <!-- Зона 7 -->
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html"><span class="box"></span>Оселі</a>
+          <a href="journal.html"><span class="box"></span>Журнал</a>
+          <a href="saved.html"><span class="box"></span>Збережені · 2</a>
+          <a href="account.html" aria-current="page"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Десктоп · 1200 × 800. Перемикач над рамкою показує той самий екран на планшеті й телефоні.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Розвилка «Є поїздки?» → <a href="trip-before.html">попереду: Моя поїздка, до заїзду</a> · <a href="trip-after.html">минула: Моя поїздка, після виїзду</a> · <a href="saved.html">відкладене: Збережені</a>. Інший стан → <a href="account-empty.html">поїздок ще немає</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Адреса, ключ і час заїзду продубльовані тут.</strong> Рішення кроку 3: лист — найкрихкіше місце у флоу, і Підтвердження в стані «лист не дійшов» веде саме сюди. Якби тут цього не було, вихід із тієї помилки був би порожній.</li>
+    <li><strong>Оцінка й відгук — дві різні дії, і екран каже, чим вони різні.</strong> Післявиїзна оцінка непублічна й впливає на каталог, відгук публічний. Злиття їх в одну кнопку зіпсувало б обидві.</li>
+    <li><strong>Чат є в кабінеті, але тільки для оплаченої поїздки.</strong> До оплати іконки чату немає на жодному екрані — рішення кроку 3.</li>
+    <li><strong>Кабінет не стоїть на шляху до оплати.</strong> Бронювати можна без акаунта, гостьовим способом — рішення з брифу. Тому цей екран збирає те, що вже є, а не пускає далі.</li>
+    <li>Ім'я, пошта й телефон — демонстраційні, для макета.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

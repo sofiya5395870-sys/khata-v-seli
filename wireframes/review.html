@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Відгук · основний стан</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Відгук — основний стан</p>
+    <dl>
+      <dt>Екран</dt><dd>Відгук, вузол <code>Rev</code> у флоу «повертаюсь і читаю». Відкривається з блоку відгуків на Оселі</dd>
+      <dt>Крок джоба</dt><dd>після розвилки «Відгуки вже є?» → <strong>так</strong>. Далі — назад в Оселю або в Бронювання</dd>
+      <dt>Джоби</dt><dd><strong>E3</strong> — зрозуміти, як там насправді · <strong>R3</strong> переконатись, що місце і ціна справжні — <em>слабко, і це сказано свідомо</em></dd>
+      <dt>Стан</dt><dd>основний: відгуки є</dd>
+    </dl>
+  </div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в інший розділ</em></p>
+  <p class="zone">Зона 2 · Оселя, про яку відгуки <em>— головна дія: не загубити, про який саме дім ідеться</em></p>
+  <p class="zone">Зона 3 · Звідки ці відгуки <em>— головна дія: розуміти, кому вірити і наскільки</em></p>
+  <p class="zone">Зона 4 · Самі відгуки <em>— головна дія: почути тих, хто тут жив, і скільки саме жив</em></p>
+  <p class="zone">Зона 5 · Вихід <em>— головна дія: повернутись в оселю або забронювати</em></p>
+  <p class="zone">Зона 6 · Нижнє меню <em>— головна дія: перейти в інший розділ</em></p>
+
+  <nav class="states" aria-label="Стани цього екрана">
+    <a href="review.html" aria-current="page">Успіх</a>
+    <a href="review-empty.html">Порожній · відгуків ще немає</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <figure class="device">
+    <div class="phone w-phone">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <!-- Зона 1 -->
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html" aria-current="page">Оселі</a></li>
+              <li><a href="journal.html">Журнал</a></li>
+              <li><a href="saved.html">Збережені · 2</a></li>
+              <li><a href="account.html">Кабінет</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main>
+
+          <!-- Зона 2 -->
+          <h1 class="count">Відгуки тих, хто тут жив</h1>
+          <p class="count"><a href="listing.html">Тиха Хата</a>, Витачів, Київська область · <strong>4 відгуки</strong>. Зіркових оцінок немає — тільки те, що люди написали словами.</p>
+
+          <!-- Зона 3 -->
+          <section class="count" aria-labelledby="rv-src">
+            <h2 id="rv-src">Звідки ці відгуки</h2>
+            <p class="guarantee">Ми новий сервіс, і своїх відгуків у нас поки мало. Ці взяті з майданчиків, де Тиха Хата вже здавалась, — під кожним написано звідки й коли. Нічого не переписуємо й не скорочуємо: або відгук стоїть цілим, або його тут немає.</p>
+            <p class="checked">Відгуків із самої платформи поки жодного: перші гості виїдуть у листопаді.</p>
+          </section>
+
+          <!-- Зона 4 -->
+          <section aria-labelledby="rv-list">
+            <h2 id="rv-list" class="count">Що пишуть</h2>
+            <ul class="list">
+
+              <li class="card">
+                <article>
+                  <h3>Оксана</h3>
+                  <dl class="facts">
+                    <dt>Коли жила</dt><dd><time datetime="2026-09-14">14 вересня 2026</time></dd>
+                    <dt>Скільки</dt><dd>4 доби</dd>
+                    <dt>Звідки відгук</dt><dd>Booking.com</dd>
+                  </dl>
+                  <p>Їхали на три дні, лишились на чотири. Вночі справді тихо — тільки собака десь за річкою. Вода гаряча, піч розпалюється з першого разу, дрова під навісом і сухі. Марія лишила хліб і молоко й більше не турбувала, про що я окремо просила.</p>
+                </article>
+              </li>
+
+              <li class="card">
+                <article>
+                  <h3>Андрій</h3>
+                  <dl class="facts">
+                    <dt>Коли жив</dt><dd><time datetime="2026-08-02">2 серпня 2026</time></dd>
+                    <dt>Скільки</dt><dd>2 доби</dd>
+                    <dt>Звідки відгук</dt><dd>Instagram господині</dd>
+                  </dl>
+                  <p>Працював звідти два дні, дзвінки тримало без обривів — перевіряв на відео, не на словах. Кухня мала, удвох не розминутись. За ці гроші чесно.</p>
+                </article>
+              </li>
+
+              <li class="card">
+                <article>
+                  <h3>Тетяна</h3>
+                  <dl class="facts">
+                    <dt>Коли жила</dt><dd><time datetime="2026-07-19">19 липня 2026</time></dd>
+                    <dt>Скільки</dt><dd>9 діб</dd>
+                    <dt>Звідки відгук</dt><dd>Booking.com</dd>
+                  </dl>
+                  <p>Жили дев'ять днів із дитиною. Сходи на горище круті — ловила її на півдорозі двічі, тож із малими врахуйте. Решта як в описі: сад, гамак, тиша, і в село можна дійти пішки за хлібом.</p>
+                </article>
+              </li>
+
+              <li class="card">
+                <article>
+                  <h3>Ігор</h3>
+                  <dl class="facts">
+                    <dt>Коли жив</dt><dd><time datetime="2026-06-05">5 червня 2026</time></dd>
+                    <dt>Скільки</dt><dd>3 доби</dd>
+                    <dt>Звідки відгук</dt><dd>OLX</dd>
+                  </dl>
+                  <p>Приїхали з Києва й перші дві години не знали, що робити з тишею. Остання ділянка дороги ґрунтова: після дощу краще не низькою машиною. Генератор є, перевіряли — світла не було годину, нічого не змінилось.</p>
+                </article>
+              </li>
+
+            </ul>
+          </section>
+
+          <!-- Зона 5 -->
+          <section class="count" aria-labelledby="rv-own">
+            <h2 id="rv-own">Жили тут?</h2>
+            <p class="guarantee">Відгук пишуть після виїзду, з картки поїздки. Там же стоїть <a href="rating.html">оцінка</a> — вона не публікується, і саме вона вирішує, лишиться оселя в каталозі чи ні.</p>
+            <p><a href="trip-after.html">Відкрити мою поїздку</a></p>
+          </section>
+
+          <section class="filters" aria-label="Дія">
+            <a class="btn first" href="booking.html">Забронювати · 2 700 ₴ за добу</a>
+            <a class="btn" href="listing.html">Повернутись до оселі</a>
+            <a class="btn" href="listings.html">Інші оселі</a>
+          </section>
+
+        </main>
+
+        <!-- Зона 6 -->
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html" aria-current="page"><span class="box"></span>Оселі</a>
+          <a href="journal.html"><span class="box"></span>Журнал</a>
+          <a href="saved.html"><span class="box"></span>Збережені · 2</a>
+          <a href="account.html"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Телефон · 390 × 844. Рамка пристрою — риштування макета, не елемент продукту.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Назад → <a href="listing.html">Оселя</a> · далі → <a href="booking.html">Бронювання</a> · інший стан → <a href="review-empty.html">ще немає відгуків</a> · свій відгук пишуть після виїзду → <a href="rating.html">Післявиїзна оцінка</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Зіркових рейтингів немає</strong> — рішення брифу. Оцінки відгуків не впливали ні на ціну, ні на ймовірність бронювання (Ert, Fleischer &amp; Magen, <em>Tourism Management</em> 55, 2016, на даних Airbnb), тоді як сприйнята надійність фото — впливала. Малювати зірки означало б додати шуму замість довіри.</li>
+    <li><strong>Відгук тут підпора, а не опора.</strong> Очікування калібрують чесно названі мінуси в описі оселі й кадри з перевірки; відгук додається до них, а не заміняє їх.</li>
+    <li><strong>«Скільки прожив» стоїть поруч із датою.</strong> Два дні й дев'ять днів — це різні відгуки про той самий дім, і читач має бачити, чий досвід довший.</li>
+    <li><strong>Джерело названо під кожним відгуком.</strong> На демо-етапі вони з інших сайтів — це рішення брифу, і ховати його означало б починати з того самого, проти чого стоїть продукт.</li>
+    <li><strong>Мінуси в чужих словах не вирізані:</strong> круті сходи, мала кухня, ґрунтова дорога. Відгук, у якому все добре, читається як реклама й нічого не доводить.</li>
+    <li>Імена й тексти — демонстраційні, для макета. Справжні відгуки добирає редакція із джерелами.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

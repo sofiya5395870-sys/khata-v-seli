@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Розповідь господаря · порожній стан</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Розповідь господаря — порожній стан</p>
+    <dl>
+      <dt>Екран</dt><dd>Розповідь господаря, вузол <code>Talk</code> у флоу R3</dd>
+      <dt>Крок джоба</dt><dd>обхід із картки оселі, з блоку господині. Розмови ще немає, тому крок не закривається тут, а падає назад на профіль господині</dd>
+      <dt>Джоби</dt><dd><strong>S2</strong> бути прийнятою, а не чужою · <strong>E2</strong> побути в місці, яке відчувається моїм · <strong>S3</strong> знати, до кого тут іти</dd>
+      <dt>Стан</dt><dd>порожній: розповіді цього господаря ще немає — вихід падінням назад на профіль</dd>
+    </dl>
+  </div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в інший розділ</em></p>
+  <p class="zone">Зона 2 · Заголовок і дата запису <em>— головна дія: зрозуміти, коли й де це записано</em></p>
+  <p class="zone">Зона 3 · Фото господині й дому <em>— головна дія: побачити людину й місце разом</em></p>
+  <p class="zone">Зона 4 · Текст від першої особи <em>— головна дія: познайомитись із господинею до оплати</em></p>
+  <p class="zone">Зона 5 · Оселі Марії <em>— головна дія: перейти від людини до її дому</em></p>
+  <p class="zone">Зона 6 · Панель дії <em>— головна дія: бронювати або повернутись до профілю</em></p>
+  <p class="zone">Зона 7 · Нижнє меню, чотири пункти <em>— головна дія: перейти в інший розділ</em></p>
+
+  <nav class="states" aria-label="Стани цього екрана">
+    <a href="story.html">Успіх</a>
+    <a href="story-empty.html" aria-current="page">Порожній · розповіді ще немає</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <figure class="device">
+    <div class="phone w-desktop">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <!-- Зона 1 -->
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html" aria-current="page">Оселі</a></li>
+              <li><a href="journal.html">Журнал</a></li>
+              <li><a href="saved.html">Збережені · 2</a></li>
+              <li><a href="account.html">Кабінет</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main>
+
+          <!-- Зони 2 і 3 -->
+          <section aria-labelledby="h-name" class="search">
+            <h1 id="h-name">Розмова з Марією</h1>
+            <p class="guarantee">Дати запису ще немає: ми до Марії поки не приїхали.</p>
+            <p class="photo">фото: Марія, господиня, на подвір’ї — знято на перевірці 12.09.2026</p>
+          </section>
+
+          <!-- Зона 4 -->
+          <section class="count" aria-labelledby="h-text">
+            <h2 id="h-text">Розповіді ще немає</h2>
+            <p class="guarantee"><strong>Ми записуємо по дві-три розмови на тиждень і йдемо за чергою.</strong> Розмова з Марією ще попереду — тут вона з’явиться, щойно буде готова. Вигадувати текст за господиню ми не будемо.</p>
+            <p class="guarantee">Поки її немає, про Марію можна дізнатись із її профілю: ім’я, обличчя, звідки вона, скільки років приймає гостей і кілька слів від неї самої.</p>
+            <p><a href="host.html">Відкрити профіль Марії</a></p>
+          </section>
+
+          <!-- Зона 5 -->
+          <section class="count" aria-labelledby="h-houses">
+            <h2 id="h-houses">Оселі Марії</h2>
+            <ul class="list">
+
+              <li class="card">
+                <article>
+                  <h3><a href="listing.html">Тиха Хата</a></h3>
+                  <p class="guarantee">Дім під вербами, де вночі чути тільки річку · Витачів, Київська область</p>
+                  <p class="photo">фото: хата з боку саду, ранкове світло</p>
+                  <dl class="facts">
+                    <dt>Ціна</dt><dd>2 700 ₴ за добу</dd>
+                    <dt>Кімнат</dt><dd>2, до 4 людей</dd>
+                  </dl>
+                  <p class="checked">Перевірено 12.09.2026, куратором.</p>
+                  <footer>
+                    <a href="listing.html">Подивитись оселю</a>
+                    <a class="btn" href="booking.html">Забронювати</a>
+                  </footer>
+                </article>
+              </li>
+
+              <li class="card">
+                <article>
+                  <h3><a href="listing.html">Клуня</a></h3>
+                  <p class="guarantee">Перероблена стодола на тому ж подвір’ї · Витачів, Київська область</p>
+                  <p class="photo">фото: клуня зсередини, світло з-під даху</p>
+                  <dl class="facts">
+                    <dt>Ціна</dt><dd>2 100 ₴ за добу</dd>
+                    <dt>Кімнат</dt><dd>1, до 2 людей</dd>
+                  </dl>
+                  <p class="checked">Перевірено 14.09.2026, куратором.</p>
+                  <footer>
+                    <a href="listing.html">Подивитись оселю</a>
+                    <a class="btn" href="booking.html">Забронювати</a>
+                  </footer>
+                </article>
+              </li>
+
+            </ul>
+          </section>
+
+        </main>
+
+        <!-- Зона 6 -->
+        <section class="filters" aria-label="Дія">
+          <a class="btn first" href="host.html">Профіль Марії</a>
+          <a class="btn" href="listing.html">Повернутись до «Тихої Хати»</a>
+          <a class="btn" href="listings.html">Інші оселі</a>
+        </section>
+
+        <!-- Зона 7 -->
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html" aria-current="page"><span class="box"></span>Оселі</a>
+          <a href="journal.html"><span class="box"></span>Журнал</a>
+          <a href="saved.html"><span class="box"></span>Збережені · 2</a>
+          <a href="account.html"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Десктоп · 1200 × 800. Перемикач над рамкою показує той самий екран на планшеті й телефоні.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Падіння назад → <a href="host.html">Господар</a>. Далі → <a href="listing.html">Оселя</a> · <a href="booking.html">Бронювання</a> · <a href="listings.html">Каталог</a>. Інший стан → <a href="story.html">розмова записана</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Вихід один і названий першим — профіль господині.</strong> Так записано в IA: порожня розповідь падає назад на профіль, бо там лежить те саме, тільки коротше: ім’я, обличчя, звідки вона й кілька слів від неї.</li>
+    <li><strong>Екран не вибачається й не обіцяє дати.</strong> Ми кажемо, скільки розмов записуємо на тиждень, і не називаємо числа, якого не можемо витримати: обіцянка, яку нема кому виконати в строк, псує ту саму довіру, заради якої розповідь і існує.</li>
+    <li><strong>«Вигадувати текст за господиню не будемо» сказано вголос.</strong> Розповідь — її голос; підробка тут коштувала б дорожче за порожнечу, як і недоліки, написані для годиться.</li>
+    <li><strong>Структура та сама, що й у записаної розмови.</strong> Порожніє не екран, а один блок: заголовок, фото, оселі Марії й панель дії лишаються на місці.</li>
+    <li><strong>Оселі Марії лишаються видимими.</strong> Людина прийшла сюди по довіру до людини — і навіть без розмови вона бачить її дім, ціну й дату перевірки.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Чат із господарем · порожній стан</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Чат із господарем — порожній стан</p>
+    <dl>
+      <dt>Екран</dt><dd>Чат із господарем, вузол <code>Chat</code> у флоу E1. Чат уже відкритий — оплата пройшла, — але ніхто ще не написав</dd>
+      <dt>Крок джоба</dt><dd>перший контакт: сюди ведуть <a href="confirmation.html">Підтвердження</a> і <a href="trip-before.html">Моя поїздка, режим «до заїзду»</a>. Далі — <a href="chat.html">листування</a></dd>
+      <dt>Джоби</dt><dd><strong>S2</strong> бути прийнятою, а не чужою — знайомство має відбутись до приїзду · <strong>R5</strong> узгодити побутове наперед · <strong>E1</strong> знати, що людина на тому боці є</dd>
+      <dt>Стан</dt><dd>порожній: листування ще не починалось</dd>
+    </dl>
+  </div>
+
+  <nav class="states" aria-label="Стани цього екрана">
+    <a href="chat.html">Успіх</a>
+    <a href="chat-empty.html" aria-current="page">Порожній · листування ще не починалось</a>
+    <a href="chat-loading.html">Завантаження · господиня ще не відповіла</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в інший розділ</em></p>
+  <p class="zone">Зона 2 · З ким і про яке бронювання <em>— головна дія: бачити, що розмова прив'язана до цієї поїздки</em></p>
+  <p class="zone">Зона 3 · Історія листування <em>— головна дія: почати розмову, коли писати ще нема про що</em></p>
+  <p class="zone">Зона 4 · Поле відповіді <em>— головна дія: написати Марії</em></p>
+  <p class="zone">Зона 5 · Нижнє меню, чотири пункти <em>— головна дія: перейти в інший розділ</em></p>
+
+  <figure class="device">
+    <div class="phone w-desktop">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <!-- Зона 1 -->
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html">Оселі</a></li>
+              <li><a href="journal.html">Журнал</a></li>
+              <li><a href="saved.html">Збережені · 2</a></li>
+              <li><a href="trip-before.html">Кабінет</a></li>
+            </ul>
+          </nav>
+          <p class="query">Марія · Тиха Хата · 7–9 листопада</p>
+        </header>
+
+        <main>
+          <h1 class="count">Чат із Марією</h1>
+
+          <!-- Зона 2 -->
+          <section class="card" aria-labelledby="ce-about" style="margin:16px">
+            <h2 id="ce-about">Про що цей чат</h2>
+            <dl class="facts">
+              <dt>З ким</dt><dd>Марія, господиня <a href="listing.html">Тихої Хати</a></dd>
+              <dt>Бронювання</dt><dd><a href="trip-before.html">7–9 листопада 2026</a>, 2 доби, 2 людини</dd>
+              <dt>Відкрився</dt><dd><time datetime="2026-11-05">5 листопада</time>, одразу після оплати</dd>
+              <dt>Строк відповіді</dt><dd>2 години, про які домовилась господиня</dd>
+            </dl>
+          </section>
+
+          <!-- Зона 3 -->
+          <section class="card" aria-labelledby="ce-empty" style="margin:0 16px 16px">
+            <h2 id="ce-empty">Листування ще не починалось</h2>
+            <p>Марія бачить ваші дати й знає, що ви приїдете 7 листопада. Писати не обов'язково — ключ у скриньці, код ви вже маєте. Але якщо напишете, вона протопить до приїзду.</p>
+            <p class="guarantee">Про що зазвичай питають першим:</p>
+            <section class="filters" aria-label="З чого почати" style="padding:0">
+              <button type="button">Будемо о 14, це зручно?</button>
+              <button type="button">Чи треба щось привезти з міста?</button>
+              <button type="button">Чи можна з собакою?</button>
+            </section>
+            <p class="guarantee">Підказка вставляє текст у поле — надсилати його все одно вам.</p>
+          </section>
+
+          <!-- Зона 4 -->
+          <section class="search" aria-labelledby="ce-write">
+            <h2 id="ce-write">Написати Марії</h2>
+            <form action="chat.html" method="get">
+              <div class="row">
+                <div>
+                  <label for="ce-msg">Повідомлення</label>
+                  <input id="ce-msg" name="msg" type="text" placeholder="Маріє, добрий день! Ми виїжджаємо з Києва о 12">
+                </div>
+              </div>
+              <p style="margin:8px 0 0"><button type="submit">Надіслати</button></p>
+            </form>
+            <p class="guarantee" style="padding-top:8px">Чат лишається відкритим до кінця поїздки. Усе, про що тут домовились, видно обом.</p>
+          </section>
+        </main>
+
+        <!-- Зона 5 -->
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html"><span class="box"></span>Оселі</a>
+          <a href="journal.html"><span class="box"></span>Журнал</a>
+          <a href="saved.html"><span class="box"></span>Збережені · 2</a>
+          <a href="trip-before.html"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Десктоп · 1200 × 800. Перемикач над рамкою показує той самий екран на планшеті й телефоні.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Щойно перше повідомлення надіслане → <a href="chat.html">листування</a>. Назад → <a href="trip-before.html">Моя поїздка, до заїзду</a> · <a href="confirmation.html">Підтвердження</a>. Інший стан → <a href="chat-loading.html">господиня ще не відповіла</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Порожній чат не буває просто порожнім.</strong> Він каже, що господиня вже бачить дати, і пропонує три перші фрази — бо найважче тут не знайти кнопку, а почати розмову з незнайомою людиною.</li>
+    <li><strong>Порожнеча тут — нормальний стан, а не помилка.</strong> Писати не обов'язково: ключ у скриньці, і поїздка відбудеться без жодного повідомлення.</li>
+    <li><strong>Підказка не надсилає повідомлення сама</strong> — вона вставляє текст у поле. Від імені людини ми не говоримо.</li>
+    <li><strong>Структура та сама, що й у листуванні:</strong> шапка, прив'язка до бронювання, історія, поле. Міняється тільки вміст середнього блоку.</li>
+    <li>Дані бронювання демонстраційні, для макета.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

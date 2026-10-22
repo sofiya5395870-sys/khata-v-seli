@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Чат із господарем · завантаження</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Чат із господарем — завантаження: господиня ще не відповіла</p>
+    <dl>
+      <dt>Екран</dt><dd>Чат із господарем, вузол <code>Wait</code> у флоу E1: «господар ще не відповів, лічильник домовленого часу йде»</dd>
+      <dt>Крок джоба</dt><dd>третій у E1: повідомлення надіслане, відповіді немає. Далі — розвилка «відповіла за домовлений час?»: так — <a href="chat.html">розмова триває</a>, мовчить — <a href="claim.html">Звернення по гарантії</a>, без повторних спроб достукатись</dd>
+      <dt>Джоби</dt><dd><strong>E1</strong> знати, що робити і на що маю право, не з'ясовуючи це з нуля посеред поїздки · <strong>R5</strong> не чекати цілий день із невідомим кінцем · <strong>S2</strong></dd>
+      <dt>Стан</dt><dd>очікування: іде лічильник домовлених 2 годин</dd>
+    </dl>
+  </div>
+
+  <nav class="states" aria-label="Стани цього екрана">
+    <a href="chat.html">Успіх</a>
+    <a href="chat-empty.html">Порожній · листування ще не починалось</a>
+    <a href="chat-loading.html" aria-current="page">Завантаження · господиня ще не відповіла</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в інший розділ</em></p>
+  <p class="zone">Зона 2 · З ким і про яке бронювання <em>— головна дія: бачити, що розмова прив'язана до цієї поїздки</em></p>
+  <p class="zone">Зона 3 · Історія листування й очікування <em>— головна дія: бачити, скільки лишилось від домовленого часу і що буде, коли він вийде</em></p>
+  <p class="zone">Зона 4 · Поле відповіді <em>— головна дія: дописати, поки чекаєте</em></p>
+  <p class="zone">Зона 5 · Нижнє меню, чотири пункти <em>— головна дія: перейти в інший розділ</em></p>
+
+  <figure class="device">
+    <div class="phone w-desktop">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <!-- Зона 1 -->
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html">Оселі</a></li>
+              <li><a href="journal.html">Журнал</a></li>
+              <li><a href="saved.html">Збережені · 2</a></li>
+              <li><a href="trip.html">Кабінет</a></li>
+            </ul>
+          </nav>
+          <p class="query">Марія · Тиха Хата · 7–9 листопада</p>
+        </header>
+
+        <main>
+          <h1 class="count">Чат із Марією</h1>
+
+          <!-- Зона 2 -->
+          <section class="card" aria-labelledby="cl-about" style="margin:16px">
+            <h2 id="cl-about">Про що цей чат</h2>
+            <dl class="facts">
+              <dt>З ким</dt><dd>Марія, господиня <a href="listing.html">Тихої Хати</a></dd>
+              <dt>Бронювання</dt><dd><a href="trip.html">7–9 листопада 2026</a>, 2 доби, 2 людини</dd>
+              <dt>Відкрився</dt><dd><time datetime="2026-11-05">5 листопада</time>, одразу після оплати</dd>
+              <dt>Строк відповіді</dt><dd>2 години, про які домовилась господиня</dd>
+            </dl>
+          </section>
+
+          <!-- Зона 3 -->
+          <section aria-labelledby="cl-hist" class="count">
+            <h2 id="cl-hist">Листування</h2>
+            <ul class="list">
+
+              <li class="card">
+                <p class="guarantee"><strong>Марія</strong> · <time datetime="2026-11-06T11:12">6 листопада, 11:12</time></p>
+                <p>Протримається. Роутер підключений до повербанка, його вистачає на 6 годин, а генератор стоїть у сінях, я покажу, як заводити.</p>
+              </li>
+
+              <li class="card">
+                <p class="guarantee"><strong>Ви</strong> · <time datetime="2026-11-08T08:50">8 листопада, 8:50</time></p>
+                <p>Доброго ранку. Із сьомої немає води, кран тільки шипить.</p>
+              </li>
+
+            </ul>
+          </section>
+
+          <section class="card" aria-labelledby="cl-wait" style="margin:0 16px 16px">
+            <h2 id="cl-wait">Марія ще не відповіла</h2>
+            <p class="skeleton w60"></p>
+            <p><strong>Лишилось <time datetime="PT1H12M">1 год 12 хв</time></strong> із двох годин, за які господиня домовилась відповідати. Ми бачимо цей відлік разом з вами.</p>
+            <p class="guarantee">Якщо вона промовчить, звернення можна буде відкрити одразу — достукуватись удруге від вас ніхто не чекає. Повернемо 50% вартості доби, це <data value="1350">1 350 ₴</data>.</p>
+            <p class="guarantee"><strong>Поки чекаєте — зніміть відео</strong>, щоб на кадрі було видно час і те, що вода не йде. Без доказів звернення не приймається.</p>
+          </section>
+
+          <!-- Зона 4 -->
+          <section class="search" aria-labelledby="cl-write">
+            <h2 id="cl-write">Написати Марії</h2>
+            <form action="chat.html" method="get">
+              <div class="row">
+                <div>
+                  <label for="cl-msg">Повідомлення</label>
+                  <input id="cl-msg" name="msg" type="text" placeholder="Додаю відео: вода не йде ні на кухні, ні в душі">
+                </div>
+              </div>
+              <p style="margin:8px 0 0"><button type="submit">Надіслати</button></p>
+            </form>
+          </section>
+        </main>
+
+        <!-- Зона 5 -->
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html"><span class="box"></span>Оселі</a>
+          <a href="journal.html"><span class="box"></span>Журнал</a>
+          <a href="saved.html"><span class="box"></span>Збережені · 2</a>
+          <a href="trip.html"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Десктоп · 1200 × 800. Перемикач над рамкою показує той самий екран на планшеті й телефоні.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Розвилка «Відповіла за домовлений час?» → так: <a href="chat.html">відповідь прийшла</a> · мовчить: <a href="claim.html">Звернення по гарантії</a>. Назад → <a href="trip.html">Моя поїздка</a>. Інший стан → <a href="chat-empty.html">листування ще не починалось</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Очікування тут має кінець, названий цифрою.</strong> «Господиня скоро відповість» — це те саме мовчання, тільки ввічливе; лічильник перетворює його на строк, після якого щось станеться.</li>
+    <li><strong>Мовчання й «не полагодив» розведені.</strong> Якщо господиня не відповіла за домовлений час, звернення відкривається одразу — повторних спроб достукатись ми не вимагаємо.</li>
+    <li><strong>Індикатор тут спокійний, без анімації.</strong> У людини немає води: мила вставка в цю мить читалась би як несерйозність. Те саме правило, що в Оплаті й у Зверненні.</li>
+    <li><strong>Про відео нагадуємо саме в очікуванні</strong> — це остання мить, коли доказ ще можна зняти.</li>
+    <li><strong>Поріг появи — пів секунди</strong>, як і в усіх інших станах очікування. Цей стан довгий, але правило одне.</li>
+    <li>Листування демонстраційне, для макета.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>

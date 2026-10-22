@@ -256,3 +256,13 @@ h1, h2, h3 { letter-spacing: -0.01em; }
 .zone { font-weight: 500; }
 .meta .metatitle { letter-spacing: -0.02em; }
 .top .brand { letter-spacing: -0.02em; font-size: 17px; }
+
+/* ===== вбудований режим: тільки екран, без риштування ===== */
+.embed .tree, .embed .meta, .embed .zone, .embed .states,
+.embed .devicebar, .embed .statelink, .embed .note { display: none; }
+.embed .wrap { display: block; }
+.embed .canvas { padding: 0; max-width: none; }
+.embed .device { gap: 0; }
+.embed .phone { border: none; border-radius: 0; padding: 0; width: 100% !important; }
+.embed .phone .screen { height: auto; max-height: none; }
+.embed .device figcaption { display: none; }

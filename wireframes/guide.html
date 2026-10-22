@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Вайрфрейм · Локальний гід · основний стан</title>
+<link rel="stylesheet" href="wire.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
+<aside class="tree"></aside>
+
+<div class="canvas">
+
+  <div class="meta">
+    <p class="metatitle">Локальний гід — основний стан</p>
+    <dl>
+      <dt>Екран</dt><dd>Локальний гід, вузол <code>Guide</code> у флоу «Повертаюсь і читаю». Входи — з Оселі й з Моєї поїздки в режимі «живу там»</dd>
+      <dt>Крок джоба</dt><dd>п'ятий: гілка «про місцевість» із розвилки «Хочу знати більше — про людину чи про місцевість?». Далі — розвилка «Гід по цій місцевості є?» і перехід у Журнал</dd>
+      <dt>Джоби</dt><dd><strong>S3</strong> — розуміти, хто тут що робить і до кого можна прийти, щоб не витратити весь строк на з'ясовування · <strong>P2</strong> встигнути те, заради чого їхала</dd>
+      <dt>Стан</dt><dd>успіх: гід по цій місцевості зібраний</dd>
+    </dl>
+  </div>
+
+  <nav class="states" aria-label="Стани цього екрана">
+    <a href="guide.html" aria-current="page">Успіх</a>
+    <a href="guide-empty.html">Порожній</a>
+  </nav>
+
+  <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
+
+  <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в інший розділ</em></p>
+  <p class="zone">Зона 2 · Звідки рахуємо відстань <em>— головна дія: розуміти, що «700 м» це від ґанку, а не від села взагалі</em></p>
+  <p class="zone">Зона 3 · Місця поруч <em>— головна дія: вибрати, куди піти сьогодні, і знати, чия це порада</em></p>
+  <p class="zone">Зона 4 · Як дістатись без авто <em>— головна дія: дійти туди, не маючи машини</em></p>
+  <p class="zone">Зона 5 · Більше про цю місцевість <em>— головна дія: дочитати в Журналі або подивитись оселі поруч</em></p>
+  <p class="zone">Зона 6 · Нижнє меню <em>— головна дія: перейти в інший розділ</em></p>
+
+  <figure class="device">
+    <div class="phone w-phone">
+      <div class="status"><span>9:41</span><span>5G · 86%</span></div>
+
+      <div class="screen">
+
+        <!-- Зона 1 -->
+        <header class="top">
+          <span class="brand">Хата в селі</span>
+          <nav aria-label="Головне меню">
+            <ul>
+              <li><a href="listings.html" aria-current="page">Оселі</a></li>
+              <li><a href="journal.html">Журнал</a></li>
+              <li><a href="saved.html">Збережені · 2</a></li>
+              <li><a href="account.html">Кабінет</a></li>
+            </ul>
+          </nav>
+        </header>
+
+        <main>
+          <!-- Зона 2 -->
+          <section class="search" aria-labelledby="g-h">
+            <h1 id="g-h">Локальний гід</h1>
+            <p class="guarantee">Витачів і навколо. Відстань рахуємо від <a href="listing.html">«Тихої Хати»</a>, від хвіртки.</p>
+          </section>
+          <p class="count">Три місця. Гід росте з того, що радять господарі, тому список короткий і чесний: вигадувати «багато цікавого навколо» ми не будемо.</p>
+
+          <!-- Зона 3 -->
+          <section aria-labelledby="g-places">
+            <h2 class="count" id="g-places">Куди піти</h2>
+            <ul class="list">
+
+              <li class="card">
+                <article>
+                  <h3>Пекарня «Зерно»</h3>
+                  <p class="guarantee">Сільська пекарня: печуть уночі, вранці хліб ще теплий. Беруть готівкою.</p>
+                  <dl class="facts">
+                    <dt>Відстань</dt><dd>700 м</dd>
+                    <dt>Час</dt><dd>9 хв пішки вулицею вниз</dd>
+                    <dt>Коли</dt><dd>працює з 8:00</dd>
+                    <dt>Порада</dt><dd>Марії, господині «Тихої Хати»</dd>
+                  </dl>
+                </article>
+              </li>
+
+              <li class="card">
+                <article>
+                  <h3>Дніпро, дикий берег</h3>
+                  <p class="guarantee">Піщаний берег без нічого: ні кафе, ні лежаків, ні людей у будній день. Купатись можна, рятувальників немає.</p>
+                  <p class="photo">фото: стежка через луг до води, ранок</p>
+                  <dl class="facts">
+                    <dt>Відстань</dt><dd>1,2 км</dd>
+                    <dt>Час</dt><dd>20 хв стежкою через луг</dd>
+                    <dt>Порада</dt><dd>Марії, господині «Тихої Хати»</dd>
+                  </dl>
+                </article>
+              </li>
+
+              <li class="card">
+                <article>
+                  <h3>Музей Трипілля</h3>
+                  <p class="guarantee">Археологічний музей у Ржищеві: кераміка, знайдена тут поруч. Найближче місце, заради якого варто сідати в автівку.</p>
+                  <dl class="facts">
+                    <dt>Відстань</dt><dd>9 км, Ржищів</dd>
+                    <dt>Час</dt><dd>15 хв автівкою · 25 хв автобусом</dd>
+                    <dt>Порада</dt><dd>редакції «Хати в селі» — були на місці 12.09.2026</dd>
+                  </dl>
+                </article>
+              </li>
+
+            </ul>
+          </section>
+
+          <!-- Зона 4 -->
+          <section class="count" aria-labelledby="g-road">
+            <h2 id="g-road">Як дістатись без авто</h2>
+            <dl class="facts">
+              <dt>Автобус</dt><dd>«Київ — Ржищів», о 9:10 і 15:40, зупинка «Витачів, центр»</dd>
+              <dt>Від зупинки</dt><dd>900 м пішки до хвіртки</dd>
+            </dl>
+            <p class="guarantee">Таксі в селі немає. Якщо плануєте в музей і назад того самого дня — рахуйте на автобус о 15:40.</p>
+          </section>
+
+          <!-- Зона 5 -->
+          <section class="count" aria-labelledby="g-more">
+            <h2 id="g-more">Більше про цю місцевість</h2>
+            <ul class="bottom">
+              <li><a href="journal.html">Гіди по місцевості в Журналі</a></li>
+              <li><a href="story.html">Розповідь Марії про Витачів</a></li>
+              <li><a href="listings.html">Оселі в цій місцевості</a></li>
+            </ul>
+          </section>
+        </main>
+
+        <!-- Зона 6 -->
+        <nav class="tabbar-bottom" aria-label="Головне меню">
+          <a href="listings.html" aria-current="page"><span class="box"></span>Оселі</a>
+          <a href="journal.html"><span class="box"></span>Журнал</a>
+          <a href="saved.html"><span class="box"></span>Збережені · 2</a>
+          <a href="account.html"><span class="box"></span>Кабінет</a>
+        </nav>
+
+      </div>
+    </div>
+    <figcaption>Телефон · 390 × 844. Рамка пристрою — риштування макета, не елемент продукту.</figcaption>
+  </figure>
+
+  <p class="statelink"><strong>Куди звідси:</strong> Назад → <a href="listing.html">Оселя</a> · далі за флоу → <a href="journal.html">Журнал</a>. Інший стан → <a href="guide-empty.html">гіда по цій місцевості ще немає</a></p>
+
+  <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
+  <ul class="note">
+    <li><strong>Місця з іменами, а не «поруч багато цікавого».</strong> Бар'єр названий дослівно: «Косів — це величезна любов, якщо знати куди ходити» — Threads, @darka.ceramics. Бракує саме знання, куди йти, і абстракція його не дає.</li>
+    <li><strong>Чия порада — видно в кожному місці.</strong> Порада господині й порада редакції важать по-різному, і людина має право знати, кому вірить.</li>
+    <li><strong>Відстань і час стоять обидва.</strong> Дев'ять кілометрів пішки й дев'ять автівкою — це різні поїздки, а джоб P2 про те, щоб устигнути.</li>
+    <li><strong>Список короткий, і екран це визнає.</strong> Чесність про межі даних лишається навіть в успішному стані.</li>
+    <li><strong>Сезонність поки не малюю.</strong> У <code>ia/sitemap.md</code> поле стоїть із позначкою «під питанням». Пропозиція: рядок «коли має сенс» — дикий берег у листопаді це не те саме, що в липні. Рішення за Софією.</li>
+    <li>Гід не фільтрується й не сортується: це читання, а не пошук. Тому смуги фільтрів тут немає.</li>
+  </ul>
+
+</div>
+</div>
+<script src="wire-nav.js"></script>
+<script src="wire-device.js"></script>
+<script src="wire-icons.js"></script>
+</body>
+</html>
