@@ -67,6 +67,9 @@
   .legend i.kep { background: #f1efe9; border-color: #9a9287; border-style: dashed; }
 
   /* --- матриця трасування --- */
+  /* «Бриф → продукт»: перша колонка не тягнеться на пів таблиці — текст у ній переноситься */
+  .brief tbody th { white-space: normal; width: 20%; min-width: 148px; line-height: 1.35; }
+  .brief td:nth-child(2) { width: 18%; }
   .matrix table { font-size: 0.74rem; min-width: 900px; }
   .matrix th, .matrix td { padding: 0.4rem 0.35rem; }
   .matrix tbody th { font-size: 0.76rem; white-space: normal; min-width: 180px; }
@@ -179,7 +182,7 @@
     </div>
 
     <div class="tablewrap">
-      <table>
+      <table class="brief">
         <thead><tr><th>З брифу</th><th>Де живе в продукті</th><th>Джоби</th><th>Наскільки доведено</th></tr></thead>
         <tbody>
           <tr><th>Навігація за природою — гори, біля водойми, степ, ліс</th><td>Добірка, тип «за природою»</td><td>R2 · E2</td><td><strong>Міцно.</strong> Головний вхід у каталог для тієї, хто ще не вміє назвати параметри, але впізнає стан</td></tr>
