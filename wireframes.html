@@ -43,8 +43,6 @@
   .proto .ptbar .row { margin-bottom: 0; }
   .proto .ptnav { display: flex; justify-content: center; margin-bottom: 0.75rem; }
   .proto .ptnav .row { margin-bottom: 0; max-width: 100%; }
-  .proto .row button .n { color: var(--dim); font-variant-numeric: tabular-nums; margin-right: 0.4rem; }
-  .proto .row button[aria-selected="true"] .n { color: var(--accent); }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
   .proto .stage {
@@ -235,7 +233,7 @@
   SCREENS.forEach(function (sc, i) {
     var b = document.createElement('button');
     b.type = 'button'; b.setAttribute('role', 'tab');
-    b.innerHTML = '<span class="n">' + (i + 1) + '</span>' + sc.t;
+    b.textContent = sc.t;
     b.setAttribute('aria-selected', String(i === cur));
     b.onclick = function () { goto(i); };
     rowS.appendChild(b);
