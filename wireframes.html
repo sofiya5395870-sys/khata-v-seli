@@ -16,7 +16,6 @@
       radial-gradient(900px 380px at 88% 0%, var(--tint-2) 0%, transparent 58%);
   }
   header.hero h1 { color: #15110f; }
-  .wf-open { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.4rem; }
 
   /* --- інтерактивний прототип --- */
   .proto { margin: 1.75rem 0; }
@@ -45,10 +44,35 @@
     display: grid; place-items: start center;
     background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem;
   }
-  .proto iframe {
-    width: 100%; height: 780px; border: 1px solid var(--ink);
-    border-radius: 12px; background: #fff;
-    display: block; margin: 0 auto; max-width: 100%; transition: width 0.18s ease, height 0.18s ease;
+  .proto .ptbar { display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; align-items: center; justify-content: space-between; }
+  .proto .stage { overflow-x: auto; }
+  .proto iframe { display: block; border: 0; background: #fff; width: 100%; height: 100%; }
+
+  /* рамка пристрою — риштування показу, не елемент продукту */
+  .mock { position: relative; background: #1c1c1c; margin: 0 auto; transition: width 0.2s ease, height 0.2s ease; }
+  .mock .chrome { position: absolute; left: 0; right: 0; pointer-events: none; }
+
+  .mock.desktop { width: 1200px; border-radius: 12px; padding: 34px 10px 10px; }
+  .mock.desktop .chrome { top: 0; height: 34px; }
+  .mock.desktop .chrome::before {
+    content: ""; position: absolute; left: 14px; top: 12px; width: 10px; height: 10px; border-radius: 50%;
+    background: #5b5b5b; box-shadow: 16px 0 0 #5b5b5b, 32px 0 0 #5b5b5b;
+  }
+  .mock.desktop iframe { height: 760px; border-radius: 4px; }
+
+  .mock.tablet { width: 768px; border-radius: 26px; padding: 22px 16px; }
+  .mock.tablet iframe { height: 980px; border-radius: 6px; }
+
+  .mock.phone { width: 390px; border-radius: 44px; padding: 14px 12px 20px; }
+  .mock.phone iframe { height: 800px; border-radius: 30px; }
+  .mock.phone .chrome { top: 14px; height: 30px; }
+  .mock.phone .chrome::before {
+    content: ""; position: absolute; left: 50%; transform: translateX(-50%); top: 8px;
+    width: 104px; height: 26px; border-radius: 14px; background: #1c1c1c;
+  }
+  .mock.phone .chrome::after {
+    content: ""; position: absolute; left: 50%; transform: translateX(-50%); top: 792px;
+    width: 128px; height: 4px; border-radius: 2px; background: #1c1c1c;
   }
   .proto .row.devices button[aria-selected="true"] {
     background: var(--surface); border-color: var(--accent); color: var(--ink); font-weight: 600;
@@ -75,10 +99,35 @@
   </div>
 </header>
 
-<section id="rules">
+<section id="proto">
   <div class="wrap">
     <div class="col">
       <p class="eyebrow">Частина 1</p>
+      <h2>Інтерактивний прототип</h2>
+      <p>Той самий макет, у якому можна ходити. Верхній ряд перемикає екрани, нижній — стани обраного екрана. Усередині працюють справжні посилання: «Забронювати» веде на Бронювання, «Зняти фільтр» — на заповнений список, помилка оплати — назад на Оплату.</p>
+    </div>
+
+    <div class="proto">
+      <div class="row" id="pt-screens" role="tablist" aria-label="Екрани"></div>
+      <div class="ptbar">
+        <div class="row states" id="pt-states" role="tablist" aria-label="Стани екрана"></div>
+        <div class="row devices" id="pt-devices" role="tablist" aria-label="Пристрій"></div>
+      </div>
+      <div class="stage">
+        <div class="mock" id="pt-mock">
+          <div class="chrome" aria-hidden="true"></div>
+          <iframe id="pt-frame" src="wireframes/home.html?embed=1&amp;dev=desktop" title="Вайрфрейм екрана" loading="lazy"></iframe>
+        </div>
+      </div>
+      <p class="hint">Прототип відкривається і окремою вкладкою: <a href="wireframes/home.html" id="pt-full">повна версія зі службовою панеллю, деревом і перемикачем пристрою</a>.</p>
+    </div>
+  </div>
+</section>
+
+<section id="rules">
+  <div class="wrap">
+    <div class="col">
+      <p class="eyebrow">Частина 2</p>
       <h2>Правила, за якими це зроблено</h2>
       <p>Повний контракт — у <a href="https://github.com/sofiya5395870-sys/khata-v-seli/blob/main/wireframes/_conventions.md">_conventions.md</a>. Коротко — п'ять речей, які відрізняють цей макет від сірих прямокутників.</p>
     </div>
@@ -92,25 +141,6 @@
   </div>
 </section>
 
-<section id="proto">
-  <div class="wrap">
-    <div class="col">
-      <p class="eyebrow">Частина 2</p>
-      <h2>Інтерактивний прототип</h2>
-      <p>Той самий макет, у якому можна ходити. Верхній ряд перемикає екрани, нижній — стани обраного екрана. Усередині працюють справжні посилання: «Забронювати» веде на Бронювання, «Зняти фільтр» — на заповнений список, помилка оплати — назад на Оплату.</p>
-    </div>
-
-    <div class="proto">
-      <div class="row" id="pt-screens" role="tablist" aria-label="Екрани"></div>
-      <div class="row states" id="pt-states" role="tablist" aria-label="Стани екрана"></div>
-      <div class="row devices" id="pt-devices" role="tablist" aria-label="Пристрій"></div>
-      <div class="stage">
-        <iframe id="pt-frame" src="wireframes/home.html?embed=1" title="Вайрфрейм екрана" loading="lazy"></iframe>
-      </div>
-      <p class="hint">Прототип відкривається і окремою вкладкою: <a href="wireframes/home.html" id="pt-full">повна версія зі службовою панеллю, деревом і перемикачем пристрою</a>.</p>
-    </div>
-  </div>
-</section>
 
 <script>
 (function () {
@@ -135,12 +165,11 @@
   ];
   var dev = 'desktop';
   var rowD = document.getElementById('pt-devices');
+  var mock = document.getElementById('pt-mock');
   var curFile = 'home';
 
   function applyDevice() {
-    var d = DEVICES.filter(function (x) { return x.id === dev; })[0];
-    frame.style.width = d.w + 'px';
-    frame.style.height = d.h + 'px';
+    mock.className = 'mock ' + dev;
     Array.prototype.forEach.call(rowD.children, function (b) {
       b.setAttribute('aria-selected', String(b.dataset.id === dev));
     });
@@ -230,7 +259,6 @@
       </table>
     </div>
     <div class="col">
-      <p class="wf-open"><a href="wireframes/home.html"><strong>Відкрити вайрфрейми →</strong></a></p>
       <div class="note"><strong>Решта екранів у роботі.</strong> Дванадцять екранів поза головним флоу — Критерії відбору, Господар, Розповідь, Моя поїздка, Чат, Локальний гід, Журнал, Післявиїзна оцінка, Звернення по гарантії, Відгук, Збережені, Кабінет — малюються зараз і стануть тут такою самою таблицею.</div>
     </div>
   </div>
