@@ -20,7 +20,7 @@
     frame.className = 'phone w-' + s.id;
     /* На вузькому екрані ширину задає CSS: рамка там на всю ширину вікна,
        а інлайнова ширина десктопа зробила б горизонтальний скрол. */
-    var narrow = window.matchMedia('(max-width: 520px)').matches;
+    var narrow = window.matchMedia('(max-width: 760px)').matches;
     frame.style.width = narrow ? '' : s.w + 'px';
     if (cap) cap.textContent = s.label + ' · ' + s.note + '. Рамка пристрою — риштування макета, не елемент продукту.';
     Array.prototype.forEach.call(host.querySelectorAll('button'), function (b) {

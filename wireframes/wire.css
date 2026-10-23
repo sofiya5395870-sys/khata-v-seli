@@ -288,7 +288,7 @@ h1, h2, h3 { letter-spacing: -0.01em; }
 /* ===== справжній телефон: макет на всю ширину =====
    Рамка пристрою має сенс лише тоді, коли вікно ширше за неї.
    На вузькому екрані вона тільки з'їдає ширину й робить другий скрол усередині першого. */
-@media (max-width: 520px) {
+@media (max-width: 760px) {
   .canvas { padding: 16px 0 48px; }
   .canvas > *:not(.device) { padding-left: 16px; padding-right: 16px; }
   .phone {
@@ -298,8 +298,9 @@ h1, h2, h3 { letter-spacing: -0.01em; }
   .phone .screen {
     border-radius: 0; height: auto; max-height: none; overflow: visible;
   }
-  .device { gap: 12px; }
+  .device { gap: 12px; justify-items: stretch; }
   .device figcaption { padding: 0 16px; }
+  .phone .screen > * { max-width: 100%; }
 
   /* Клас пристрою лишається тим, що обрала людина, але на вузькому екрані
      розкладка мусить бути телефонною — інакше десктопні колонки вилазять за край. */
