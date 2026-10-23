@@ -19,27 +19,29 @@
 
   /* --- інтерактивний прототип --- */
   .proto { margin: 1.75rem 0; }
-  .proto .row { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.7rem; }
+  /* усі три перемикачі — сегментовані: спільний фон, активний сегмент білий */
+  .proto .row {
+    display: inline-flex; flex-wrap: wrap; gap: 2px; vertical-align: middle;
+    background: var(--surface-2); border: 1px solid var(--line);
+    border-radius: 999px; padding: 4px; margin: 0 0 0.9rem;
+  }
   .proto .row button {
-    font: inherit; font-size: 0.86rem; cursor: pointer;
-    padding: 0.45rem 0.8rem; border: 1px solid var(--line); border-radius: 8px;
-    background: var(--surface); color: var(--muted);
+    font: inherit; font-size: 0.86rem; cursor: pointer; white-space: nowrap;
+    padding: 0.45rem 0.95rem; border: 1px solid transparent; border-radius: 999px;
+    background: none; color: var(--muted);
   }
   .proto .row button:hover { color: var(--ink); }
-  .proto .row button[aria-selected="true"] { border-color: var(--accent); color: var(--ink); font-weight: 600; background: var(--surface-2); }
-  /* ряд станів — сегментована кнопка: один фон, активний сегмент білий */
-  .proto .row.states {
-    display: inline-flex; gap: 0.15rem; flex-wrap: wrap;
-    background: var(--surface-2); border: 1px solid var(--line);
-    border-radius: 12px; padding: 4px; margin-bottom: 0.9rem;
+  .proto .row button[aria-selected="true"] {
+    background: var(--surface); border-color: var(--line); color: var(--ink); font-weight: 600;
+    box-shadow: 0 1px 2px rgba(28,25,23,0.08);
   }
-  .proto .row.states button {
-    font-size: 0.86rem; padding: 0.45rem 0.9rem; border: 1px solid transparent;
-    border-radius: 9px; background: none;
+  .proto .row.devices button {
+    padding: 0.4rem 0.6rem; display: inline-grid; place-items: center;
   }
-  .proto .row.states button[aria-selected="true"] {
-    background: var(--surface); border-color: var(--accent); color: var(--ink); font-weight: 600;
-  }
+  .proto .row.devices svg { width: 18px; height: 18px; display: block; }
+  .proto .ptbar .row { margin-bottom: 0; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
   .proto .stage {
     display: grid; place-items: start center;
     background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem;
@@ -74,9 +76,6 @@
     content: ""; position: absolute; left: 50%; transform: translateX(-50%); top: 792px;
     width: 128px; height: 4px; border-radius: 2px; background: #1c1c1c;
   }
-  .proto .row.devices button[aria-selected="true"] {
-    background: var(--surface); border-color: var(--accent); color: var(--ink); font-weight: 600;
-  }
   .proto .hint { font-size: 0.82rem; color: var(--dim); margin: 0.7rem 0 0; }
 </style>
 </head>
@@ -104,7 +103,7 @@
     <div class="col">
       <p class="eyebrow">Частина 1</p>
       <h2>Інтерактивний прототип</h2>
-      <p>Той самий макет, у якому можна ходити. Верхній ряд перемикає екрани, нижній — стани обраного екрана. Усередині працюють справжні посилання: «Забронювати» веде на Бронювання, «Зняти фільтр» — на заповнений список, помилка оплати — назад на Оплату.</p>
+      <p>Той самий макет, у якому можна ходити. Верхній ряд перемикає екрани, нижній — стани обраного екрана, праворуч — пристрій. Усередині працюють справжні посилання: «Забронювати» веде на Бронювання, «Зняти фільтр» — на заповнений список, помилка оплати — назад на Оплату.</p>
     </div>
 
     <div class="proto">
@@ -159,9 +158,9 @@
   var cur = 0, curState = '';
 
   var DEVICES = [
-    { id: 'desktop', t: 'Десктоп', w: 1200, h: 800 },
-    { id: 'tablet',  t: 'Планшет', w: 768,  h: 1024 },
-    { id: 'phone',   t: 'Телефон', w: 390,  h: 844 }
+    { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="2.5" y="4" width="19" height="12.5" rx="1.5"/><path d="M9 20h6M12 16.5V20"/></svg>', id: 'desktop', t: 'Десктоп', w: 1200, h: 800 },
+    { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="5" y="2.5" width="14" height="19" rx="2"/><path d="M11 18.6h2"/></svg>', id: 'tablet',  t: 'Планшет', w: 768,  h: 1024 },
+    { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.2"/><path d="M11 18.8h2"/></svg>', id: 'phone',   t: 'Телефон', w: 390,  h: 844 }
   ];
   var dev = 'desktop';
   var rowD = document.getElementById('pt-devices');
@@ -183,7 +182,10 @@
   DEVICES.forEach(function (d) {
     var b = document.createElement('button');
     b.type = 'button'; b.setAttribute('role', 'tab');
-    b.dataset.id = d.id; b.textContent = d.t;
+    b.dataset.id = d.id;
+    b.innerHTML = d.icon + '<span class="sr-only">' + d.t + '</span>';
+    b.title = d.t;
+    b.setAttribute('aria-label', d.t);
     b.onclick = function () { dev = d.id; applyDevice(); show(curFile); };
     rowD.appendChild(b);
   });
@@ -201,7 +203,7 @@
       b.onclick = function () { curState = st[0]; paintStates(); show(sc.f + (st[0] ? '-' + st[0] : '')); };
       rowT.appendChild(b);
     });
-    rowT.style.display = all.length > 1 ? 'inline-flex' : 'none';
+    rowT.style.display = 'inline-flex';
   }
 
   SCREENS.forEach(function (sc, i) {
