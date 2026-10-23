@@ -280,3 +280,7 @@ h1, h2, h3 { letter-spacing: -0.01em; }
 /* телефон має сталу висоту екрана — гортає сам кадр, як справжній пристрій */
 .embed.dev-phone, .embed.dev-phone body { height: auto; }
 .embed .device figcaption { display: none; }
+
+/* способи оплати: швидкі — рядком над формою картки */
+.pay { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 0 16px 8px; }
+.phone.w-tablet .pay, .phone.w-desktop .pay { grid-template-columns: repeat(4, 1fr); }
