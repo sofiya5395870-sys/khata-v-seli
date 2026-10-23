@@ -50,32 +50,37 @@
   .proto .stage { overflow-x: auto; }
   .proto iframe { display: block; border: 0; background: #fff; width: 100%; height: 100%; }
 
-  /* рамка пристрою — риштування показу, не елемент продукту */
-  .mock { position: relative; background: #1c1c1c; margin: 0 auto; transition: width 0.2s ease, height 0.2s ease; }
-  .mock .chrome { position: absolute; left: 0; right: 0; pointer-events: none; }
+  /* рамка пристрою — риштування показу, не елемент продукту.
+     box-sizing: content-box, щоб ширина рамки дорівнювала ширині екрана,
+     а корпус додавався зовні: інакше макет 390 рендериться у 366. */
+  .mock {
+    position: relative; box-sizing: content-box; background: #1c1c1c;
+    margin: 0 auto; transition: width 0.2s ease;
+  }
+  .mock .chrome { position: absolute; inset: 0; pointer-events: none; }
+  .mock iframe { display: block; border: 0; background: #fff; width: 100%; }
 
   .mock.desktop { width: 1200px; border-radius: 12px; padding: 34px 10px 10px; }
-  .mock.desktop .chrome { top: 0; height: 34px; }
   .mock.desktop .chrome::before {
     content: ""; position: absolute; left: 14px; top: 12px; width: 10px; height: 10px; border-radius: 50%;
     background: #5b5b5b; box-shadow: 16px 0 0 #5b5b5b, 32px 0 0 #5b5b5b;
   }
   .mock.desktop iframe { height: 760px; border-radius: 4px; }
 
-  .mock.tablet { width: 768px; border-radius: 26px; padding: 22px 16px; }
+  .mock.tablet { width: 768px; border-radius: 26px; padding: 20px 14px; }
   .mock.tablet iframe { height: 980px; border-radius: 6px; }
 
-  .mock.phone { width: 390px; border-radius: 44px; padding: 14px 12px 20px; }
-  .mock.phone iframe { height: 800px; border-radius: 30px; }
-  .mock.phone .chrome { top: 14px; height: 30px; }
+  .mock.phone { width: 390px; border-radius: 46px; padding: 12px 11px 20px; }
+  .mock.phone iframe { height: 800px; border-radius: 34px; }
   .mock.phone .chrome::before {
-    content: ""; position: absolute; left: 50%; transform: translateX(-50%); top: 8px;
-    width: 104px; height: 26px; border-radius: 14px; background: #1c1c1c;
+    content: ""; position: absolute; left: 50%; transform: translateX(-50%); top: 12px;
+    width: 112px; height: 26px; border-radius: 0 0 14px 14px; background: #1c1c1c;
   }
   .mock.phone .chrome::after {
-    content: ""; position: absolute; left: 50%; transform: translateX(-50%); top: 792px;
-    width: 128px; height: 4px; border-radius: 2px; background: #1c1c1c;
+    content: ""; position: absolute; left: 50%; transform: translateX(-50%); bottom: 7px;
+    width: 128px; height: 4px; border-radius: 2px; background: #6b6b6b;
   }
+
   .proto .hint { font-size: 0.82rem; color: var(--dim); margin: 0.7rem 0 0; }
 </style>
 </head>
