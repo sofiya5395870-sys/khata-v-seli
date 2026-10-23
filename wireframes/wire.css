@@ -149,10 +149,13 @@ button:hover { background: var(--line-soft); }
 .device { display: grid; justify-items: center; gap: 8px; }
 .device figcaption { font-size: 12px; color: var(--dim); }
 .phone {
-  width: 390px; max-width: 100%; border: 1px solid var(--ink); border-radius: 24px;
-  padding: 8px; background: var(--box);
+  width: 390px; max-width: 100%; border: 1px solid var(--ink); border-radius: 20px;
+  padding: 6px; background: var(--box);
 }
-.phone .screen { border: none; height: 780px; max-height: 70vh; overflow: auto; position: relative; }
+.phone .screen {
+  border: none; border-radius: 14px; overflow: auto; position: relative;
+  height: 780px; max-height: 70vh;
+}
 .phone .screen > * { border-bottom: 1px solid var(--line-soft); }
 
 /* мобільна шапка: бренд і рядок пошуку */
