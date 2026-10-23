@@ -15,7 +15,7 @@
   --good: #6f9e6a;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+html { scroll-behavior: smooth; scroll-padding-top: 1.5rem; }
 body {
   margin: 0;
   background: var(--bg);
@@ -26,42 +26,25 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-nav {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  background: rgba(250,248,245,0.9);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--line);
-}
-nav .inner {
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 0.85rem 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-nav .brand { font-weight: 600; font-size: 0.95rem; margin-right: auto; }
-nav .brand span { color: var(--dim); font-weight: 400; }
-nav a {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 0.88rem;
-  padding: 0.2rem 0;
-  border-bottom: 1px solid transparent;
-  white-space: nowrap;
-}
-nav a:hover { color: var(--ink); border-bottom-color: var(--accent); }
+/* Верхнього меню на сторінках більше немає — його замінило бокове. Правила для
+   голого `nav` тут лишатись не можуть: єдиний <nav> на сторінці тепер усередині
+   бокового меню, і вони там ламали його — `white-space: nowrap` обрізав довгі назви
+   кроків, а sticky з власним тлом малював усередині білої панелі чужу смугу. */
 
 .wrap { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
 .col { max-width: 760px; }
+/* `.wrap.col` — текстова колонка, яка сама собі обгортка. Без цього вона бралася за
+   760 пікселів і центрувалась, а таблиці й плитки поруч стояли в сітці на 1080 — і
+   на сторінці виходило три різні ліві краї. Тепер обгортка завжди 1080, а 760 міряє
+   вміст: усе починається з однієї лінії. */
+.wrap.col { max-width: 1080px; }
+.wrap.col > * { max-width: 760px; }
 
 header.hero { padding: 5rem 0 3.5rem; border-bottom: 1px solid var(--line); }
 header.hero h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; margin: 0 0 1rem; letter-spacing: -0.02em; }
 header.hero .lede { font-size: 1.15rem; color: var(--muted); max-width: 620px; margin: 0 0 2rem; }
-.meta { display: flex; gap: 2rem; flex-wrap: wrap; font-size: 0.85rem; color: var(--dim); }
+/* сітка, а не flex: інакше четвертий підпис зривається на окремий рядок і висить сам */
+.meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); gap: 1.3rem 1.5rem; font-size: 0.85rem; color: var(--dim); }
 .meta b { display: block; color: var(--ink); font-weight: 500; font-size: 0.95rem; }
 
 section { padding: 4rem 0; border-bottom: 1px solid var(--line); }
@@ -140,7 +123,6 @@ footer a { color: var(--muted); border-bottom-color: var(--line); }
   body { font-size: 16px; }
   header.hero { padding: 3rem 0 2.5rem; }
   section { padding: 2.75rem 0; }
-  nav .inner { gap: 1rem; padding: 0.7rem 1rem; }
   .wrap { padding: 0 1rem; }
 }
 

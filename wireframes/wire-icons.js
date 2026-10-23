@@ -60,7 +60,7 @@
 
   /* службові рядки: перевірка, гарантія, очікування, помилка */
   document.querySelectorAll('.screen .checked').forEach(function (el) { el.insertAdjacentHTML('afterbegin', svg('check', 'i-sm')); });
-  document.querySelectorAll('.screen .guarantee').forEach(function (el) {
+  document.querySelectorAll('.screen .guarantee, .screen .promise li').forEach(function (el) {
     if (/гаранті|повертаємо 50/i.test(el.textContent)) el.insertAdjacentHTML('afterbegin', svg('shield', 'i-sm'));
   });
   document.querySelectorAll('.screen h2').forEach(function (h) {

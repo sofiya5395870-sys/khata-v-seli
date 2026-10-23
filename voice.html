@@ -16,27 +16,72 @@
       radial-gradient(900px 380px at 88% 0%, var(--tint-3) 0%, transparent 58%);
   }
   header.hero h1 { color: #15110f; }
+  header.hero .lede strong { color: #15110f; }
 
-  /* пара «так / не так»: однакові за вагою, різні за кольором лінії */
-  .pair { display: grid; gap: 0.9rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin: 1.1rem 0; }
-  .pair > div { background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 0.85rem 1rem; }
-  /* смужка картки — темно-сіра, щоб не читалась як ще одне «ні» */
-  .hyp { border-left-color: #57534e; }
-  .pair .yes { border-left: 3px solid var(--good); }
-  .pair.split > div { border-left: 3px solid #a8a29e; }
-  .pair .no { border-left: 3px solid var(--accent); }
-  .pair b { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.4rem; font-weight: 600; }
-  .pair p { margin: 0 0 0.35rem; font-size: 0.93rem; line-height: 1.5; }
+  /* --- картка правила: принцип і тип елемента --- */
+  /* Рамка одна й тонка з усіх боків. Кольорову смугу зліва прибрано: усередині
+     картки вже стоять дві кольорові коробки «так / не так», і третя кольорова
+     лінія навколо них перетворювала розділ на стос коробок у коробках. */
+  .hyp {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1.5rem 1.6rem;
+    margin: 1.4rem 0;
+  }
+  .hyp h3 { margin: 0 0 0.6rem; font-size: 1.05rem; line-height: 1.35; }
+  .hyp .rule { font-size: 1rem; color: var(--ink); margin-bottom: 1.1rem; }
+
+  /* номер принципу стоїть кружечком перед назвою: шість карток поспіль мають
+     читатись як список із шести, а не як шість однакових коробок */
+  .hyp h3 .num {
+    display: inline-grid; place-items: center;
+    width: 1.6rem; height: 1.6rem; margin-right: 0.6rem;
+    border-radius: 50%; background: var(--accent); color: var(--bg);
+    font-size: 0.8rem; font-weight: 650; font-variant-numeric: tabular-nums;
+    vertical-align: 0.08em;
+  }
+
+  /* «Підстава» відкриває другу половину картки — звідси тонка лінія над нею */
+  .hyp .from {
+    margin: 1.5rem 0 0.75rem;
+    padding-top: 1.15rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--dim); font-weight: 600;
+  }
+  .hyp > p:last-child { margin-bottom: 0; }
+
+  /* --- пара «так / не так» --- */
+  /* Значення несе заливка, а не смужка збоку: зелений бік і теракотовий видно
+     з відстані, і обидві коробки лишаються однакові за вагою. */
+  .pair { display: grid; gap: 0.9rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin: 1.1rem 0; }
+  .pair > div { border: 1px solid var(--line); border-radius: 10px; padding: 0.9rem 1.05rem; }
+  .pair .yes { background: var(--tint-2); border-color: #d6e3d6; }
+  .pair .no { background: var(--tint-1); border-color: var(--accent-dim); }
+  .pair.split > div { background: var(--surface-2); }
+  .pair b { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.45rem; font-weight: 700; color: var(--muted); }
+  .pair .yes b { color: #3f6b43; }
+  .pair .no b { color: #9a4526; }
+  .pair p { margin: 0 0 0.4rem; font-size: 0.93rem; line-height: 1.5; }
   .pair p:last-child { margin-bottom: 0; }
   .pair .where { font-size: 0.78rem; color: var(--muted); }
 
-  /* словникова пара «пишемо / не пишемо» в таблиці */
+  /* --- таблиці словника --- */
+  /* Ширини задано наперед: інакше колонка з поясненням розтягувалась на пів
+     екрана, а «Пишемо» стискалось у стовпчик із одного слова на рядок. */
+  table.fixed { table-layout: fixed; }
+  table.fixed td, table.fixed th { overflow-wrap: anywhere; }
   td .nope { color: var(--muted); }
-  .hyp h3 { margin: 0 0 0.6rem; font-size: 1rem; }
-  .card h3 { margin: 0 0 0.5rem; font-size: 0.95rem; }
-  .hyp .rule { font-size: 1rem; color: var(--ink); }
-  .hyp .from { margin-top: 0.9rem; }
+
+  /* --- плитки --- */
   .lex { font-variant-numeric: tabular-nums; }
+  .stat .n.sm { font-size: 1.45rem; line-height: 1.2; }
+
+  .card h3 { margin: 0 0 0.5rem; font-size: 0.95rem; }
+
+  @media (max-width: 640px) {
+    .hyp { padding: 1.2rem 1.15rem; }
+  }
 </style>
 </head>
 <body data-page="05">
@@ -58,6 +103,7 @@
 
 <section id="market">
   <div class="wrap col">
+    <p class="eyebrow">Частина 1</p>
     <h2>Чому голос тут узагалі щось вирішує</h2>
     <p>Відмінність продукту тримається на гарантії та грошах назад. Але перше, з чим людина стикається, — не гарантія, а рядок тексту. І саме в рядках ринок виявився однаковим: ми прочитали першу сторінку каталогу OLX, картки Hutshub, DOM.RIA і Svityaz — і побачили чотири звички, спільні для всіх.</p>
   </div>
@@ -67,7 +113,7 @@
       <div class="stat"><span class="n lex">23</span><span class="l">картки з 52 на першій сторінці OLX мають у заголовку слово «чан»</span></div>
       <div class="stat"><span class="n lex">0</span><span class="l">мають слово «тиша» або «тихо». «Спати» — теж жодна</span></div>
       <div class="stat"><span class="n lex">0</span><span class="l">названих недоліків у чотирьох оголошеннях, прочитаних до кінця</span></div>
-      <div class="stat"><span class="n lex">3 900 → 5 500</span><span class="l">ціна в заголовку і ціна в суботу в тому самому оголошенні</span></div>
+      <div class="stat"><span class="n lex sm">3 900 → 5 500</span><span class="l">ціна в заголовку і ціна в суботу в тому самому оголошенні</span></div>
     </div>
   </div>
 
@@ -79,11 +125,12 @@
 
 <section id="principles">
   <div class="wrap col">
+    <p class="eyebrow">Частина 2</p>
     <h2>Шість принципів</h2>
     <p>Кожен принцип стоїть на конкретному рядку з дослідження, а не на вподобанні. Принцип, під яким зникне підстава, прибирається, а не лишається «про всяк випадок».</p>
 
     <article class="hyp">
-      <h3>1. Обіцянка називає механізм, число і те, що буде, якщо не спрацює</h3>
+      <h3><span class="num">1</span>Обіцянка називає механізм, число і те, що буде, якщо не спрацює</h3>
       <p class="rule">Там, де ринок ставить прикметник, ми пишемо, чим саме це забезпечено, на скільки його вистачає і що ми зробимо, якщо його не буде.</p>
       <div class="pair">
         <div class="yes"><b>Так</b><p>Якщо вимкнуть світло — генератор на 8 годин, дрова в сараї, вода з власної свердловини.</p><p>Якщо чогось із обіцяного не буде — повертаємо 50% вартості доби.</p></div>
@@ -95,7 +142,7 @@
     </article>
 
     <article class="hyp">
-      <h3>2. Ціна в першому рядку — та, за якою бронюють</h3>
+      <h3><span class="num">2</span>Ціна в першому рядку — та, за якою бронюють</h3>
       <p class="rule">Називаємо кінцеву суму за вибраний строк, одразу кажемо, що в неї входить, і не ховаємо доплат на наступному екрані.</p>
       <div class="pair">
         <div class="yes"><b>Так</b><p>2 доби × 2 700 ₴ — 5 400 ₴. До сплати зараз 5 400 ₴, уся сума.</p><p>Входить: дрова, постіль, рушники, паркомісце. Застави немає.</p></div>
@@ -107,7 +154,7 @@
     </article>
 
     <article class="hyp">
-      <h3>3. Мінуси називаємо ми, до бронювання</h3>
+      <h3><span class="num">3</span>Мінуси називаємо ми, до бронювання</h3>
       <p class="rule">У кожному описі щонайменше три справжні незручності, названі нашими словами наперед, — такі, через які хтось справді обере іншу оселю.</p>
       <div class="pair">
         <div class="yes"><b>Так</b><p>Чесно про незручності: підлога в спальні холодна до обіду, навіть коли піч топлена. Душ один на всіх, і вода гріється 20 хвилин. Сусідський собака гавкає зранку.</p></div>
@@ -119,7 +166,7 @@
     </article>
 
     <article class="hyp">
-      <h3>4. Поетичний рядок мусить бути ще й фільтром</h3>
+      <h3><span class="num">4</span>Поетичний рядок мусить бути ще й фільтром</h3>
       <p class="rule">Перший рядок називає стан, заради якого людина їде, і кожне слово в ньому можна перевірити — інакше це реклама.</p>
       <div class="pair">
         <div class="yes"><b>Так</b><p>Дім під вербами, де вночі чути тільки річку · Витачів, Київська область · 1 год 10 хв від Києва</p><p>Прокинутись у тиші — сім осель, де найближчий сусід за кілометр</p></div>
@@ -131,7 +178,7 @@
     </article>
 
     <article class="hyp">
-      <h3>5. Кожне твердження має автора й дату</h3>
+      <h3><span class="num">5</span>Кожне твердження має автора й дату</h3>
       <p class="rule">Не «перевірено» і не «ми ретельно відбираємо», а хто саме перевіряв, коли і що саме бачив.</p>
       <div class="pair">
         <div class="yes"><b>Так</b><p>Перевірено 12.09.2026, куратором. Знято на місці: кухня, душ, спальня, двір, під'їзд до хати.</p><p>Рішення ухвалила Олена, кураторка Київської області, 11 листопада о 16:05.</p></div>
@@ -142,7 +189,7 @@
     </article>
 
     <article class="hyp">
-      <h3>6. Тепло живе в іменах і описах, точність — у грошах і помилках</h3>
+      <h3><span class="num">6</span>Тепло живе в іменах і описах, точність — у грошах і помилках</h3>
       <p class="rule">Продукт говорить м'яко там, де показує оселю, місце й людину, і рівно там, де йдеться про гроші, строки, гарантію й збої. Межа проходить по місцю на екрані, а не по настрою того, хто пише.</p>
       <div class="pair">
         <div class="yes"><b>Так</b><p>Дім під вербами, де вночі чути тільки річку · Витачів, Київська область · 1 год 10 хв від Києва</p><p>Вікна кухні дивляться на воду, і вранці в них стоїть туман.</p></div>
@@ -169,12 +216,15 @@
 
 <section id="dictionary">
   <div class="wrap col">
+    <p class="eyebrow">Частина 3</p>
     <h2>Словник: одне поняття — одне слово</h2>
     <p>Тринадцять предметів і десять дій називалися в макетах по-різному: той самий екран був і «Оселями», і «каталогом», і «всім каталогом»; та сама людина — і господинею, і власником. Нижче — рішення по кожному. Нових слів не вигадано: кожне вже стояло або на екрані, або в дослідженні.</p>
   </div>
 
-  <div class="tablewrap">
-    <table>
+  <div class="wrap">
+    <div class="tablewrap">
+    <table class="fixed">
+      <colgroup><col style="width:20%"><col style="width:27%"><col style="width:53%"></colgroup>
       <thead>
         <tr><th>Пишемо</th><th>Не пишемо</th><th>Чому саме це слово</th></tr>
       </thead>
@@ -195,6 +245,7 @@
         <tr><th>куратор · кураторка</th><td class="nope">інспектор, експерт, менеджер</td><td>Той, хто був на місці й зняв кадри. Поруч: <b>редакція</b> — хто добирає оселі й пише описи; <b>ми</b> — як продукт говорить про себе</td></tr>
       </tbody>
     </table>
+    </div>
   </div>
 
   <div class="wrap col">
@@ -202,8 +253,10 @@
     <p>«Перейти до всіх осель» називалося п'ятьма різними кнопками на одинадцяти екранах, «відкрити поїздку» — теж п'ятьма. Лишається по одній.</p>
   </div>
 
-  <div class="tablewrap">
-    <table>
+  <div class="wrap">
+    <div class="tablewrap">
+    <table class="fixed">
+      <colgroup><col style="width:21%"><col style="width:22%"><col style="width:57%"></colgroup>
       <thead>
         <tr><th>Дія</th><th>Кнопка</th><th>Що прибираємо</th></tr>
       </thead>
@@ -219,6 +272,7 @@
         <tr><th>Додати доказ</th><td><b>Додати фото або відео</b></td><td class="nope">«Додати ще доказ». «Доказу немає» лишається: це інша дія, вихід із форми</td></tr>
       </tbody>
     </table>
+    </div>
   </div>
 
   <div class="wrap col">
@@ -232,12 +286,15 @@
 
 <section id="forbidden">
   <div class="wrap col">
+    <p class="eyebrow">Частина 4</p>
     <h2>Чого не пишемо ніколи</h2>
     <p>У наших макетах трапилися три з цих одинадцяти. Решта нічого не виправляє — вона тримає межу: жодного AI-кліше, жодного емодзі в системному рядку й жодного «успішно» в тексті продукту немає, і так має лишитись.</p>
   </div>
 
-  <div class="tablewrap">
-    <table>
+  <div class="wrap">
+    <div class="tablewrap">
+    <table class="fixed">
+      <colgroup><col style="width:24%"><col style="width:38%"><col style="width:38%"></colgroup>
       <thead>
         <tr><th>Чого не пишемо</th><th>Було</th><th>Треба</th></tr>
       </thead>
@@ -255,6 +312,7 @@
         <tr><th>Канцелярит</th><td class="nope">У разі виникнення питань зверніться до власника об'єкта.</td><td>Якщо щось не так — напишіть Марії.</td></tr>
       </tbody>
     </table>
+    </div>
   </div>
 
   <div class="wrap col">
@@ -264,6 +322,7 @@
 
 <section id="microcopy">
   <div class="wrap col">
+    <p class="eyebrow">Частина 5</p>
     <h2>Мікрокопі: правило на кожен тип елемента</h2>
     <p>Принципи кажуть, <strong>яким</strong> має бути рядок; словник — <strong>якими словами</strong>; ці вісім правил — <strong>що саме робить</strong> рядок на своєму місці. Приклад до кожного — справжній рядок із макетів.</p>
 
@@ -351,6 +410,7 @@
 
 <section id="inventory">
   <div class="wrap col">
+    <p class="eyebrow">Частина 6</p>
     <h2>Звідки взялися рішення: інвентаризація тексту</h2>
     <p>Перед тим як писати правила, ми переписали весь текст, який уже стоїть у макетах: кожен рядок із 44 екранів — заголовки, кнопки, підписи полів, повідомлення станів. Вийшла таблиця, з якою тепер звіряється кожен новий рядок.</p>
   </div>
