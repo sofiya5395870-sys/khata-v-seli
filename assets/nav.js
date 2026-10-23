@@ -71,9 +71,9 @@
     html += '<div class="step' + (on ? ' on' : '') + '">';
     if (s.href) {
       html += '<a href="' + esc(base + s.href) + '"' + (on ? ' aria-current="page"' : '') + '>' +
-              '<span class="n">' + esc(s.n) + '</span>' + esc(s.t) + '</a>';
+              '<span class="n">' + esc(s.n) + '</span><span class="t">' + esc(s.t) + '</span></a>';
     } else {
-      html += '<span class="dead"><span class="n">' + esc(s.n) + '</span>' + esc(s.t) +
+      html += '<span class="dead"><span class="n">' + esc(s.n) + '</span><span class="t">' + esc(s.t) + '</span>' +
               '<span class="sr">, ще не готово</span></span>';
     }
     if (on && s.sub) {
