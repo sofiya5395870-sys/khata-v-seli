@@ -22,9 +22,9 @@
   .proto .stage { min-height: 0; }
   /* усі три перемикачі — сегментовані: спільний фон, активний сегмент білий */
   .proto .row {
-    display: inline-flex; flex-wrap: wrap; gap: 2px; vertical-align: middle;
+    display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 2px; vertical-align: middle;
     background: var(--surface-2); border: 1px solid var(--line);
-    border-radius: 999px; padding: 4px; margin: 0 0 0.9rem;
+    border-radius: 999px; padding: 4px; margin: 0 0 0.75rem;
   }
   .proto .row button {
     font: inherit; font-size: 0.86rem; cursor: pointer; white-space: nowrap;
@@ -41,16 +41,8 @@
   }
   .proto .row.devices svg { width: 18px; height: 18px; display: block; }
   .proto .ptbar .row { margin-bottom: 0; }
-  .proto .ptnav { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 0.9rem; }
-  .proto .ptnav .row { margin-bottom: 0; }
-  .proto .step {
-    font: inherit; font-size: 1rem; line-height: 1; cursor: pointer;
-    width: 2.1rem; height: 2.1rem; display: grid; place-items: center;
-    border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--muted);
-  }
-  .proto .step:hover:not(:disabled) { color: var(--ink); border-color: var(--ink); }
-  .proto .step:disabled { opacity: 0.35; cursor: default; }
-  .proto .count { font-size: 0.82rem; color: var(--dim); font-variant-numeric: tabular-nums; }
+  .proto .ptnav { display: flex; justify-content: center; margin-bottom: 0.75rem; }
+  .proto .ptnav .row { margin-bottom: 0; max-width: 100%; }
   .proto .row button .n { color: var(--dim); font-variant-numeric: tabular-nums; margin-right: 0.4rem; }
   .proto .row button[aria-selected="true"] .n { color: var(--accent); }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -129,10 +121,7 @@
 
     <div class="proto">
       <div class="ptnav">
-        <button type="button" class="step" id="pt-prev" aria-label="Попередній екран">←</button>
         <div class="row" id="pt-screens" role="tablist" aria-label="Екрани"></div>
-        <button type="button" class="step" id="pt-next" aria-label="Наступний екран">→</button>
-        <span class="count" id="pt-count" aria-live="polite"></span>
       </div>
       <div class="ptbar">
         <div class="row states" id="pt-states" role="tablist" aria-label="Стани екрана"></div>
@@ -237,24 +226,11 @@
     rowT.style.display = 'inline-flex';
   }
 
-  var prev = document.getElementById('pt-prev');
-  var next = document.getElementById('pt-next');
-  var count = document.getElementById('pt-count');
-
   function goto(i) {
     cur = i; curState = '';
     Array.prototype.forEach.call(rowS.children, function (x, k) { x.setAttribute('aria-selected', String(k === i)); });
-    paintStates(); show(SCREENS[i].f); paintNav();
+    paintStates(); show(SCREENS[i].f);
   }
-
-  function paintNav() {
-    prev.disabled = cur === 0;
-    next.disabled = cur === SCREENS.length - 1;
-    count.textContent = (cur + 1) + ' із ' + SCREENS.length;
-  }
-
-  prev.onclick = function () { if (cur > 0) goto(cur - 1); };
-  next.onclick = function () { if (cur < SCREENS.length - 1) goto(cur + 1); };
 
   SCREENS.forEach(function (sc, i) {
     var b = document.createElement('button');
@@ -279,7 +255,7 @@
     });
   });
 
-  paintStates(); paintNav();
+  paintStates();
 
   /* клік усередині прототипу перемикає вкладки назовні */
   /* Кадр росте під вміст, а потім уся рамка масштабується так,
@@ -326,7 +302,7 @@
       if (sc.f === base) {
         cur = i; curState = st;
         Array.prototype.forEach.call(rowS.children, function (x, k) { x.setAttribute('aria-selected', String(k === i)); });
-        paintStates(); paintNav();
+        paintStates();
       }
     });
   });
