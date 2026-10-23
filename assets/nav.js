@@ -43,6 +43,9 @@
 
   var FOOT = 'Платформа пошуку тихої оселі в українському селі — для відпочинку, відновлення і зимівлі.';
 
+  /* У вбудованому прототипі панель кейсу не потрібна — вона вже є навколо рамки. */
+  if (/[?&]embed/.test(location.search)) return;
+
   var current = document.body.getAttribute('data-page') || '';
   var base = document.body.getAttribute('data-base') || '';
   var isHome = current === 'home';

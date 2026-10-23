@@ -263,6 +263,10 @@ h1, h2, h3 { letter-spacing: -0.01em; }
 .top .brand { letter-spacing: -0.02em; font-size: 17px; }
 
 /* ===== вбудований режим: тільки екран, без риштування ===== */
+/* у вбудованому режимі меню кейсу не рендериться — прибираємо і його відступ */
+.embed { padding-left: 0 !important; }
+.embed .sb, .embed .sbtoggle, .embed .skip { display: none !important; }
+
 .embed .tree, .embed .meta, .embed .zone, .embed .states,
 .embed .devicebar, .embed .statelink, .embed .note { display: none; }
 .embed .wrap { display: block; }
