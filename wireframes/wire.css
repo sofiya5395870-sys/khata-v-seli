@@ -270,8 +270,12 @@ h1, h2, h3 { letter-spacing: -0.01em; }
 .embed .tree, .embed .meta, .embed .zone, .embed .states,
 .embed .devicebar, .embed .statelink, .embed .note { display: none; }
 .embed .wrap { display: block; }
-.embed .canvas { padding: 0; max-width: none; }
-.embed .device { gap: 0; }
-.embed .phone { border: none; border-radius: 0; padding: 0; width: 100% !important; }
+.embed .canvas { padding: 0 !important; max-width: none !important; }
+.embed .device { display: block; gap: 0; }
+.embed .phone {
+  border: none !important; border-radius: 0 !important; padding: 0 !important;
+  width: 100% !important; max-width: none !important; margin: 0 !important;
+}
+.embed .screen { border: none !important; }
 .embed .phone .screen { height: auto; max-height: none; }
 .embed .device figcaption { display: none; }
