@@ -33,11 +33,12 @@
   <div class="devicebar" role="tablist" aria-label="Пристрій"></div>
 
   <p class="zone">Зона 1 · Шапка <em>— головна дія: перейти в розділ</em></p>
-  <p class="zone">Зона 2 · Яка оселя <em>— головна дія: переконатись, що бронюєте саме її</em></p>
-  <p class="zone">Зона 3 · Дати й люди <em>— головна дія: поставити свій строк</em></p>
-  <p class="zone">Зона 4 · Вартість і умова скасування <em>— головна дія: побачити всю суму до оплати</em></p>
-  <p class="zone">Зона 5 · Дія <em>— головна дія: перейти до оплати</em></p>
-  <p class="zone">Зона 6 · Нижнє меню <em>— головна дія: перейти в інший розділ</em></p>
+  <p class="zone">Зона 2 · Яка оселя <em>— головна дія: переконатись, що це та сама</em></p>
+  <p class="zone">Зона 3 · Дати й люди <em>— головна дія: уточнити строк</em></p>
+  <p class="zone">Зона 4 · Вартість і умова скасування <em>— головна дія: зрозуміти, за що платиш</em></p>
+  <p class="zone">Зона 5 · Спосіб оплати <em>— головна дія: обрати, чим платити</em></p>
+  <p class="zone">Зона 6 · Дія <em>— головна дія: оплатити</em></p>
+  <p class="zone">Зона 7 · Нижнє меню <em>— головна дія: перейти в інший розділ</em></p>
 
   <figure class="device">
     <div class="phone w-desktop">
@@ -51,12 +52,13 @@
               <li><a href="journal.html">Журнал</a></li>
               <li><a href="saved.html">Збережені · 2</a></li>
               <li><a href="account.html">Кабінет</a></li>
+              <li><a href="#" aria-label="Switch to English">English</a></li>
             </ul>
           </nav>
         </header>
 
         <main>
-          <h1 class="count">Бронювання</h1>
+          <h1 class="count">Бронювання й оплата</h1>
 
           <section class="card" aria-labelledby="b-house" style="margin:16px">
             <h2 id="b-house">Тиха Хата</h2>
@@ -65,7 +67,7 @@
 
           <section class="search" aria-labelledby="b-when">
             <h2 id="b-when">Коли і скільки вас</h2>
-            <form class="row" action="payment.html" method="get">
+            <form class="row" action="payment-loading.html" method="get">
               <div><label for="b-in">Заїзд</label><input id="b-in" name="in" type="text" value="7 листопада 2026"></div>
               <div><label for="b-out">Виїзд</label><input id="b-out" name="out" type="text" value="9 листопада 2026"></div>
               <div><label for="b-people">Людей</label><input id="b-people" name="people" type="number" value="2" min="1" max="4"></div>
@@ -78,14 +80,33 @@
               <dt>2 доби × 2 700 ₴</dt><dd>5 400 ₴</dd>
               <dt>Входить у ціну</dt><dd>дрова, постіль, рушники, паркомісце</dd>
               <dt>Застава</dt><dd>немає</dd>
-              <dt>До сплати зараз</dt><dd><strong>5 400 ₴ — уся сума</strong></dd>
+              <dt>До сплати зараз</dt><dd><strong>5 400 ₴ — уся сума, 100% наперед</strong></dd>
             </dl>
-            <p class="guarantee"><strong>Скасування:</strong> безкоштовно до 4 листопада. Пізніше — гроші не повертаються. Умова однакова для всіх осель, її ставить платформа, а не господиня.</p>
+            <p class="guarantee"><strong>Скасування:</strong> безкоштовно до 4 листопада. Пізніше — гроші не повертаються. Умова однакова в кожній оселі.</p>
+          </section>
+
+          <section class="search" aria-labelledby="b-how">
+            <h2 id="b-how">Як сплачуєте</h2>
+            <div class="pay">
+              <a class="btn" href="payment-loading.html">Apple Pay</a>
+              <a class="btn" href="payment-loading.html">LiqPay</a>
+              <a class="btn" href="payment-loading.html">WayForPay</a>
+              <a class="btn" href="payment-loading.html">Stripe</a>
+            </div>
+            <p class="guarantee">або карткою</p>
+            <form class="row" action="payment-loading.html" method="get">
+              <div><label for="b-card">Картка</label><input id="b-card" name="card" type="text" placeholder="0000 0000 0000 0000" inputmode="numeric"></div>
+              <div><label for="b-exp">Термін</label><input id="b-exp" name="exp" type="text" placeholder="11/29"></div>
+              <div><label for="b-cvv">CVV</label><input id="b-cvv" name="cvv" type="text" placeholder="000" inputmode="numeric"></div>
+              <div><label for="b-mail">Пошта для підтвердження</label><input id="b-mail" name="mail" type="email" placeholder="ви@пошта.com"></div>
+            </form>
+            <p class="guarantee">Швидкі способи — зверху: ними платять в один дотик. Картка нижче, для тих, хто без них.</p>
           </section>
 
           <section class="filters" aria-label="Дія">
-            <a class="btn first" href="payment.html">Перейти до оплати · 5 400 ₴</a>
+            <a class="btn first" href="payment-loading.html">Оплатити 5 400 ₴</a>
           </section>
+          <p class="guarantee" style="padding:0 16px 16px">Власник підтверджує одразу — заявки й очікування немає. Чат із господинею відкриється після оплати.</p>
         </main>
 
         <nav class="tabbar-bottom" aria-label="Головне меню">
@@ -100,7 +121,7 @@
     <figcaption>Десктоп · 1200 × 800. Перемикач над рамкою показує той самий екран на планшеті й телефоні.</figcaption>
   </figure>
 
-  <p class="statelink"><strong>Куди звідси:</strong> Перевірка «Дати вільні на потрібний строк?» → <a href="payment.html">так: Оплата</a> · <a href="booking-error.html">ні: дати зайняті</a></p>
+  <p class="statelink"><strong>Куди звідси:</strong> Перевірка «Дати вільні на потрібний строк?» → <a href="booking.html">так: Оплата</a> · <a href="booking-error.html">ні: дати зайняті</a></p>
 
   <p class="note"><strong>Що тут вирішено наперед, і чому саме так.</strong></p>
   <ul class="note">

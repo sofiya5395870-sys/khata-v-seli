@@ -44,7 +44,7 @@
         { name: 'Бронювання', file: 'booking.html', states: [
           { name: 'Помилка · дати зайняті', file: 'booking-error.html' }
         ] },
-        { name: 'Оплата', file: 'payment.html', states: [
+        { name: 'Оплата', file: 'booking.html', states: [
           { name: 'Помилка · платіж не пройшов', file: 'payment-error.html' },
           { name: 'Завантаження', file: 'payment-loading.html' }
         ] },
@@ -81,7 +81,7 @@
           { name: 'Завантаження · на розгляді', file: 'claim-loading.html' },
           { name: 'Помилка · відхилено', file: 'claim-error.html' }
         ] },
-        { name: 'Післявиїзна оцінка', file: 'rating.html', states: [] },
+        { name: 'Відгук після виїзду', file: 'review.html', states: [] },
         { name: 'Відгук', file: 'review.html', states: [
           { name: 'Порожній · відгуків ще немає', file: 'review-empty.html' }
         ] }
@@ -135,8 +135,8 @@
     'listings.html',
     'payment-error.html',
     'payment-loading.html',
-    'payment.html',
-    'rating.html',
+    'booking.html',
+    'review.html',
     'review-empty.html',
     'review.html',
     'saved-empty.html',

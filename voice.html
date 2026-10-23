@@ -20,6 +20,8 @@
   /* пара «так / не так»: однакові за вагою, різні за кольором лінії */
   .pair { display: grid; gap: 0.9rem; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin: 1.1rem 0; }
   .pair > div { background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 0.85rem 1rem; }
+  /* смужка картки — темно-сіра, щоб не читалась як ще одне «ні» */
+  .hyp { border-left-color: #57534e; }
   .pair .yes { border-left: 3px solid var(--good); }
   .pair .no { border-left: 3px solid var(--accent); }
   .pair b { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.4rem; font-weight: 600; }

@@ -115,7 +115,7 @@ booking-error.html     ← помилка
 ## 7. Назви файлів
 
 ```
-home · collection · listings · listing · booking · payment · confirmation
+home · collection · listings · listing · booking · confirmation
 ```
 
 Латиницею, одне слово, без номерів: порядок екранів тримає `_screens.md`, а не назва файлу. Стан додається суфіксом: `-empty`, `-error`, `-loading`.
