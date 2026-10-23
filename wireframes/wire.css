@@ -218,8 +218,18 @@ button:hover { background: var(--line-soft); }
 /* планшет і десктоп: меню в шапці, нижнього меню немає */
 .phone.w-tablet .tabbar-bottom,
 .phone.w-desktop .tabbar-bottom { display: none; }
-.phone.w-tablet .top, .phone.w-desktop .top { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; }
-.phone.w-tablet .top .query, .phone.w-desktop .top .query { margin-left: auto; }
+
+/* Шапка на три зони: бренд ліворуч, основне меню посередині, кабінет і мова праворуч.
+   Так її будує більшість веб-продуктів, і так вона лишається збалансованою
+   незалежно від довжини пунктів — на відміну від усього, притиснутого вліво. */
+.phone.w-tablet .top, .phone.w-desktop .top {
+  display: grid; grid-template-columns: 1fr auto 1fr;
+  align-items: center; gap: 16px; padding: 14px 20px;
+}
+.phone.w-tablet .top .brand, .phone.w-desktop .top .brand { justify-self: start; margin: 0; }
+.phone.w-tablet .top nav, .phone.w-desktop .top nav { justify-self: center; }
+.phone.w-tablet .top nav.util, .phone.w-desktop .top nav.util { justify-self: end; }
+.phone.w-tablet .top .query, .phone.w-desktop .top .query { grid-column: 1 / -1; margin: 0; }
 .phone.w-tablet .list { grid-template-columns: repeat(2, 1fr); }
 .phone.w-desktop .list { grid-template-columns: repeat(3, 1fr); }
 .phone.w-desktop .screen, .phone.w-tablet .screen { height: 800px; }
@@ -330,3 +340,32 @@ h1, h2, h3 { letter-spacing: -0.01em; }
   .phone.w-desktop .top nav { display: none; }
   .phone .screen > * { overflow-x: hidden; }
 }
+
+/* ===== смуга дії: головна кнопка окремо й більша =====
+   Другорядні дії не змагаються з нею ні розміром, ні вагою рамки. */
+.filters[aria-label="Дія"] {
+  display: grid; grid-template-columns: 1fr; gap: 10px;
+  padding: 16px; border-top: 1px solid var(--line); border-bottom: none;
+  position: static; overflow: visible;
+}
+.filters[aria-label="Дія"] .first {
+  min-height: 52px; font-size: 15px; width: 100%;
+}
+.filters[aria-label="Дія"] .secondary {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: 8px;
+}
+.filters[aria-label="Дія"] .secondary > * { width: 100%; min-height: 44px; }
+
+@media (min-width: 560px) {
+  .phone.w-tablet .filters[aria-label="Дія"],
+  .phone.w-desktop .filters[aria-label="Дія"] {
+    grid-template-columns: minmax(0, 1fr) auto; align-items: center;
+  }
+  .phone.w-tablet .filters[aria-label="Дія"] .secondary,
+  .phone.w-desktop .filters[aria-label="Дія"] .secondary {
+    grid-template-columns: repeat(auto-fit, minmax(max-content, auto));
+  }
+}
+
+/* верхня навігація в шапці — назад зі стрілкою */
+.backlink { display: inline-flex; align-items: center; gap: 8px; }

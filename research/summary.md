@@ -103,7 +103,7 @@
 
 Там, де всі пишуть однаково, відмінність коштує тільки слів. Ринок однаково **перелічує інвентар** (чан 23, тиша 0), однаково **обіцяє без механізму** («світло є завжди»), однаково **мовчить про мінуси** (0 із 4) і однаково **ховає справжню ціну** (3 900 → 5 500). Жодне з цих чотирьох не потребує ні грошей, ні технології, щоб зробити інакше.
 
-Принципи, виведені з цього зрізу, — у [`voice.md`](../voice.md), розділ «Принципи».
+Принципи, виведені з цього зрізу, — у [`voice.md`](../voice/voice.md), розділ «Принципи».
 
 **Джерела** [С], усі відкриті 23.10.2026: [OLX, будинки подобово](https://www.olx.ua/uk/zhytlo-podobovo/podobovo-pohodynno-budynky/) · [«Будинок подобово з чаном, 15 хв від Києва»](https://www.olx.ua/d/uk/obyavlenie/budinok-podobovo-z-chanom-dlya-dvoh-15-hv-vd-kiva-ID107jQA.html) · [«Затишний будиночок на березі річки»](https://www.olx.ua/d/uk/obyavlenie/zatishniy-budinochok-na-samomu-berez-rchki-z-traditsynim-chanom-furako-na-drovah-z-gdromasazhu-suchasnim-spa-dzhakuz-pchchyu-kamnom-svtlo-zavzhdi-ID10ZxIk.html) · [«Відпочинок у Карпатах Славське, Без Господарів»](https://www.olx.ua/d/uk/obyavlenie/vdpochinok-u-karpatah-slavske-budinok-v-karpatah-bez-gospodarv-baseyn-chan-sauna-podorozh-na-kvadrotsiklah-IDVUNV9.html) · [Hutshub, каталог комплексів](https://hutshub.com/all-complexes) · [Hutshub, «Laska. Будиночок на схилі»](https://hutshub.com/complexes/671bc6ef8d98509586b98a46/kompleks-laska-budynochok-na-skhyli) · [DOM.RIA, подобова оренда будинків](https://dom.ria.com/uk/posutochnaia-arenda-domov/) · [Svityaz.ua](https://svityaz.ua/)
 
