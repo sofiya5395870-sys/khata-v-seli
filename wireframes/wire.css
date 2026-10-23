@@ -152,10 +152,6 @@ button:hover { background: var(--line-soft); }
   width: 390px; max-width: 100%; border: 1px solid var(--ink); border-radius: 24px;
   padding: 8px; background: var(--box);
 }
-.phone .status {
-  display: flex; justify-content: space-between; font-size: 11px; color: var(--dim);
-  padding: 4px 12px 8px;
-}
 .phone .screen { border: none; height: 780px; max-height: 70vh; overflow: auto; position: relative; }
 .phone .screen > * { border-bottom: 1px solid var(--line-soft); }
 
