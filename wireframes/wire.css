@@ -277,4 +277,6 @@ h1, h2, h3 { letter-spacing: -0.01em; }
 }
 .embed .screen { border: none !important; }
 .embed .phone .screen { height: auto !important; max-height: none !important; overflow: visible !important; }
+/* телефон має сталу висоту екрана — гортає сам кадр, як справжній пристрій */
+.embed.dev-phone, .embed.dev-phone body { height: auto; }
 .embed .device figcaption { display: none; }
