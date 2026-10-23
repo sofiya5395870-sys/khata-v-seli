@@ -18,7 +18,10 @@
   function apply(id) {
     var s = SIZES.filter(function (x) { return x.id === id; })[0] || SIZES[0];
     frame.className = 'phone w-' + s.id;
-    frame.style.width = s.w + 'px';
+    /* На вузькому екрані ширину задає CSS: рамка там на всю ширину вікна,
+       а інлайнова ширина десктопа зробила б горизонтальний скрол. */
+    var narrow = window.matchMedia('(max-width: 520px)').matches;
+    frame.style.width = narrow ? '' : s.w + 'px';
     if (cap) cap.textContent = s.label + ' · ' + s.note + '. Рамка пристрою — риштування макета, не елемент продукту.';
     Array.prototype.forEach.call(host.querySelectorAll('button'), function (b) {
       b.setAttribute('aria-selected', String(b.dataset.id === s.id));
@@ -41,4 +44,8 @@
   var saved = null;
   if (!fromUrl) { try { saved = localStorage.getItem('wire-device'); } catch (e) {} }
   apply(fromUrl || saved || 'desktop');
+  window.addEventListener('resize', function () {
+    var cur = (frame.className.match(/w-(\w+)/) || [])[1];
+    if (cur) apply(cur);
+  });
 })();

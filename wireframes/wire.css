@@ -300,4 +300,20 @@ h1, h2, h3 { letter-spacing: -0.01em; }
   }
   .device { gap: 12px; }
   .device figcaption { padding: 0 16px; }
+
+  /* Клас пристрою лишається тим, що обрала людина, але на вузькому екрані
+     розкладка мусить бути телефонною — інакше десктопні колонки вилазять за край. */
+  .phone .list,
+  .phone.w-tablet .list,
+  .phone.w-desktop .list { grid-template-columns: 1fr; }
+  .phone .search .row,
+  .phone.w-tablet .search .row,
+  .phone.w-desktop .search .row { grid-template-columns: 1fr; }
+  .phone.w-tablet .tabbar-bottom,
+  .phone.w-desktop .tabbar-bottom { display: flex; }
+  .phone.w-tablet .top,
+  .phone.w-desktop .top { display: block; }
+  .phone.w-tablet .top nav,
+  .phone.w-desktop .top nav { display: none; }
+  .phone .screen > * { overflow-x: hidden; }
 }
