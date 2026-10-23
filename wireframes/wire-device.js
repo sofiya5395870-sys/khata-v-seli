@@ -9,6 +9,7 @@
     { id: 'phone',   label: 'Телефон',  w: 390,  note: '390 × 844' }
   ];
 
+  var fromUrl = (location.search.match(/[?&]dev=(desktop|tablet|phone)/) || [])[1];
   var frame = document.querySelector('.phone');
   var cap = document.querySelector('.device figcaption');
   var host = document.querySelector('.devicebar');
@@ -22,7 +23,7 @@
     Array.prototype.forEach.call(host.querySelectorAll('button'), function (b) {
       b.setAttribute('aria-selected', String(b.dataset.id === s.id));
     });
-    try { localStorage.setItem('wire-device', s.id); } catch (e) {}
+    if (!fromUrl) { try { localStorage.setItem('wire-device', s.id); } catch (e) {} }
   }
 
   SIZES.forEach(function (s) {
@@ -35,7 +36,9 @@
     host.appendChild(b);
   });
 
+  /* У вбудованому режимі пристрій задає сторінка-господар через ?dev=,
+     інакше його пам'ятає браузер. */
   var saved = null;
-  try { saved = localStorage.getItem('wire-device'); } catch (e) {}
-  apply(saved || 'desktop');
+  if (!fromUrl) { try { saved = localStorage.getItem('wire-device'); } catch (e) {} }
+  apply(fromUrl || saved || 'desktop');
 })();

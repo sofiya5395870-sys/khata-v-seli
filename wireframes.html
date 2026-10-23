@@ -48,6 +48,10 @@
   .proto iframe {
     width: 100%; height: 780px; border: 1px solid var(--ink);
     border-radius: 12px; background: #fff;
+    display: block; margin: 0 auto; max-width: 100%; transition: width 0.18s ease, height 0.18s ease;
+  }
+  .proto .row.devices button[aria-selected="true"] {
+    background: var(--surface); border-color: var(--accent); color: var(--ink); font-weight: 600;
   }
   .proto .hint { font-size: 0.82rem; color: var(--dim); margin: 0.7rem 0 0; }
 </style>
@@ -99,10 +103,11 @@
     <div class="proto">
       <div class="row" id="pt-screens" role="tablist" aria-label="Екрани"></div>
       <div class="row states" id="pt-states" role="tablist" aria-label="Стани екрана"></div>
+      <div class="row devices" id="pt-devices" role="tablist" aria-label="Пристрій"></div>
       <div class="stage">
         <iframe id="pt-frame" src="wireframes/home.html?embed=1" title="Вайрфрейм екрана" loading="lazy"></iframe>
       </div>
-      <p class="hint">Прототип відкривається і окремою вкладкою: <a href="wireframes/home.html">повна версія зі службовою панеллю, деревом і перемикачем пристрою</a>.</p>
+      <p class="hint">Прототип відкривається і окремою вкладкою: <a href="wireframes/home.html" id="pt-full">повна версія зі службовою панеллю, деревом і перемикачем пристрою</a>.</p>
     </div>
   </div>
 </section>
@@ -123,7 +128,37 @@
   var rowT = document.getElementById('pt-states');
   var cur = 0, curState = '';
 
-  function show(file) { frame.src = 'wireframes/' + file + '.html?embed=1'; }
+  var DEVICES = [
+    { id: 'desktop', t: 'Десктоп', w: 1200, h: 800 },
+    { id: 'tablet',  t: 'Планшет', w: 768,  h: 1024 },
+    { id: 'phone',   t: 'Телефон', w: 390,  h: 844 }
+  ];
+  var dev = 'desktop';
+  var rowD = document.getElementById('pt-devices');
+  var curFile = 'home';
+
+  function applyDevice() {
+    var d = DEVICES.filter(function (x) { return x.id === dev; })[0];
+    frame.style.width = d.w + 'px';
+    frame.style.height = d.h + 'px';
+    Array.prototype.forEach.call(rowD.children, function (b) {
+      b.setAttribute('aria-selected', String(b.dataset.id === dev));
+    });
+  }
+
+  function show(file) {
+    curFile = file;
+    frame.src = 'wireframes/' + file + '.html?embed=1&dev=' + dev;
+  }
+
+  DEVICES.forEach(function (d) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.setAttribute('role', 'tab');
+    b.dataset.id = d.id; b.textContent = d.t;
+    b.onclick = function () { dev = d.id; applyDevice(); show(curFile); };
+    rowD.appendChild(b);
+  });
+  applyDevice();
 
   function paintStates() {
     rowT.innerHTML = '';
@@ -159,6 +194,9 @@
     var file;
     try { file = frame.contentWindow.location.pathname.split('/').pop().replace('.html', ''); } catch (e) { return; }
     var base = file.split('-')[0], st = file.indexOf('-') > -1 ? file.slice(base.length + 1) : '';
+    curFile = file;
+    var full = document.getElementById('pt-full');
+    if (full) full.setAttribute('href', 'wireframes/' + file + '.html');
     SCREENS.forEach(function (sc, i) {
       if (sc.f === base) {
         cur = i; curState = st;
