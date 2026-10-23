@@ -19,6 +19,7 @@
 
   /* --- інтерактивний прототип --- */
   .proto { margin: 1.75rem 0; }
+  .proto .stage { min-height: 0; }
   /* усі три перемикачі — сегментовані: спільний фон, активний сегмент білий */
   .proto .row {
     display: inline-flex; flex-wrap: wrap; gap: 2px; vertical-align: middle;
@@ -56,8 +57,10 @@
 
   .proto .stage {
     display: flex; justify-content: center; overflow: visible;
-    background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem;
+    background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px;
+    padding: 1rem;
   }
+  @media (max-width: 700px) { .proto .stage { padding: 0.5rem; } }
   .proto .ptbar { display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; align-items: center; justify-content: space-between; max-width: 100%; }
   .proto .scaler { position: relative; }
   .proto .scaler .mock { transform-origin: top left; }
@@ -143,7 +146,7 @@
           </div>
         </div>
       </div>
-      <p class="hint">Прототип відкривається і окремою вкладкою: <a href="wireframes/home.html" id="pt-full">повна версія зі службовою панеллю, деревом і перемикачем пристрою</a>.</p>
+      <p class="hint">Високі екрани гортаються сторінкою — усередині рамки прокрутки немає. Прототип відкривається і окремою вкладкою: <a href="wireframes/home.html" id="pt-full">повна версія зі службовою панеллю, деревом і перемикачем пристрою</a>.</p>
     </div>
   </div>
 </section>
@@ -300,8 +303,7 @@
     if (!w || !h) return;
     var cs = window.getComputedStyle(stage);
     var availW = stage.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
-    var availH = Math.max(460, window.innerHeight - 200);
-    var k = Math.min(1, availW / w, availH / h);
+    var k = Math.min(1, availW / w);
     if (k < 1) {
       mock.style.transform = 'scale(' + k + ')';
       scaler.style.width = Math.round(w * k) + 'px';
