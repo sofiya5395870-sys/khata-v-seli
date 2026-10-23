@@ -59,7 +59,8 @@
     background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem;
   }
   .proto .ptbar { display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; align-items: center; justify-content: space-between; }
-  .proto .stage { overflow-x: auto; }
+  .proto .stage { overflow: hidden; display: block; }
+  .proto .scaler { transform-origin: top center; margin: 0 auto; width: max-content; }
   .proto iframe { display: block; border: 0; background: #fff; width: 100%; height: 100%; }
 
   /* рамка пристрою — риштування показу, не елемент продукту.
@@ -135,9 +136,11 @@
         <div class="row devices" id="pt-devices" role="tablist" aria-label="Пристрій"></div>
       </div>
       <div class="stage">
-        <div class="mock" id="pt-mock">
-          <div class="chrome" aria-hidden="true"></div>
-          <iframe id="pt-frame" src="wireframes/home.html?embed=1&amp;dev=desktop" title="Вайрфрейм екрана" loading="lazy"></iframe>
+        <div class="scaler" id="pt-scaler">
+          <div class="mock" id="pt-mock">
+            <div class="chrome" aria-hidden="true"></div>
+            <iframe id="pt-frame" src="wireframes/home.html?embed=1&amp;dev=desktop" title="Вайрфрейм екрана" loading="lazy"></iframe>
+          </div>
         </div>
       </div>
       <p class="hint">Прототип відкривається і окремою вкладкою: <a href="wireframes/home.html" id="pt-full">повна версія зі службовою панеллю, деревом і перемикачем пристрою</a>.</p>
@@ -191,6 +194,7 @@
 
   function applyDevice() {
     mock.className = 'mock ' + dev;
+    if (typeof scale === 'function') scale();
     Array.prototype.forEach.call(rowD.children, function (b) {
       b.setAttribute('aria-selected', String(b.dataset.id === dev));
     });
@@ -273,7 +277,11 @@
   paintStates(); paintNav();
 
   /* клік усередині прототипу перемикає вкладки назовні */
-  /* Кадр росте під вміст, щоб макет не доводилось гортати всередині рамки. */
+  /* Кадр росте під вміст, а потім уся рамка масштабується так,
+     щоб екран було видно цілком — ні всередині, ні зовні гортати не треба. */
+  var scaler = document.getElementById('pt-scaler');
+  var stage = scaler.parentNode;
+
   function fit() {
     var d;
     try { d = frame.contentDocument; } catch (e) { return; }
@@ -281,7 +289,22 @@
     frame.style.height = 'auto';
     var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight);
     if (h) frame.style.height = h + 'px';
+    scale();
   }
+
+  function scale() {
+    scaler.style.transform = 'none';
+    stage.style.height = 'auto';
+    var w = mock.offsetWidth, h = mock.offsetHeight;
+    if (!w || !h) return;
+    var availW = stage.clientWidth - 32;
+    var availH = Math.max(420, window.innerHeight - 180);
+    var k = Math.min(1, availW / w, availH / h);
+    scaler.style.transform = k < 1 ? 'scale(' + k + ')' : 'none';
+    stage.style.height = Math.round(h * k) + 'px';
+  }
+
+  window.addEventListener('resize', scale, { passive: true });
 
   frame.addEventListener('load', function () {
     fit();
