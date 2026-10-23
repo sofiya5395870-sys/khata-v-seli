@@ -44,6 +44,7 @@
   var FOOT = 'Платформа пошуку тихої оселі в українському селі — для відпочинку, відновлення і зимівлі.';
 
   var current = document.body.getAttribute('data-page') || '';
+  var base = document.body.getAttribute('data-base') || '';
   var isHome = current === 'home';
 
   function esc(s) {
@@ -57,7 +58,7 @@
       '<span aria-hidden="true">☰</span> Меню</button>' +
     '<div class="sbscrim" hidden></div>' +
     '<aside class="sb" id="sidebar">' +
-      '<a class="home" href="index.html"' + (isHome ? ' aria-current="page"' : '') + '>' +
+      '<a class="home" href="' + base + 'index.html"' + (isHome ? ' aria-current="page"' : '') + '>' +
         '<b>Хата в селі</b><span>кейс-стаді · UX/UI</span></a>' +
       '<nav aria-label="Кроки процесу">';
 
@@ -65,7 +66,7 @@
     var on = s.n === current;
     html += '<div class="step' + (on ? ' on' : '') + '">';
     if (s.href) {
-      html += '<a href="' + esc(s.href) + '"' + (on ? ' aria-current="page"' : '') + '>' +
+      html += '<a href="' + esc(base + s.href) + '"' + (on ? ' aria-current="page"' : '') + '>' +
               '<span class="n">' + esc(s.n) + '</span>' + esc(s.t) + '</a>';
     } else {
       html += '<span class="dead"><span class="n">' + esc(s.n) + '</span>' + esc(s.t) +
@@ -74,7 +75,7 @@
     if (on && s.sub) {
       html += '<ul class="sub">';
       s.sub.forEach(function (p) {
-        html += '<li><a href="' + esc(p[0]) + '">' + esc(p[1]) + '</a></li>';
+        html += '<li><a href="' + esc(base ? base + s.href + p[0] : p[0]) + '">' + esc(p[1]) + '</a></li>';
       });
       html += '</ul>';
     }

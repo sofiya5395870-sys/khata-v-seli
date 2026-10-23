@@ -4,15 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Вайрфрейм · Збережені · основний стан</title>
+<link rel="stylesheet" href="../assets/sidebar.css">
 <link rel="stylesheet" href="wire.css">
 </head>
-<body>
+<body data-page="04" data-base="../">
 <div class="wrap">
 
 <!-- Службова навігація макета: дерево рендерить wire-nav.js, один файл на всі сторінки. -->
 <aside class="tree"></aside>
 
-<div class="canvas">
+<div class="canvas" id="main" tabindex="-1">
 
   <div class="meta">
     <p class="metatitle">Збережені — основний стан</p>
@@ -166,5 +167,6 @@
 <script src="wire-nav.js"></script>
 <script src="wire-device.js"></script>
 <script src="wire-icons.js"></script>
+<script src="../assets/nav.js" defer></script>
 </body>
 </html>

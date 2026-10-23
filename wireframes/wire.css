@@ -5,6 +5,11 @@
 
 :root {
   --ink: #1c1c1c;
+  /* для спільної бічної панелі кейсу */
+  --accent: #b5502e;
+  --muted: #6b6560;
+  --surface: #ffffff;
+  --sbw: 264px;
   --mid: #555;
   --dim: #808080;
   --line: #c9c9c9;
@@ -131,7 +136,7 @@ button:hover { background: var(--line-soft); }
 }
 
 @media (min-width: 1024px) {
-  .wrap { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+  .wrap { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
   .tree { border-bottom: none; border-right: 1px solid var(--line); position: sticky; top: 0; align-self: start; max-height: 100vh; overflow: auto; }
   .canvas { padding: 32px; max-width: 1200px; }
   .search .row { grid-template-columns: repeat(4, 1fr); }
