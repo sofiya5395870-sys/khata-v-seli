@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "voice.html"
+        ],
+        "createdAt": "2026-10-23T18:17:11.881Z",
+        "reason": "Project device, not new: .hyp and .pull carry border-left 3px accent in assets/case.css and appear on all five case pages since before this session. Sofia retuned .hyp border-left-color to #57534e in voice.html herself rather than dropping it."
+      }
+    ]
+  }
+}

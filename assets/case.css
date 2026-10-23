@@ -39,6 +39,8 @@ body {
    вміст: усе починається з однієї лінії. */
 .wrap.col { max-width: 1080px; }
 .wrap.col > * { max-width: 760px; }
+/* таблиці, плитки й картки — не текст: вони беруть усю сітку, а не міру рядка */
+.wrap.col > .tablewrap, .wrap.col > .stats, .wrap.col > .cards, .wrap.col > .shots { max-width: none; }
 
 header.hero { padding: 5rem 0 3.5rem; border-bottom: 1px solid var(--line); }
 header.hero h1 { font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; margin: 0 0 1rem; letter-spacing: -0.02em; }
