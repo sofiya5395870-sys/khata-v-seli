@@ -284,3 +284,20 @@ h1, h2, h3 { letter-spacing: -0.01em; }
 /* способи оплати: швидкі — рядком над формою картки */
 .pay { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 0 16px 8px; }
 .phone.w-tablet .pay, .phone.w-desktop .pay { grid-template-columns: repeat(4, 1fr); }
+
+/* ===== справжній телефон: макет на всю ширину =====
+   Рамка пристрою має сенс лише тоді, коли вікно ширше за неї.
+   На вузькому екрані вона тільки з'їдає ширину й робить другий скрол усередині першого. */
+@media (max-width: 520px) {
+  .canvas { padding: 16px 0 48px; }
+  .canvas > *:not(.device) { padding-left: 16px; padding-right: 16px; }
+  .phone {
+    width: 100% !important; max-width: none;
+    border: none; border-radius: 0; padding: 0; background: none;
+  }
+  .phone .screen {
+    border-radius: 0; height: auto; max-height: none; overflow: visible;
+  }
+  .device { gap: 12px; }
+  .device figcaption { padding: 0 16px; }
+}
