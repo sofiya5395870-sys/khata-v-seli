@@ -77,13 +77,13 @@
     content: ""; position: absolute; left: 14px; top: 12px; width: 10px; height: 10px; border-radius: 50%;
     background: #5b5b5b; box-shadow: 16px 0 0 #5b5b5b, 32px 0 0 #5b5b5b;
   }
-  .mock.desktop iframe { height: 760px; border-radius: 4px; }
+  .mock.desktop iframe { min-height: 760px; border-radius: 4px; }
 
   .mock.tablet { width: 768px; border-radius: 26px; padding: 20px 14px; }
-  .mock.tablet iframe { height: 980px; border-radius: 6px; }
+  .mock.tablet iframe { min-height: 900px; border-radius: 6px; }
 
   .mock.phone { width: 390px; border-radius: 46px; padding: 12px 11px 20px; }
-  .mock.phone iframe { height: 800px; border-radius: 34px; }
+  .mock.phone iframe { min-height: 760px; border-radius: 34px; }
   .mock.phone .chrome::before {
     content: ""; position: absolute; left: 50%; transform: translateX(-50%); top: 12px;
     width: 112px; height: 26px; border-radius: 0 0 14px 14px; background: #1c1c1c;
@@ -273,7 +273,19 @@
   paintStates(); paintNav();
 
   /* клік усередині прототипу перемикає вкладки назовні */
+  /* Кадр росте під вміст, щоб макет не доводилось гортати всередині рамки. */
+  function fit() {
+    var d;
+    try { d = frame.contentDocument; } catch (e) { return; }
+    if (!d || !d.body) return;
+    frame.style.height = 'auto';
+    var h = Math.max(d.body.scrollHeight, d.documentElement.scrollHeight);
+    if (h) frame.style.height = h + 'px';
+  }
+
   frame.addEventListener('load', function () {
+    fit();
+    setTimeout(fit, 120);
     var file;
     try { file = frame.contentWindow.location.pathname.split('/').pop().replace('.html', ''); } catch (e) { return; }
     var base = file.split('-')[0], st = file.indexOf('-') > -1 ? file.slice(base.length + 1) : '';
