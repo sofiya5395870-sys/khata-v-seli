@@ -8,6 +8,7 @@
   var STEPS = [
     { n: '01', t: 'Ресерч і бенчмарк', href: 'research.html', sub: [
       ['#competitors', 'Конкуренти'],
+      ['#language', 'Мова конкурентів'],
       ['#benchmark', 'Бенчмарк'],
       ['#patterns', 'Патерни'],
       ['#conclusions', 'Висновки']
@@ -32,7 +33,14 @@
       ['#screens', 'Екрани'],
       ['#decisions', 'Рішення в макеті']
     ] },
-    { n: '05', t: 'Тон оф войс' },
+    { n: '05', t: 'Тон оф войс і мікрокопі', href: 'voice.html', sub: [
+      ['#market', 'Мова ринку'],
+      ['#principles', 'Принципи'],
+      ['#dictionary', 'Словник'],
+      ['#forbidden', 'Заборонене'],
+      ['#microcopy', 'Мікрокопі'],
+      ['#inventory', 'Інвентаризація']
+    ] },
     { n: '06', t: 'Концепт' },
     { n: '07', t: 'Збірка UI' },
     { n: '08', t: 'Design Tokens' },
