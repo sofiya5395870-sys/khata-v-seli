@@ -174,7 +174,9 @@ button:hover { background: var(--line-soft); }
 /* нижнє меню з чотирьох пунктів */
 .tabbar-bottom {
   position: sticky; bottom: 0; background: var(--box); border-top: 1px solid var(--line);
-  display: grid; grid-template-columns: repeat(4, 1fr); text-align: center;
+  /* minmax(0, 1fr), не 1fr: інакше колонка не може стати вужчою за свій підпис,
+     і активний пункт, набраний жирним, зсуває сусідів при кожному перемиканні. */
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); text-align: center;
 }
 .tabbar-bottom a {
   padding: 10px 4px; font-size: 12px; line-height: 1.2; color: var(--mid); text-decoration: none;
@@ -182,10 +184,14 @@ button:hover { background: var(--line-soft); }
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .tabbar-bottom a[aria-current="page"] { color: var(--ink); font-weight: 600; background: var(--fill); }
+/* жирний підпис не має розштовхувати сусідів: ширину тримає сітка, не текст */
+.tabbar-bottom a > span:last-child, .tabbar-bottom a { min-width: 0; }
 .tabbar-bottom .box {
-  width: 20px; height: 20px; border: 1px solid var(--line);
-  position: relative; display: block;
+  width: 20px; height: 20px; border: 1px solid var(--line); display: block;
 }
+/* обгортка іконки тримає бейдж: сам значок підставляє скрипт, тож бейдж
+   має жити поруч із ним, а не всередині. */
+.tabbar-bottom .ic { position: relative; display: block; width: 20px; }
 /* лічильник — бейджем у правому верхньому куті іконки, не рядком поруч із назвою */
 .tabbar-bottom .badge {
   position: absolute; top: -6px; right: -8px;

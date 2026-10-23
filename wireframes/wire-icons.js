@@ -35,7 +35,10 @@
   /* нижнє меню: по іконці на пункт */
   var NAVICON = { 'Оселі': 'home', 'Журнал': 'book', 'Збережені': 'heart', 'Кабінет': 'user' };
   document.querySelectorAll('.tabbar-bottom a').forEach(function (a) {
-    var key = Object.keys(NAVICON).filter(function (k) { return a.textContent.indexOf(k) === 0; })[0];
+    /* Лічильник у бейджі теж потрапляє в textContent, тому порівнюємо
+       з підписом без цифр — інакше пункт зі значком лишався без іконки. */
+    var label = a.textContent.replace(/\d+/g, '').trim();
+    var key = Object.keys(NAVICON).filter(function (k) { return label.indexOf(k) === 0; })[0];
     var box = a.querySelector('.box');
     if (key && box) box.outerHTML = svg(NAVICON[key]);
   });
