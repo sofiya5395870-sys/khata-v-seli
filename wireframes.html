@@ -55,13 +55,13 @@
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
   .proto .stage {
-    display: grid; place-items: start center;
+    display: flex; justify-content: center; overflow: visible;
     background: var(--surface-2); border: 1px solid var(--line); border-radius: 12px; padding: 1.5rem;
   }
-  .proto .ptbar { display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; align-items: center; justify-content: space-between; }
-  .proto .stage { overflow: hidden; display: block; }
-  .proto .scaler { transform-origin: top center; margin: 0 auto; width: max-content; }
-  .proto iframe { display: block; border: 0; background: #fff; width: 100%; height: 100%; }
+  .proto .ptbar { display: flex; flex-wrap: wrap; gap: 0.6rem 1.2rem; align-items: center; justify-content: space-between; max-width: 100%; }
+  .proto .scaler { position: relative; }
+  .proto .scaler .mock { transform-origin: top left; }
+  .proto iframe { display: block; border: 0; background: #fff; width: 100%; }
 
   /* рамка пристрою — риштування показу, не елемент продукту.
      box-sizing: content-box, щоб ширина рамки дорівнювала ширині екрана,
@@ -293,15 +293,20 @@
 
   function scale() {
     if (!scaler || !stage || !mock) return;
-    scaler.style.transform = 'none';
-    stage.style.height = 'auto';
+    mock.style.transform = 'none';
+    scaler.style.width = '';
+    scaler.style.height = '';
     var w = mock.offsetWidth, h = mock.offsetHeight;
     if (!w || !h) return;
-    var availW = stage.clientWidth - 32;
-    var availH = Math.max(420, window.innerHeight - 180);
+    var cs = window.getComputedStyle(stage);
+    var availW = stage.clientWidth - parseFloat(cs.paddingLeft || 0) - parseFloat(cs.paddingRight || 0);
+    var availH = Math.max(460, window.innerHeight - 200);
     var k = Math.min(1, availW / w, availH / h);
-    scaler.style.transform = k < 1 ? 'scale(' + k + ')' : 'none';
-    stage.style.height = Math.round(h * k) + 'px';
+    if (k < 1) {
+      mock.style.transform = 'scale(' + k + ')';
+      scaler.style.width = Math.round(w * k) + 'px';
+      scaler.style.height = Math.round(h * k) + 'px';
+    }
   }
 
   window.addEventListener('resize', scale, { passive: true });
