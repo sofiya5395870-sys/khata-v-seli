@@ -178,6 +178,8 @@
     { t: 'Підтвердження', f: 'confirmation', s: [['error','Лист не дійшов']] }
   ];
   var frame = document.getElementById('pt-frame');
+  var scaler = document.getElementById('pt-scaler');
+  var stage = scaler ? scaler.parentNode : null;
   var rowS = document.getElementById('pt-screens');
   var rowT = document.getElementById('pt-states');
   var cur = 0, curState = '';
@@ -194,7 +196,7 @@
 
   function applyDevice() {
     mock.className = 'mock ' + dev;
-    if (typeof scale === 'function') scale();
+    scale();
     Array.prototype.forEach.call(rowD.children, function (b) {
       b.setAttribute('aria-selected', String(b.dataset.id === dev));
     });
@@ -279,9 +281,6 @@
   /* клік усередині прототипу перемикає вкладки назовні */
   /* Кадр росте під вміст, а потім уся рамка масштабується так,
      щоб екран було видно цілком — ні всередині, ні зовні гортати не треба. */
-  var scaler = document.getElementById('pt-scaler');
-  var stage = scaler.parentNode;
-
   function fit() {
     var d;
     try { d = frame.contentDocument; } catch (e) { return; }
@@ -293,6 +292,7 @@
   }
 
   function scale() {
+    if (!scaler || !stage || !mock) return;
     scaler.style.transform = 'none';
     stage.style.height = 'auto';
     var w = mock.offsetWidth, h = mock.offsetHeight;

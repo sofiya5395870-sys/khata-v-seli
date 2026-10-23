@@ -2,7 +2,7 @@
    Розмітку рендерить assets/nav.js — правити треба там, не в сторінках. */
 
 /* ===== ліве меню ===== */
-:root { --sbw: 264px; }
+:root { --sbw: 214px; }
 .sb {
   position: fixed; top: 0; left: 0; bottom: 0; width: var(--sbw);
   background: var(--surface); border-right: 1px solid var(--line);
