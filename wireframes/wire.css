@@ -298,7 +298,7 @@ h1, h2, h3 { letter-spacing: -0.01em; }
 .embed .devicebar, .embed .statelink, .embed .note { display: none; }
 .embed .wrap { display: block; }
 .embed .canvas { padding: 0 !important; max-width: none !important; }
-.embed .device { display: block; gap: 0; }
+.embed .device { display: block; gap: 0; margin: 0; }
 .embed .phone {
   border: none !important; border-radius: 0 !important; padding: 0 !important;
   width: 100% !important; max-width: none !important; margin: 0 !important;
@@ -326,7 +326,7 @@ h1, h2, h3 { letter-spacing: -0.01em; }
   .phone .screen {
     border-radius: 0; height: auto; max-height: none; overflow: visible;
   }
-  .device { gap: 12px; justify-items: stretch; }
+  .device { gap: 12px; justify-items: stretch; margin: 0; }
   .device figcaption { padding: 0 16px; }
   .phone .screen > * { max-width: 100%; }
 
